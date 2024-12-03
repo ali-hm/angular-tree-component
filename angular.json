@@ -90,9 +90,6 @@
           "configurations": {
             "production": {
               "buildTarget": "example-app:build:production"
-            },
-            "es5": {
-              "buildTarget": "example-app:build:es5"
             }
           }
         },
