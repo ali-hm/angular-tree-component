@@ -5,19 +5,9 @@ import { TreeModel, TreeNode } from 'angular-tree-component';
   selector: 'app-filter',
   template: `
     <h2>Filter</h2>
-    <input
-      id="filter"
-      #filter
-      (keyup)="tree.treeModel.filterNodes(filter.value)"
-      placeholder="filter nodes"
-    />
+    <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" placeholder="filter nodes" />
     <button (click)="tree.treeModel.clearFilter()">Clear Filter</button>
-    <tree-root
-      #tree
-      [focused]="true"
-      [options]="options"
-      [nodes]="nodes"
-    ></tree-root>
+    <tree-root #tree [focused]="true" [options]="options" [nodes]="nodes"></tree-root>
 
     <input
       id="filter2"
@@ -35,11 +25,11 @@ import { TreeModel, TreeNode } from 'angular-tree-component';
     />
   `,
   styles: [],
-  standalone: false
+  standalone: false,
 })
 export class FilterComponent {
   options = {
-    useCheckbox: true
+    useCheckbox: true,
   };
   nodes = [
     {
@@ -47,35 +37,23 @@ export class FilterComponent {
       children: [
         {
           name: 'United States',
-          children: [
-            { name: 'New York' },
-            { name: 'California' },
-            { name: 'Florida' }
-          ]
+          children: [{ name: 'New York' }, { name: 'California' }, { name: 'Florida' }],
         },
-        { name: 'Canada' }
-      ]
+        { name: 'Canada' },
+      ],
     },
     {
       name: 'South America',
-      children: [{ name: 'Argentina', children: [] }, { name: 'Brazil' }]
+      children: [{ name: 'Argentina', children: [] }, { name: 'Brazil' }],
     },
     {
       name: 'Europe',
-      children: [
-        { name: 'England' },
-        { name: 'Germany' },
-        { name: 'France' },
-        { name: 'Italy' },
-        { name: 'Spain' }
-      ]
-    }
+      children: [{ name: 'England' }, { name: 'Germany' }, { name: 'France' }, { name: 'Italy' }, { name: 'Spain' }],
+    },
   ];
 
   filterFn(value: string, treeModel: TreeModel) {
-    treeModel.filterNodes((node: TreeNode) =>
-      fuzzysearch(value, node.data.name)
-    );
+    treeModel.filterNodes((node: TreeNode) => fuzzysearch(value, node.data.name));
   }
 }
 

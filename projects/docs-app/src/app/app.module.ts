@@ -7,10 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  provideHttpClient,
-  withInterceptorsFromDi
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { GettingStartedComponent } from './getting-started/getting-started.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CustomElementsModule } from './custom-elements/custom-elements.module';
@@ -40,8 +37,8 @@ import { GuidesModule } from './guides/guides.module';
     ExamplesModule,
     TreeModule,
     FundamentalsModule,
-    GuidesModule
+    GuidesModule,
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())]
+  providers: [provideHttpClient(withInterceptorsFromDi())],
 })
 export class AppModule {}

@@ -1,9 +1,4 @@
-<tree-root
-  #tree
-  [nodes]="nodes"
-  [options]="options"
-  (activate)="onActivateNode($event)"
->
+<tree-root #tree [nodes]="nodes" [options]="options" (activate)="onActivateNode($event)">
   <ng-template #treeNodeTemplate let-node let-index="index">
     <div class="tree-node-content">
       <div>

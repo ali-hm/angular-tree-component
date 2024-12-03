@@ -8,7 +8,7 @@ describe('TemplatesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TemplatesComponent]
+      declarations: [TemplatesComponent],
     }).compileComponents();
   }));
 

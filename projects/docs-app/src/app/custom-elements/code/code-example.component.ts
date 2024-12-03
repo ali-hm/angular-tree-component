@@ -1,12 +1,5 @@
 /* tslint:disable component-selector */
-import {
-  Component,
-  HostBinding,
-  ElementRef,
-  ViewChild,
-  Input,
-  AfterViewInit
-} from '@angular/core';
+import { Component, HostBinding, ElementRef, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { CodeComponent } from './code.component';
 
 /**
@@ -37,7 +30,7 @@ import { CodeComponent } from './code.component';
     >
     </aio-code>
   `,
-  standalone: false
+  standalone: false,
 })
 export class CodeExampleComponent implements AfterViewInit {
   classes: {};
@@ -53,7 +46,7 @@ export class CodeExampleComponent implements AfterViewInit {
     this._header = header;
     this.classes = {
       'headed-code': !!this.header,
-      'simple-code': !this.header
+      'simple-code': !this.header,
     };
   }
   get header(): string {

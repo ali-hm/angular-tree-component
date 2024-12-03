@@ -6,15 +6,8 @@ import { TreeNode } from '../models/tree-node.model';
   encapsulation: ViewEncapsulation.None,
   styles: [],
   template: `
-    <div
-      *ngIf="!templates.treeNodeWrapperTemplate"
-      class="node-wrapper"
-      [style.padding-left]="node.getNodePadding()"
-    >
-      <tree-node-checkbox
-        *ngIf="node.options.useCheckbox"
-        [node]="node"
-      ></tree-node-checkbox>
+    <div *ngIf="!templates.treeNodeWrapperTemplate" class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+      <tree-node-checkbox *ngIf="node.options.useCheckbox" [node]="node"></tree-node-checkbox>
       <tree-node-expander [node]="node"></tree-node-expander>
       <div
         class="node-content-wrapper"
@@ -34,12 +27,7 @@ import { TreeNode } from '../models/tree-node.model';
         [treeDrag]="node"
         [treeDragEnabled]="node.allowDrag()"
       >
-        <tree-node-content
-          [node]="node"
-          [index]="index"
-          [template]="templates.treeNodeTemplate"
-        >
-        </tree-node-content>
+        <tree-node-content [node]="node" [index]="index" [template]="templates.treeNodeTemplate"> </tree-node-content>
       </div>
     </div>
     <ng-container
@@ -48,12 +36,12 @@ import { TreeNode } from '../models/tree-node.model';
         $implicit: node,
         node: node,
         index: index,
-        templates: templates
+        templates: templates,
       }"
     >
     </ng-container>
   `,
-  standalone: false
+  standalone: false,
 })
 export class TreeNodeWrapperComponent {
   @Input() node: TreeNode;

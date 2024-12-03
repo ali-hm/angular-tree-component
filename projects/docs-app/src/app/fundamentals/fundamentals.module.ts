@@ -33,8 +33,8 @@ import { IssuesComponent } from './issues/issues.component';
     ApiDemoComponent,
     StylingComponent,
     FocusComponent,
-    IssuesComponent
+    IssuesComponent,
   ],
-  imports: [CommonModule, CodeExampleModule, TreeModule, RouterModule]
+  imports: [CommonModule, CodeExampleModule, TreeModule, RouterModule],
 })
 export class FundamentalsModule {}

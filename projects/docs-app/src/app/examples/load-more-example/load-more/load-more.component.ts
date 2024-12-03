@@ -1,15 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { delay, map, take } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import {
-  ITreeOptions,
-  TREE_ACTIONS,
-  TreeComponent,
-  TreeNode
-} from 'angular-tree-component';
+import { ITreeOptions, TREE_ACTIONS, TreeComponent, TreeNode } from 'angular-tree-component';
 
 enum NodeType {
-  LoadMore
+  LoadMore,
 }
 
 interface NodeSkip {
@@ -27,7 +22,7 @@ interface ServiceResult {
   selector: 'app-load-more',
   templateUrl: './load-more.component.html',
   styleUrls: ['./load-more.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class LoadMoreComponent {
   @ViewChild('tree') tree: TreeComponent;
@@ -42,7 +37,7 @@ export class LoadMoreComponent {
         .pipe(
           map((res) => {
             return this.createNodes(res.nodes, res.total, node.id);
-          })
+          }),
         )
         .toPromise();
     },
@@ -51,9 +46,9 @@ export class LoadMoreComponent {
         click: (tree, node, $event) => {
           this.onClickNode(node);
           TREE_ACTIONS.ACTIVATE(tree, node, $event);
-        }
-      }
-    }
+        },
+      },
+    },
   };
 
   private nodesToSkip: NodeSkip = {};
@@ -64,39 +59,25 @@ export class LoadMoreComponent {
     this.nodes = new Array(10).fill(null).map((item, i) => ({
       id: `${i}`,
       name: `loadMoreRoot${i}`,
-      hasChildren: true
+      hasChildren: true,
     }));
   }
 
   private getCurrentSkip(parentNodeId?: number | string): number {
     let currentSkip = 0;
-    if (
-      this.nodesToSkip &&
-      parentNodeId !== undefined &&
-      this.nodesToSkip[parentNodeId]
-    ) {
+    if (this.nodesToSkip && parentNodeId !== undefined && this.nodesToSkip[parentNodeId]) {
       currentSkip = this.nodesToSkip[parentNodeId].skip;
     }
     return currentSkip;
   }
 
-  private createNodes(
-    nodes: any[],
-    total: number,
-    parentNodeId: number | string
-  ): any[] {
+  private createNodes(nodes: any[], total: number, parentNodeId: number | string): any[] {
     const currentSkip = this.getCurrentSkip(parentNodeId);
 
     // If there are more nodes to load, update skip and add a load-more node to nodes
     if (currentSkip + nodes.length < total) {
       this.addOrUpdateNodeSkip(parentNodeId, nodes.length);
-      nodes.push(
-        this.getLoadMoreNode(
-          parentNodeId,
-          this.nodesToSkip[parentNodeId].skip,
-          total
-        )
-      );
+      nodes.push(this.getLoadMoreNode(parentNodeId, this.nodesToSkip[parentNodeId].skip, total));
     }
 
     return nodes;
@@ -115,22 +96,15 @@ export class LoadMoreComponent {
     this.fakeDataService(parentNodeId, this.getCurrentSkip(parentNodeId))
       .pipe(
         take(1),
-        map((response) =>
-          this.createNodes(response.nodes, response.total, parentNodeId)
-        )
+        map((response) => this.createNodes(response.nodes, response.total, parentNodeId)),
       )
       .subscribe((nodes) => {
         // remove load node
         // try fast way of popping last entry before slow filter
-        if (
-          node.parent.data.children[node.parent.data.children.length - 1].id ===
-          node.data.id
-        ) {
+        if (node.parent.data.children[node.parent.data.children.length - 1].id === node.data.id) {
           node.parent.data.children.pop();
         } else {
-          node.parent.data.children = node.parent.data.children.filter(
-            (child) => child.id !== node.data.id
-          );
+          node.parent.data.children = node.parent.data.children.filter((child) => child.id !== node.data.id);
         }
 
         node.parent.data.children = [...node.parent.data.children, ...nodes];
@@ -147,21 +121,16 @@ export class LoadMoreComponent {
   }
 
   // this would be your api data call
-  private fakeDataService(
-    parentId: number,
-    skipNodes: number
-  ): Observable<ServiceResult> {
-    const nodes = new Array(this.numberOfNodesToLoad)
-      .fill(null)
-      .map((item, i) => ({
-        id: `no-id`,
-        name: `node-${parentId}-${skipNodes + i}`,
-        hasChildren: false
-      }));
+  private fakeDataService(parentId: number, skipNodes: number): Observable<ServiceResult> {
+    const nodes = new Array(this.numberOfNodesToLoad).fill(null).map((item, i) => ({
+      id: `no-id`,
+      name: `node-${parentId}-${skipNodes + i}`,
+      hasChildren: false,
+    }));
 
     return of({
       nodes,
-      total: 1000
+      total: 1000,
     }).pipe(delay(3000));
   }
 
@@ -173,18 +142,14 @@ export class LoadMoreComponent {
     }
   }
 
-  private getLoadMoreNode(
-    parentId: number | string,
-    loaded: number,
-    totalItems: number
-  ): any {
+  private getLoadMoreNode(parentId: number | string, loaded: number, totalItems: number): any {
     const remaining = totalItems - loaded;
 
     return {
       type: NodeType.LoadMore,
       name: `Load more (${remaining} remaining)`,
       id: this.loadMoreId + parentId,
-      hasChildren: false
+      hasChildren: false,
     };
   }
 }

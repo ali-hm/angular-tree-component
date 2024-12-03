@@ -4,11 +4,7 @@ import { from, Observable } from 'rxjs';
 import { first, map, share } from 'rxjs/operators';
 import { Logger } from '../../shared/logger.service';
 
-type PrettyPrintOne = (
-  code: string,
-  language?: string,
-  linenums?: number | boolean
-) => string;
+type PrettyPrintOne = (code: string, language?: string, linenums?: number | boolean) => string;
 
 /**
  * Wrapper around the prettify.js library
@@ -36,7 +32,7 @@ export class PrettyPrinter {
             return () => {
               throw new Error(msg);
             };
-          }
+          },
         );
   }
 
@@ -61,7 +57,7 @@ export class PrettyPrinter {
           throw new Error(msg);
         }
       }),
-      first() // complete immediately
+      first(), // complete immediately
     );
   }
 }

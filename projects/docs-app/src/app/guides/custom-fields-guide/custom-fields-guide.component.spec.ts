@@ -8,7 +8,7 @@ describe('CustomFieldsGuideComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CustomFieldsGuideComponent]
+      declarations: [CustomFieldsGuideComponent],
     }).compileComponents();
   });
 

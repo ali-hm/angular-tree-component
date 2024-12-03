@@ -1,12 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  TreeNode,
-  TreeModel,
-  TREE_ACTIONS,
-  KEYS,
-  IActionMapping,
-  ITreeOptions
-} from 'angular-tree-component';
+import { TreeNode, TreeModel, TREE_ACTIONS, KEYS, IActionMapping, ITreeOptions } from 'angular-tree-component';
 
 const actionMapping: IActionMapping = {
   mouse: {
@@ -31,11 +24,11 @@ const actionMapping: IActionMapping = {
     mouseOut: (tree, node, $event) => {
       $event.preventDefault();
       console.log(`mouseOut ${node.data.name}`);
-    }
+    },
   },
   keys: {
-    [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
-  }
+    [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`),
+  },
 };
 
 @Component({
@@ -51,15 +44,11 @@ const actionMapping: IActionMapping = {
         cursor: pointer;
         margin: 0 3px;
       }
-    `
+    `,
   ],
   template: `
     <form>
-      <input
-        #filter
-        (keyup)="filterNodes(filter.value, tree)"
-        placeholder="filter nodes"
-      />
+      <input #filter (keyup)="filterNodes(filter.value, tree)" placeholder="filter nodes" />
     </form>
     <div style="height: 400px; width: 400px; overflow: hidden;">
       <tree-root
@@ -88,37 +77,22 @@ const actionMapping: IActionMapping = {
     <button (click)="tree.treeModel.focusPreviousNode()">previous node</button>
     <button (click)="tree.treeModel.focusDrillDown()">drill down</button>
     <button (click)="tree.treeModel.focusDrillUp()">drill up</button>
-    <button (click)="customTemplateStringOptions.allowDrag = true">
-      allowDrag
-    </button>
+    <button (click)="customTemplateStringOptions.allowDrag = true">allowDrag</button>
     <p></p>
-    <button
-      [disabled]="!tree.treeModel.getFocusedNode()"
-      (click)="tree.treeModel.getFocusedNode().toggleActivated()"
-    >
-      {{
-        tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate'
-      }}
+    <button [disabled]="!tree.treeModel.getFocusedNode()" (click)="tree.treeModel.getFocusedNode().toggleActivated()">
+      {{ tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate' }}
     </button>
-    <button
-      [disabled]="!tree.treeModel.getFocusedNode()"
-      (click)="tree.treeModel.getFocusedNode().toggleExpanded()"
-    >
+    <button [disabled]="!tree.treeModel.getFocusedNode()" (click)="tree.treeModel.getFocusedNode().toggleExpanded()">
       {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}
     </button>
-    <button
-      [disabled]="!tree.treeModel.getFocusedNode()"
-      (click)="tree.treeModel.getFocusedNode().blur()"
-    >
-      blur
-    </button>
+    <button [disabled]="!tree.treeModel.getFocusedNode()" (click)="tree.treeModel.getFocusedNode().blur()">blur</button>
     <button (click)="addNode(tree)">Add Node</button>
     <button (click)="activateSubSub(tree)">Activate inner node</button>
     <button (click)="tree.treeModel.expandAll()">Expand All</button>
     <button (click)="tree.treeModel.collapseAll()">Collapse All</button>
     <button (click)="activeNodes(tree.treeModel)">getActiveNodes()</button>
   `,
-  standalone: false
+  standalone: false,
 })
 export class FullTreeComponent implements OnInit {
   nodes: any[];
@@ -126,7 +100,7 @@ export class FullTreeComponent implements OnInit {
   asyncChildren = new Array(4).fill(null).map((item, n) => ({
     name: 'async child2.' + n,
     subTitle: 'async child ' + n,
-    hasChildren: n < 5
+    hasChildren: n < 5,
   }));
   customTemplateStringOptions: ITreeOptions = {
     // displayField: 'subTitle',
@@ -144,7 +118,7 @@ export class FullTreeComponent implements OnInit {
       return true;
     },
     useVirtualScroll: true,
-    animateExpand: true
+    animateExpand: true,
   };
   constructor() {}
   ngOnInit() {
@@ -158,14 +132,14 @@ export class FullTreeComponent implements OnInit {
             {
               name: 'child2',
               subTitle: 'a bad child',
-              hasChildren: false
+              hasChildren: false,
             },
             {
               name: 'child2',
               subTitle: 'a bad child',
-              hasChildren: false
-            }
-          ]
+              hasChildren: false,
+            },
+          ],
         },
         {
           name: 'root2',
@@ -175,7 +149,7 @@ export class FullTreeComponent implements OnInit {
               name: 'child2.1',
               subTitle: 'new and improved',
               uuid: '11',
-              hasChildren: false
+              hasChildren: false,
             },
             {
               name: 'child2.2',
@@ -185,16 +159,16 @@ export class FullTreeComponent implements OnInit {
                   uuid: 1001,
                   name: 'subsub',
                   subTitle: 'subsub',
-                  hasChildren: false
-                }
-              ]
-            }
-          ]
+                  hasChildren: false,
+                },
+              ],
+            },
+          ],
         },
         {
           name: 'asyncroot',
-          hasChildren: true
-        }
+          hasChildren: true,
+        },
       ];
 
       for (let i = 0; i < 1000; i++) {
@@ -203,8 +177,8 @@ export class FullTreeComponent implements OnInit {
           subTitle: `root created dynamically ${i}`,
           children: new Array(10).fill(null).map((item, n) => ({
             name: `rootChildDynamic${i}.${n}`,
-            subTitle: `rootChildDynamicTitle${i}.${n}`
-          }))
+            subTitle: `rootChildDynamicTitle${i}.${n}`,
+          })),
         });
       }
     }, 1);
@@ -217,18 +191,18 @@ export class FullTreeComponent implements OnInit {
           resolve(
             this.asyncChildren.map((c) => {
               return Object.assign({}, c, {
-                hasChildren: node.level < 5
+                hasChildren: node.level < 5,
               });
-            })
+            }),
           ),
-        2000
+        2000,
       );
     });
   }
 
   addNode(tree: any) {
     this.nodes[0].children.push({
-      name: 'a new child'
+      name: 'a new child',
     });
     tree.treeModel.update();
   }

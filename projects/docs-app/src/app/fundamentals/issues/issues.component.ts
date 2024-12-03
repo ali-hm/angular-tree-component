@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-issues',
   templateUrl: './issues.component.html',
   styleUrls: ['./issues.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class IssuesComponent {
   // TODO: add drag/drop

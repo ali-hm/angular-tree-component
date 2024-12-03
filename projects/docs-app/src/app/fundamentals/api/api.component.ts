@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-api',
   templateUrl: './api.component.html',
   styleUrls: ['./api.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class ApiComponent {
   html = `

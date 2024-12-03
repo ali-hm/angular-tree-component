@@ -23,80 +23,80 @@ import { DragOverStylingFullTreeComponent } from './dragover-styling/dragover-st
 const routes: Routes = [
   {
     path: '',
-    component: FullTreeComponent
+    component: FullTreeComponent,
   },
   {
     path: 'basic',
-    component: BasicTreeComponent
+    component: BasicTreeComponent,
   },
   {
     path: 'fields',
-    component: FieldsComponent
+    component: FieldsComponent,
   },
   {
     path: 'templates',
-    component: TemplatesComponent
+    component: TemplatesComponent,
   },
   {
     path: 'filter',
-    component: FilterComponent
+    component: FilterComponent,
   },
   {
     path: 'empty',
-    component: EmptyComponent
+    component: EmptyComponent,
   },
   {
     path: 'rtl',
-    component: RtlTreeComponent
+    component: RtlTreeComponent,
   },
   {
     path: 'async',
-    component: AsyncTreeComponent
+    component: AsyncTreeComponent,
   },
   {
     path: 'save-restore',
-    component: SaveRestoreComponent
+    component: SaveRestoreComponent,
   },
   {
     path: 'checkboxes',
-    component: CheckboxesComponent
+    component: CheckboxesComponent,
   },
   {
     path: 'drag',
-    component: DragComponent
+    component: DragComponent,
   },
   {
     path: 'dragover-styling',
-    component: DragOverStylingComponent
+    component: DragOverStylingComponent,
   },
   {
     path: 'dragover-styling-full-tree',
-    component: DragOverStylingFullTreeComponent
+    component: DragOverStylingFullTreeComponent,
   },
   {
     path: 'virtual',
-    component: VirtualscrollComponent
+    component: VirtualscrollComponent,
   },
   {
     path: 'api',
-    component: ApiComponent
+    component: ApiComponent,
   },
   {
     path: 'actions',
-    component: ActionsComponent
+    component: ActionsComponent,
   },
   {
     path: 'scroll-container',
-    component: ScrollContainerComponent
+    component: ScrollContainerComponent,
   },
   {
     path: 'context-menu',
-    component: ContextmenuComponent
-  }
+    component: ContextmenuComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

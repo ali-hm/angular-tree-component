@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-filter-guide',
   templateUrl: './filter-guide.component.html',
   styleUrls: ['./filter-guide.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class FilterGuideComponent {
   functionFilter = `

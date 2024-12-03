@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-columns-example',
   templateUrl: './columns-example.component.html',
   styleUrls: ['./columns-example.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class ColumnsExampleComponent implements OnInit {
   constructor() {}

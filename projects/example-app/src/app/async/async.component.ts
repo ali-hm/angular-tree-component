@@ -3,16 +3,14 @@ import { ITreeOptions, TreeNode } from 'angular-tree-component';
 
 @Component({
   selector: 'app-async',
-  template: `
-    <tree-root #tree [options]="options" [nodes]="nodes"></tree-root>
-  `,
+  template: ` <tree-root #tree [options]="options" [nodes]="nodes"></tree-root> `,
   styles: [],
-  standalone: false
+  standalone: false,
 })
 export class AsyncTreeComponent {
   options: ITreeOptions = {
     getChildren: this.getChildren.bind(this),
-    useCheckbox: true
+    useCheckbox: true,
   };
 
   nodes: any[] = [];
@@ -20,26 +18,26 @@ export class AsyncTreeComponent {
   asyncChildren = [
     {
       name: 'child1',
-      hasChildren: true
+      hasChildren: true,
     },
     {
-      name: 'child2'
-    }
+      name: 'child2',
+    },
   ];
 
   constructor() {
     this.nodes = [
       {
         name: 'root1',
-        children: [{ name: 'child1' }]
+        children: [{ name: 'child1' }],
       },
       {
         name: 'root2',
-        hasChildren: true
+        hasChildren: true,
       },
       {
-        name: 'root3'
-      }
+        name: 'root3',
+      },
     ];
   }
 

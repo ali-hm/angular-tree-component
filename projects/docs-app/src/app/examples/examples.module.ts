@@ -20,8 +20,8 @@ import { LoadMoreComponent } from './load-more-example/load-more/load-more.compo
     CrudExampleComponent,
     CrudComponent,
     LoadMoreExampleComponent,
-    LoadMoreComponent
+    LoadMoreComponent,
   ],
-  imports: [CommonModule, TreeModule, RouterModule]
+  imports: [CommonModule, TreeModule, RouterModule],
 })
 export class ExamplesModule {}

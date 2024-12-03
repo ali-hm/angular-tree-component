@@ -9,6 +9,6 @@ import { CopierService } from '../../shared/copier.service';
   imports: [CommonModule, MatSnackBarModule],
   declarations: [CodeComponent],
   exports: [CodeComponent],
-  providers: [PrettyPrinter, CopierService]
+  providers: [PrettyPrinter, CopierService],
 })
 export class CodeModule {}

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-update-guide',
   templateUrl: './update-guide.component.html',
   styleUrls: ['./update-guide.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class UpdateGuideComponent {
   adding = `

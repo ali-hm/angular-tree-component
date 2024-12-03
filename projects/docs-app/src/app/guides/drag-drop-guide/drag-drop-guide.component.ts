@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-drag-drop-guide',
   templateUrl: './drag-drop-guide.component.html',
   styleUrls: ['./drag-drop-guide.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class DragDropGuideComponent {
   options = `

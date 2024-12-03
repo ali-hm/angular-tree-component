@@ -1,6 +1,5 @@
 // TYPOGRAPHY
-$main-font: 'Roboto', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica,
-  Arial, 'Lucida Grande', sans-serif;
+$main-font: 'Roboto', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
 $code-font: 'Droid Sans Mono', monospace;
 
 // Z-LAYER
@@ -67,60 +66,60 @@ $redgradient: linear-gradient(145deg, $darkred, $brightred);
 $api-symbols: (
   all: (
     content: ' ',
-    background: $white
+    background: $white,
   ),
   class: (
     content: 'C',
-    background: $blue-500
+    background: $blue-500,
   ),
   const: (
     content: 'K',
-    background: $mediumgray
+    background: $mediumgray,
   ),
   decorator: (
     content: '@',
-    background: $blue-800
+    background: $blue-800,
   ),
   directive: (
     content: 'D',
-    background: $pink-600
+    background: $pink-600,
   ),
   enum: (
     content: 'E',
-    background: $amber-700
+    background: $amber-700,
   ),
   function: (
     content: 'F',
-    background: $green-500
+    background: $green-500,
   ),
   interface: (
     content: 'I',
-    background: $teal-500
+    background: $teal-500,
   ),
   let: (
     content: 'K',
-    background: $mediumgray
+    background: $mediumgray,
   ),
   ngmodule: (
     content: 'M',
-    background: $darkorange
+    background: $darkorange,
   ),
   package: (
     content: 'Pk',
-    background: $purple-600
+    background: $purple-600,
   ),
   pipe: (
     content: 'P',
-    background: $blue-grey-600
+    background: $blue-grey-600,
   ),
   type-alias: (
     content: 'T',
-    background: $light-green-600
+    background: $light-green-600,
   ),
   var: (
     content: 'K',
-    background: $mediumgray
-  )
+    background: $mediumgray,
+  ),
 );
 
 // OTHER

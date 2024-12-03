@@ -8,7 +8,7 @@ describe('ApiComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ApiComponent]
+      declarations: [ApiComponent],
     }).compileComponents();
   }));
 

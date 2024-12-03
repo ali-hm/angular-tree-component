@@ -5,7 +5,7 @@ import { ITreeOptions, TreeComponent, TreeNode } from 'angular-tree-component';
   selector: 'app-crud',
   templateUrl: './crud.component.html',
   styleUrls: ['./crud.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class CrudComponent {
   @ViewChild('tree') tree: TreeComponent;
@@ -13,18 +13,18 @@ export class CrudComponent {
   nodes = [
     {
       name: 'root1',
-      children: [{ name: 'child1' }, { name: 'child2' }]
+      children: [{ name: 'child1' }, { name: 'child2' }],
     },
     {
       name: 'root2',
       children: [
         { name: 'child2.1', children: [] },
-        { name: 'child2.2', children: [{ name: 'grandchild2.2.1' }] }
-      ]
+        { name: 'child2.2', children: [{ name: 'grandchild2.2.1' }] },
+      ],
     },
     { name: 'root3' },
     { name: 'root4', children: [] },
-    { name: 'root5', children: null }
+    { name: 'root5', children: null },
   ];
 
   options: ITreeOptions = {
@@ -32,7 +32,7 @@ export class CrudComponent {
     useVirtualScroll: false,
     nodeHeight: 25,
     allowDrag: false,
-    allowDrop: false
+    allowDrop: false,
   };
 
   selectedNode;
@@ -43,9 +43,7 @@ export class CrudComponent {
   }
 
   copyNode(node: any, tree) {
-    const parentNode = node.realParent
-      ? node.realParent
-      : node.treeModel.virtualRoot;
+    const parentNode = node.realParent ? node.realParent : node.treeModel.virtualRoot;
     const copyNode = JSON.stringify(node.data);
     const newNode = JSON.parse(copyNode);
     this.deleteIds(newNode);
@@ -73,19 +71,12 @@ export class CrudComponent {
   }
 
   deleteNode(node, tree) {
-    const parentNode = node.realParent
-      ? node.realParent
-      : node.treeModel.virtualRoot;
+    const parentNode = node.realParent ? node.realParent : node.treeModel.virtualRoot;
     parentNode.data.children = parentNode.data.children.filter((child) => {
       return child !== node.data;
     });
     tree.treeModel.update();
-    if (
-      node &&
-      node.parent &&
-      node.parent.data &&
-      node.parent.data.children.length === 0
-    ) {
+    if (node && node.parent && node.parent.data && node.parent.data.children.length === 0) {
       node.parent.data.hasChildren = false;
     }
 

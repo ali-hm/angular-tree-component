@@ -10,11 +10,7 @@ export type IDTypeDictionary = { [id: string]: boolean; [id: number]: boolean };
 export declare type TreeNode = any;
 
 export interface IAllowDropFn {
-  (
-    element: any,
-    to: { parent: TreeNode; index: number },
-    $event?: any
-  ): boolean;
+  (element: any, to: { parent: TreeNode; index: number }, $event?: any): boolean;
 }
 
 export interface INodeHeightFn {
@@ -593,7 +589,7 @@ export interface ITreeModel {
   moveNode(
     node: ITreeNode,
     to: { parent: ITreeNode; index: number; dropOnNode: boolean },
-    from: { parent: ITreeNode; index: number }
+    from: { parent: ITreeNode; index: number },
   );
   /**
    * Invokes a method for every node of the tree - depth first

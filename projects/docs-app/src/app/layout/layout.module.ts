@@ -8,6 +8,6 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [FooterComponent, NavItemComponent],
   exports: [FooterComponent, NavItemComponent],
-  imports: [CommonModule, MatIconModule, RouterModule]
+  imports: [CommonModule, MatIconModule, RouterModule],
 })
 export class LayoutModule {}

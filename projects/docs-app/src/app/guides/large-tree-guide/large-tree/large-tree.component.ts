@@ -5,14 +5,14 @@ import { ITreeOptions } from 'angular-tree-component';
   selector: 'app-large-tree',
   templateUrl: './large-tree.component.html',
   styleUrls: ['./large-tree.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class LargeTreeComponent {
   nodes: any[];
 
   options: ITreeOptions = {
     nodeHeight: 23,
-    useVirtualScroll: true
+    useVirtualScroll: true,
   };
 
   constructor() {
@@ -21,8 +21,8 @@ export class LargeTreeComponent {
       name: `rootDynamic${i}`,
       children: new Array(100).fill(null).map((item, n) => ({
         id: `${i}.${n}`,
-        name: `rootChildDynamic${i}.${n}`
-      }))
+        name: `rootChildDynamic${i}.${n}`,
+      })),
     }));
   }
 }

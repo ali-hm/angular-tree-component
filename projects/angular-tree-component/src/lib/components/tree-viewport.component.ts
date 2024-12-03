@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  AfterViewInit,
-  OnInit,
-  OnDestroy
-} from '@angular/core';
+import { Component, ElementRef, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TREE_EVENTS } from '../constants/events';
 
@@ -19,7 +13,7 @@ import { TREE_EVENTS } from '../constants/events';
       </div>
     </ng-container>
   `,
-  standalone: false
+  standalone: false,
 })
 export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   setViewport = this.throttle(() => {
@@ -30,7 +24,7 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
 
   constructor(
     private elementRef: ElementRef,
-    public virtualScroll: TreeVirtualScroll
+    public virtualScroll: TreeVirtualScroll,
   ) {
     this.scrollEventHandler = this.setViewport.bind(this);
   }
@@ -55,11 +49,7 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   getTotalHeight() {
-    return (
-      (this.virtualScroll.isEnabled() &&
-        this.virtualScroll.totalHeight + 'px') ||
-      'auto'
-    );
+    return (this.virtualScroll.isEnabled() && this.virtualScroll.totalHeight + 'px') || 'auto';
   }
 
   private throttle(func, timeFrame) {

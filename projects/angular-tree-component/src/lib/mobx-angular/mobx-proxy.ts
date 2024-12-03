@@ -6,24 +6,15 @@ import { observable as mobxObservable } from 'mobx';
 export function actionInternal(...args) {
   return (mobxAction as any)(...args);
 }
-export const action: typeof mobxAction = Object.assign(
-  actionInternal,
-  mobxAction
-) as any;
+export const action: typeof mobxAction = Object.assign(actionInternal, mobxAction) as any;
 
 function computedInternal(...args) {
   return (mobxComputed as any)(...args);
 }
-export const computed: typeof mobxComputed = Object.assign(
-  computedInternal,
-  mobxComputed
-) as any;
+export const computed: typeof mobxComputed = Object.assign(computedInternal, mobxComputed) as any;
 
 function observableInternal(...args) {
   return (mobxObservable as any)(...args);
 }
 
-export const observable: typeof mobxObservable = Object.assign(
-  observableInternal,
-  mobxObservable
-) as any;
+export const observable: typeof mobxObservable = Object.assign(observableInternal, mobxObservable) as any;

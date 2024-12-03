@@ -9,7 +9,7 @@ describe('VirtualscrollComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [VirtualscrollComponent],
-      teardown: { destroyAfterEach: false }
+      teardown: { destroyAfterEach: false },
     }).compileComponents();
   }));
 

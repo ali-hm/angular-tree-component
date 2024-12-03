@@ -8,7 +8,7 @@ describe('CrudExampleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CrudExampleComponent]
+      declarations: [CrudExampleComponent],
     }).compileComponents();
   });
 

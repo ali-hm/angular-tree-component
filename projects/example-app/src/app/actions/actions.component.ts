@@ -1,12 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {
-  TreeNode,
-  TreeModel,
-  TREE_ACTIONS,
-  KEYS,
-  IActionMapping,
-  ITreeOptions
-} from 'angular-tree-component';
+import { TreeNode, TreeModel, TREE_ACTIONS, KEYS, IActionMapping, ITreeOptions } from 'angular-tree-component';
 
 const actionMapping: IActionMapping = {
   mouse: {
@@ -31,19 +24,18 @@ const actionMapping: IActionMapping = {
     mouseOut: (tree, node, $event) => {
       $event.preventDefault();
       console.log(`mouseOut ${node.data.name}`);
-    }
+    },
   },
   keys: {
-    [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
-  }
+    [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`),
+  },
 };
 
 @Component({
   selector: 'app-actions',
   styles: [],
   template: `
-    <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true">
-    </tree-root>
+    <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true"> </tree-root>
     <br />
     <b>Custom Keys:</b><br />
     enter - show alert<br />
@@ -53,7 +45,7 @@ const actionMapping: IActionMapping = {
     double click - expand / collapse<br />
     right-click - show alert
   `,
-  standalone: false
+  standalone: false,
 })
 export class ActionsComponent {
   nodes = [
@@ -61,33 +53,33 @@ export class ActionsComponent {
       name: 'root1',
       children: [
         {
-          name: 'child1'
+          name: 'child1',
         },
         {
-          name: 'child2'
-        }
-      ]
+          name: 'child2',
+        },
+      ],
     },
     {
       name: 'root2',
       children: [
         {
-          name: 'child2.1'
+          name: 'child2.1',
         },
         {
           name: 'child2.2',
           children: [
             {
               id: 1001,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    }
+              name: 'subsub',
+            },
+          ],
+        },
+      ],
+    },
   ];
 
   options: ITreeOptions = {
-    actionMapping
+    actionMapping,
   };
 }

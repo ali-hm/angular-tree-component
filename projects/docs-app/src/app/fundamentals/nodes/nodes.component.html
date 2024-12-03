@@ -2,10 +2,7 @@
 
 <p>Inputs to Tree component:</p>
 
-<code-example
-  >&lt;tree-root [nodes]=nodes
-  [options]="options"&gt;&lt;/tree-root&gt;</code-example
->
+<code-example>&lt;tree-root [nodes]=nodes [options]="options"&gt;&lt;/tree-root&gt;</code-example>
 
 <h2>nodes</h2>
 
@@ -41,18 +38,14 @@
 
   <tr>
     <td>hasChildren</td>
-    <td>
-      For async data load. Denotes that this node might have children, even when
-      'children' attr is empty.
-    </td>
+    <td>For async data load. Denotes that this node might have children, even when 'children' attr is empty.</td>
   </tr>
 
   <tr>
     <td>isExpanded</td>
     <td>
-      Determines whether the node starts as expanded by default. Notice that
-      this field is not bindable, meaning that changing it doesn't affect the
-      tree and vice versa.
+      Determines whether the node starts as expanded by default. Notice that this field is not bindable, meaning that
+      changing it doesn't affect the tree and vice versa.
     </td>
   </tr>
 </table>
@@ -63,8 +56,5 @@
 
 <h2>Focused</h2>
 
-<p>
-  Whether the tree should be focused. Key navigation only works when the tree is
-  focused.
-</p>
+<p>Whether the tree should be focused. Key navigation only works when the tree is focused.</p>
 <p>Default value: <code>false</code>.</p>

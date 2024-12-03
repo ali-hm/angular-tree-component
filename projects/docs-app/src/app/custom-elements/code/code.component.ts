@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  ViewChild
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { PrettyPrinter } from './pretty-printer.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs/operators';
@@ -47,7 +39,7 @@ import { Logger } from '../../shared/logger.service';
       <code class="animated fadeIn" #codeContainer></code>
     </pre>
   `,
-  standalone: false
+  standalone: false,
 })
 export class CodeComponent implements OnChanges {
   ariaLabel = '';
@@ -110,7 +102,7 @@ export class CodeComponent implements OnChanges {
     private snackbar: MatSnackBar,
     private pretty: PrettyPrinter,
     private copier: CopierService,
-    private logger: Logger
+    private logger: Logger,
   ) {}
 
   ngOnChanges() {
@@ -133,19 +125,15 @@ export class CodeComponent implements OnChanges {
         (c) => this.setCodeHtml(c),
         () => {
           /* ignore failure to format */
-        }
+        },
       );
   }
 
   /** Sets the message showing that the code could not be found. */
   private showMissingCodeMessage() {
-    const src = this.path
-      ? this.path + (this.region ? '#' + this.region : '')
-      : '';
+    const src = this.path ? this.path + (this.region ? '#' + this.region : '') : '';
     const srcMsg = src ? ` for\n${src}` : '.';
-    this.setCodeHtml(
-      `<p class="code-missing">The code sample is missing${srcMsg}</p>`
-    );
+    this.setCodeHtml(`<p class="code-missing">The code sample is missing${srcMsg}</p>`);
   }
 
   /** Sets the innerHTML of the code container to the provided code string. */
@@ -172,11 +160,9 @@ export class CodeComponent implements OnChanges {
       this.logger.log('Copied code to clipboard:', code);
       this.snackbar.open('Code Copied', '', { duration: 800 });
     } else {
-      this.logger.error(
-        new Error(`ERROR copying code to clipboard: "${code}"`)
-      );
+      this.logger.error(new Error(`ERROR copying code to clipboard: "${code}"`));
       this.snackbar.open('Copy failed. Please try again!', '', {
-        duration: 800
+        duration: 800,
       });
     }
   }

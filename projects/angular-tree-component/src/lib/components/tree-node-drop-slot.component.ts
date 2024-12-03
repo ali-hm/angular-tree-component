@@ -13,7 +13,7 @@ import { TreeNode } from '../models/tree-node.model';
       [allowDragoverStyling]="true"
     ></div>
   `,
-  standalone: false
+  standalone: false,
 })
 export class TreeNodeDropSlot {
   @Input() node: TreeNode;
@@ -22,15 +22,11 @@ export class TreeNodeDropSlot {
   onDrop($event) {
     this.node.mouseAction('drop', $event.event, {
       from: $event.element,
-      to: { parent: this.node, index: this.dropIndex }
+      to: { parent: this.node, index: this.dropIndex },
     });
   }
 
   allowDrop(element, $event) {
-    return this.node.options.allowDrop(
-      element,
-      { parent: this.node, index: this.dropIndex },
-      $event
-    );
+    return this.node.options.allowDrop(element, { parent: this.node, index: this.dropIndex }, $event);
   }
 }

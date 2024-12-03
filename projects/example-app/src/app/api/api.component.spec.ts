@@ -9,7 +9,7 @@ describe('ApiComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ApiComponent],
-      teardown: { destroyAfterEach: false }
+      teardown: { destroyAfterEach: false },
     }).compileComponents();
   }));
 

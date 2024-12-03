@@ -7,7 +7,7 @@ import {
   OnChanges,
   Output,
   TemplateRef,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { TreeModel } from '../models/tree.model';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
@@ -34,7 +34,7 @@ import { TreeViewportComponent } from './tree-viewport.component';
             loadingTemplate: loadingTemplate,
             treeNodeTemplate: treeNodeTemplate,
             treeNodeWrapperTemplate: treeNodeWrapperTemplate,
-            treeNodeFullTemplate: treeNodeFullTemplate
+            treeNodeFullTemplate: treeNodeFullTemplate,
           }"
         >
         </tree-node-collection>
@@ -48,7 +48,7 @@ import { TreeViewportComponent } from './tree-viewport.component';
       </div>
     </tree-viewport>
   `,
-  standalone: false
+  standalone: false,
 })
 export class TreeComponent implements OnChanges {
   _nodes: any[];
@@ -98,7 +98,7 @@ export class TreeComponent implements OnChanges {
 
   constructor(
     public treeModel: TreeModel,
-    public treeDraggedElement: TreeDraggedElement
+    public treeDraggedElement: TreeDraggedElement,
   ) {
     treeModel.eventNames.forEach((name) => (this[name] = new EventEmitter()));
     treeModel.subscribeToState((state) => this.stateChange.emit(state));
@@ -107,12 +107,7 @@ export class TreeComponent implements OnChanges {
   @HostListener('body: keydown', ['$event'])
   onKeydown($event) {
     if (!this.treeModel.isFocused) return;
-    if (
-      ['input', 'textarea'].includes(
-        document.activeElement.tagName.toLowerCase()
-      )
-    )
-      return;
+    if (['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) return;
 
     const focusedNode = this.treeModel.getFocusedNode();
 
@@ -139,7 +134,7 @@ export class TreeComponent implements OnChanges {
       this.treeModel.setData({
         options: changes.options && changes.options.currentValue,
         nodes: changes.nodes && changes.nodes.currentValue,
-        events: this.pick(this, this.treeModel.eventNames)
+        events: this.pick(this, this.treeModel.eventNames),
       });
     }
   }

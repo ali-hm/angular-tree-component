@@ -8,7 +8,7 @@ describe('AutoScrollComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AutoScrollComponent]
+      declarations: [AutoScrollComponent],
     }).compileComponents();
   });
 

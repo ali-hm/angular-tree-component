@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-checkboxes-guide',
   templateUrl: './checkboxes-guide.component.html',
   styleUrls: ['./checkboxes-guide.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class CheckboxesGuideComponent {}

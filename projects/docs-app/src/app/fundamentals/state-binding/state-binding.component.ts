@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-state-binding',
   templateUrl: './state-binding.component.html',
   styleUrls: ['./state-binding.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class StateBindingComponent {
   example = `

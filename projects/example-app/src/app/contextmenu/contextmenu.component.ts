@@ -1,10 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import {
-  ITreeOptions,
-  TREE_ACTIONS,
-  TreeNode,
-  TreeModel
-} from 'angular-tree-component';
+import { ITreeOptions, TREE_ACTIONS, TreeNode, TreeModel } from 'angular-tree-component';
 
 @Component({
   selector: 'app-contextmenu',
@@ -12,22 +7,12 @@ import {
     <tree-root [focused]="true" [options]="options" [nodes]="nodes">
       <ng-template #treeNodeTemplate let-node="node">
         <span *ngIf="node === editNode">
-          <input
-            autofocus
-            [(ngModel)]="node.data.name"
-            (blur)="stopEdit()"
-            (keyup.enter)="stopEdit()"
-          />
+          <input autofocus [(ngModel)]="node.data.name" (blur)="stopEdit()" (keyup.enter)="stopEdit()" />
         </span>
         <span *ngIf="node !== editNode">{{ node.data.name }}</span>
       </ng-template>
     </tree-root>
-    <div
-      class="menu"
-      *ngIf="contextMenu"
-      [style.left.px]="contextMenu.x"
-      [style.top.px]="contextMenu.y"
-    >
+    <div class="menu" *ngIf="contextMenu" [style.left.px]="contextMenu.x" [style.top.px]="contextMenu.y">
       <div>Menu for {{ contextMenu.node.data.name }}</div>
       <hr />
       <ul>
@@ -71,9 +56,9 @@ import {
       li:hover {
         background-color: aliceblue;
       }
-    `
+    `,
   ],
-  standalone: false
+  standalone: false,
 })
 export class ContextmenuComponent {
   contextMenu: { node: TreeNode; x: number; y: number } = null;
@@ -83,28 +68,24 @@ export class ContextmenuComponent {
   nodes = [
     {
       name: 'root1',
-      children: [{ name: 'child1' }, { name: 'child2' }]
+      children: [{ name: 'child1' }, { name: 'child2' }],
     },
     {
       name: 'root2',
       children: [
         { name: 'child2.1', children: [] },
-        { name: 'child2.2', children: [{ name: 'grandchild2.2.1' }] }
-      ]
+        { name: 'child2.2', children: [{ name: 'grandchild2.2.1' }] },
+      ],
     },
     { name: 'root3' },
     { name: 'root4', children: [] },
-    { name: 'root5', children: null }
+    { name: 'root5', children: null },
   ];
 
   options: ITreeOptions = {
     actionMapping: {
       mouse: {
-        contextMenu: (
-          treeModel: TreeModel,
-          treeNode: TreeNode,
-          e: MouseEvent
-        ) => {
+        contextMenu: (treeModel: TreeModel, treeNode: TreeNode, e: MouseEvent) => {
           e.preventDefault();
           if (this.contextMenu && treeNode === this.contextMenu.node) {
             return this.closeMenu();
@@ -112,15 +93,15 @@ export class ContextmenuComponent {
           this.contextMenu = {
             node: treeNode,
             x: e.pageX,
-            y: e.pageY
+            y: e.pageY,
           };
         },
         click: (treeModel: TreeModel, treeNode: TreeNode, e: MouseEvent) => {
           this.closeMenu();
           TREE_ACTIONS.TOGGLE_ACTIVE(treeModel, treeNode, e);
-        }
-      }
-    }
+        },
+      },
+    },
   };
 
   closeMenu = () => {
@@ -155,11 +136,11 @@ export class ContextmenuComponent {
     this.doCut
       ? this.sourceNode.treeModel.moveNode(this.sourceNode, {
           parent: this.contextMenu.node,
-          index: 0
+          index: 0,
         })
       : this.sourceNode.treeModel.copyNode(this.sourceNode, {
           parent: this.contextMenu.node,
-          index: 0
+          index: 0,
         });
 
     this.sourceNode = null;
@@ -172,7 +153,7 @@ export class ContextmenuComponent {
     }
     return this.sourceNode.treeModel.canMoveNode(this.sourceNode, {
       parent: this.contextMenu.node,
-      index: 0
+      index: 0,
     });
   };
 }

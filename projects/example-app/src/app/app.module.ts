@@ -45,16 +45,10 @@ import { DragOverStylingFullTreeComponent } from './dragover-styling/dragover-st
     ApiComponent,
     ActionsComponent,
     ScrollContainerComponent,
-    ContextmenuComponent
+    ContextmenuComponent,
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    TreeModule,
-    CommonModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, FormsModule, TreeModule, CommonModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

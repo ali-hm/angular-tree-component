@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  ViewEncapsulation,
-  OnInit,
-  OnDestroy
-} from '@angular/core';
+import { Component, Input, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { reaction } from 'mobx';
 import { observable, computed, action } from '../mobx-angular/mobx-proxy';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
@@ -44,7 +38,7 @@ import { TreeModel } from '../models/tree.model';
       </div>
     </ng-container>
   `,
-  standalone: false
+  standalone: false,
 })
 export class TreeNodeChildrenComponent {
   @Input() node: TreeNode;
@@ -67,7 +61,7 @@ export class TreeNodeChildrenComponent {
       </div>
     </ng-container>
   `,
-  standalone: false
+  standalone: false,
 })
 export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
   @Input()
@@ -87,13 +81,10 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
   @observable viewportNodes: TreeNode[];
 
   @computed get marginTop(): string {
-    const firstNode =
-      this.viewportNodes && this.viewportNodes.length && this.viewportNodes[0];
+    const firstNode = this.viewportNodes && this.viewportNodes.length && this.viewportNodes[0];
     const relativePosition =
       firstNode && firstNode.parent
-        ? firstNode.position -
-          firstNode.parent.position -
-          firstNode.parent.getSelfHeight()
+        ? firstNode.position - firstNode.parent.position - firstNode.parent.getSelfHeight()
         : 0;
 
     return `${relativePosition}px`;
@@ -111,21 +102,19 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
       // return node indexes so we can compare structurally,
       reaction(
         () => {
-          return this.virtualScroll
-            .getViewportNodes(this.nodes)
-            .map((n) => n.index);
+          return this.virtualScroll.getViewportNodes(this.nodes).map((n) => n.index);
         },
         (nodeIndexes) => {
           this.viewportNodes = nodeIndexes.map((i) => this.nodes[i]);
         },
-        { compareStructural: true, fireImmediately: true } as any
+        { compareStructural: true, fireImmediately: true } as any,
       ),
       reaction(
         () => this.nodes,
         (nodes) => {
           this.viewportNodes = this.virtualScroll.getViewportNodes(nodes);
-        }
-      )
+        },
+      ),
     ];
   }
 
@@ -154,26 +143,12 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
         [class.tree-node-active]="node.isActive"
         [class.tree-node-focused]="node.isFocused"
       >
-        <tree-node-drop-slot
-          *ngIf="index === 0"
-          [dropIndex]="node.index"
-          [node]="node.parent"
-        ></tree-node-drop-slot>
+        <tree-node-drop-slot *ngIf="index === 0" [dropIndex]="node.index" [node]="node.parent"></tree-node-drop-slot>
 
-        <tree-node-wrapper
-          [node]="node"
-          [index]="index"
-          [templates]="templates"
-        ></tree-node-wrapper>
+        <tree-node-wrapper [node]="node" [index]="index" [templates]="templates"></tree-node-wrapper>
 
-        <tree-node-children
-          [node]="node"
-          [templates]="templates"
-        ></tree-node-children>
-        <tree-node-drop-slot
-          [dropIndex]="node.index + 1"
-          [node]="node.parent"
-        ></tree-node-drop-slot>
+        <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+        <tree-node-drop-slot [dropIndex]="node.index + 1" [node]="node.parent"></tree-node-drop-slot>
       </div>
       <ng-container
         [ngTemplateOutlet]="templates.treeNodeFullTemplate"
@@ -181,13 +156,13 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
           $implicit: node,
           node: node,
           index: index,
-          templates: templates
+          templates: templates,
         }"
       >
       </ng-container>
     </ng-container>
   `,
-  standalone: false
+  standalone: false,
 })
 export class TreeNodeComponent {
   @Input() node: TreeNode;

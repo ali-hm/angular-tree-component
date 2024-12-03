@@ -1,15 +1,5 @@
-import {
-  Compiler,
-  Inject,
-  Injectable,
-  NgModuleFactory,
-  NgModuleRef,
-  Type
-} from '@angular/core';
-import {
-  ELEMENT_MODULE_LOAD_CALLBACKS_TOKEN,
-  WithCustomElementComponent
-} from './element-registry';
+import { Compiler, Inject, Injectable, NgModuleFactory, NgModuleRef, Type } from '@angular/core';
+import { ELEMENT_MODULE_LOAD_CALLBACKS_TOKEN, WithCustomElementComponent } from './element-registry';
 import { from, Observable, of } from 'rxjs';
 import { createCustomElement } from '@angular/elements';
 import { LoadChildrenCallback } from '@angular/router';
@@ -25,7 +15,7 @@ export class ElementsLoader {
     private moduleRef: NgModuleRef<any>,
     @Inject(ELEMENT_MODULE_LOAD_CALLBACKS_TOKEN)
     elementModulePaths: Map<string, LoadChildrenCallback>,
-    private compiler: Compiler
+    private compiler: Compiler,
   ) {
     this.elementsToLoad = new Map(elementModulePaths);
   }
@@ -36,18 +26,14 @@ export class ElementsLoader {
    * elements so that they will not be queried in subsequent calls.
    */
   loadContainedCustomElements(element: HTMLElement): Observable<void> {
-    const unregisteredSelectors = Array.from(this.elementsToLoad.keys()).filter(
-      (s) => element.querySelector(s)
-    );
+    const unregisteredSelectors = Array.from(this.elementsToLoad.keys()).filter((s) => element.querySelector(s));
 
     if (!unregisteredSelectors.length) {
       return of(undefined);
     }
 
     // Returns observable that completes when all discovered elements have been registered.
-    const allRegistered = Promise.all(
-      unregisteredSelectors.map((s) => this.loadCustomElement(s))
-    );
+    const allRegistered = Promise.all(unregisteredSelectors.map((s) => this.loadCustomElement(s)));
     return from(allRegistered.then(() => undefined));
   }
 
@@ -62,10 +48,7 @@ export class ElementsLoader {
       // Load and register the custom element (for the first time).
       const modulePathLoader = this.elementsToLoad.get(selector)!;
       const loadedAndRegistered = (
-        modulePathLoader() as Promise<
-          | NgModuleFactory<WithCustomElementComponent>
-          | Type<WithCustomElementComponent>
-        >
+        modulePathLoader() as Promise<NgModuleFactory<WithCustomElementComponent> | Type<WithCustomElementComponent>>
       )
         .then((elementModuleOrFactory) => {
           /**
@@ -82,14 +65,11 @@ export class ElementsLoader {
           }
         })
         .then((elementModuleFactory) => {
-          const elementModuleRef = elementModuleFactory.create(
-            this.moduleRef.injector
-          );
+          const elementModuleRef = elementModuleFactory.create(this.moduleRef.injector);
           const injector = elementModuleRef.injector;
-          const CustomElementComponent =
-            elementModuleRef.instance.customElementComponent;
+          const CustomElementComponent = elementModuleRef.instance.customElementComponent;
           const CustomElement = createCustomElement(CustomElementComponent, {
-            injector
+            injector,
           });
 
           customElements!.define(selector, CustomElement);

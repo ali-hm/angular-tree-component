@@ -5,7 +5,7 @@ import { Logger } from '../shared/logger.service';
 @Component({
   selector: 'aio-lazy-ce',
   template: '',
-  standalone: false
+  standalone: false,
 })
 export class LazyCustomElementComponent implements OnInit {
   @Input() selector = '';
@@ -13,14 +13,12 @@ export class LazyCustomElementComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private elementsLoader: ElementsLoader,
-    private logger: Logger
+    private logger: Logger,
   ) {}
 
   ngOnInit() {
     if (!this.selector || /[^\w-]/.test(this.selector)) {
-      this.logger.error(
-        new Error(`Invalid selector for 'aio-lazy-ce': ${this.selector}`)
-      );
+      this.logger.error(new Error(`Invalid selector for 'aio-lazy-ce': ${this.selector}`));
       return;
     }
 

@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-options',
   templateUrl: './options.component.html',
   styleUrls: ['./options.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class OptionsComponent implements OnInit {
   options = `

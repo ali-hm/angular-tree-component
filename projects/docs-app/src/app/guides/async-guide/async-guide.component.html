@@ -2,8 +2,7 @@
 
 <p>
   The tree allows to load children asynchronously using
-  <code>getChildren</code> option, and <code>hasChildren</code> field on the
-  node.
+  <code>getChildren</code> option, and <code>hasChildren</code> field on the node.
 </p>
 
 <h2>Demo</h2>
@@ -23,18 +22,16 @@
 <h2>'getChildren' option</h2>
 
 <p>
-  This options receives a function that has a TreeNode parameter, and returns a
-  value or a promise that resolves to the node's children:
+  This options receives a function that has a TreeNode parameter, and returns a value or a promise that resolves to the
+  node's children:
 </p>
 
-<code-example
-  >(node:TreeNode) => TreeNode[] | Promise&lt;TreeNode[]&gt;</code-example
->
+<code-example>(node:TreeNode) => TreeNode[] | Promise&lt;TreeNode[]&gt;</code-example>
 
 <p>
   The function will be called whenever a node is expanded, the
-  <code>hasChildren</code> field is true, and the <code>children</code> field is
-  empty. The result will be loaded into the node's children attribute.
+  <code>hasChildren</code> field is true, and the <code>children</code> field is empty. The result will be loaded into
+  the node's children attribute.
 </p>
 
 <h2>Example</h2>

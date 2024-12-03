@@ -16,11 +16,10 @@ import { TreeNode } from '../models/tree-node.model';
       >
         <span class="toggle-children"></span>
       </span>
-      <span *ngIf="!node.hasChildren" class="toggle-children-placeholder">
-      </span>
+      <span *ngIf="!node.hasChildren" class="toggle-children-placeholder"> </span>
     </ng-container>
   `,
-  standalone: false
+  standalone: false,
 })
 export class TreeNodeExpanderComponent {
   @Input() node: TreeNode;

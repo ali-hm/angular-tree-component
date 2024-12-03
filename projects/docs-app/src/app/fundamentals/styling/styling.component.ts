@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-styling',
   templateUrl: './styling.component.html',
   styleUrls: ['./styling.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class StylingComponent {
   branchLines = `

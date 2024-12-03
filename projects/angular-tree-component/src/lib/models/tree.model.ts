@@ -191,15 +191,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   // actions
-  @action setData({
-    nodes,
-    options = null,
-    events = null
-  }: {
-    nodes: any;
-    options: any;
-    events: any;
-  }) {
+  @action setData({ nodes, options = null, events = null }: { nodes: any; options: any; events: any }) {
     if (options) {
       this.options = new TreeOptions(options);
     }
@@ -218,7 +210,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     let virtualRootConfig = {
       id: this.options.rootId,
       virtual: true,
-      [this.options.childrenField]: this.nodes
+      [this.options.childrenField]: this.nodes,
     };
 
     this.dispose();
@@ -252,17 +244,13 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   @action focusNextNode() {
     let previousNode = this.getFocusedNode();
-    let nextNode = previousNode
-      ? previousNode.findNextNode(true, true)
-      : this.getFirstRoot(true);
+    let nextNode = previousNode ? previousNode.findNextNode(true, true) : this.getFirstRoot(true);
     if (nextNode) nextNode.focus();
   }
 
   @action focusPreviousNode() {
     let previousNode = this.getFocusedNode();
-    let nextNode = previousNode
-      ? previousNode.findPreviousNode(true)
-      : this.getLastRoot(true);
+    let nextNode = previousNode ? previousNode.findPreviousNode(true) : this.getLastRoot(true);
     if (nextNode) nextNode.focus();
   }
 
@@ -271,9 +259,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     if (previousNode && previousNode.isCollapsed && previousNode.hasChildren) {
       previousNode.toggleExpanded();
     } else {
-      let nextNode = previousNode
-        ? previousNode.getFirstChild(true)
-        : this.getFirstRoot(true);
+      let nextNode = previousNode ? previousNode.getFirstChild(true) : this.getFirstRoot(true);
       if (nextNode) nextNode.focus();
     }
   }
@@ -308,7 +294,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   @action setSelectedNode(node, value) {
     this.selectedLeafNodeIds = Object.assign({}, this.selectedLeafNodeIds, {
-      [node.id]: value
+      [node.id]: value,
     });
 
     if (value) {
@@ -321,12 +307,12 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   @action setExpandedNode(node, value) {
     this.expandedNodeIds = Object.assign({}, this.expandedNodeIds, {
-      [node.id]: value
+      [node.id]: value,
     });
     this.fireEvent({
       eventName: TREE_EVENTS.toggleExpanded,
       node,
-      isExpanded: value
+      isExpanded: value,
     });
   }
 
@@ -340,7 +326,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   @action setIsHidden(node, value) {
     this.hiddenNodeIds = Object.assign({}, this.hiddenNodeIds, {
-      [node.id]: value
+      [node.id]: value,
     });
   }
 
@@ -348,9 +334,9 @@ export class TreeModel implements ITreeModel, OnDestroy {
     this.hiddenNodeIds = nodeIds.reduce(
       (hiddenNodeIds, id) =>
         Object.assign(hiddenNodeIds, {
-          [id]: true
+          [id]: true,
         }),
-      {}
+      {},
     );
   }
 
@@ -374,8 +360,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
     // support function and string filter
     if (filter && typeof filter.valueOf() === 'string') {
-      filterFn = (node) =>
-        node.displayField.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
+      filterFn = (node) => node.displayField.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
     } else if (filter && typeof filter === 'function') {
       filterFn = filter;
     } else {
@@ -385,9 +370,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
 
     const ids = {};
-    this.roots.forEach((node) =>
-      this._filterNode(ids, node, filterFn, autoShow)
-    );
+    this.roots.forEach((node) => this._filterNode(ids, node, filterFn, autoShow));
     this.hiddenNodeIds = ids;
     this.fireEvent({ eventName: TREE_EVENTS.changeFilter });
   }
@@ -414,10 +397,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     const originalNode = fromChildren.splice(fromIndex, 1)[0];
 
     // Compensate for index if already removed from parent:
-    let toIndex =
-      fromParent === to.parent && to.index > fromIndex
-        ? to.index - 1
-        : to.index;
+    let toIndex = fromParent === to.parent && to.index > fromIndex ? to.index - 1 : to.index;
 
     toChildren.splice(toIndex, 0, originalNode);
 
@@ -430,7 +410,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
       eventName: TREE_EVENTS.moveNode,
       node: originalNode,
       to: { parent: to.parent.data, index: toIndex },
-      from: { parent: fromParent.data, index: fromIndex }
+      from: { parent: fromParent.data, index: fromIndex },
     });
   }
 
@@ -457,7 +437,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     this.fireEvent({
       eventName: TREE_EVENTS.copyNode,
       node: nodeCopy,
-      to: { parent: to.parent.data, index: to.index }
+      to: { parent: to.parent.data, index: to.index },
     });
   }
 
@@ -467,7 +447,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
       selectedLeafNodeIds: this.selectedLeafNodeIds,
       activeNodeIds: this.activeNodeIds,
       hiddenNodeIds: this.hiddenNodeIds,
-      focusedNodeId: this.focusedNodeId
+      focusedNodeId: this.focusedNodeId,
     };
   }
 
@@ -479,7 +459,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
       selectedLeafNodeIds: state.selectedLeafNodeIds || {},
       activeNodeIds: state.activeNodeIds || {},
       hiddenNodeIds: state.hiddenNodeIds || {},
-      focusedNodeId: state.focusedNodeId
+      focusedNodeId: state.focusedNodeId,
     });
   }
 
@@ -532,13 +512,11 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
     if (startNode.data[this.options.isExpandedField]) {
       this.expandedNodeIds = Object.assign({}, this.expandedNodeIds, {
-        [startNode.id]: true
+        [startNode.id]: true,
       });
     }
     if (startNode.children) {
-      startNode.children.forEach((child) =>
-        this._calculateExpandedNodes(child)
-      );
+      startNode.children.forEach((child) => this._calculateExpandedNodes(child));
     }
   }
 
@@ -550,7 +528,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
         this.fireEvent({ eventName: TREE_EVENTS.deactivate, node: activeNode });
         this.fireEvent({
           eventName: TREE_EVENTS.nodeDeactivate,
-          node: activeNode
+          node: activeNode,
         }); // For IE11
       });
 
@@ -563,7 +541,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   private _setActiveNodeMulti(node, value) {
     this.activeNodeIds = Object.assign({}, this.activeNodeIds, {
-      [node.id]: value
+      [node.id]: value,
     });
   }
 }

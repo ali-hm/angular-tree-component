@@ -17,14 +17,13 @@
 <h2>Override key and mouse actions</h2>
 
 <p>
-  Angular Tree Component comes with a default mapping of mouse events and key
-  events to actions. For example - click on the node activates / deactivates it,
-  click on the expander expands / collapses it, pressing space or enter will
-  toggle the node activation (same as click), etc.
+  Angular Tree Component comes with a default mapping of mouse events and key events to actions. For example - click on
+  the node activates / deactivates it, click on the expander expands / collapses it, pressing space or enter will toggle
+  the node activation (same as click), etc.
 </p>
 <p>
-  Using the <code>actionMapping</code> option, you can override how the tree
-  reacts to mouse and key events, by providing a custom mapping.
+  Using the <code>actionMapping</code> option, you can override how the tree reacts to mouse and key events, by
+  providing a custom mapping.
 </p>
 
 <code-example>{{ actionMapping }}</code-example>
@@ -32,24 +31,19 @@
 <h2>actionMapping (IActionMapping)</h2>
 
 <p>
-  The <code>actionMapping</code> attribute needs to implement the
-  <code>IActionMapping</code> interface, which is an object that maps predefined
-  mouse events, and key codes, to callbacks.
+  The <code>actionMapping</code> attribute needs to implement the <code>IActionMapping</code> interface, which is an
+  object that maps predefined mouse events, and key codes, to callbacks.
 </p>
 
 <h2>The callback (IActionHandler)</h2>
 
 <p>
-  The callback always receives three parameters: <code>TreeModel</code>,
-  <code>TreeNode</code>, and <code>$event</code>.
+  The callback always receives three parameters: <code>TreeModel</code>, <code>TreeNode</code>, and <code>$event</code>.
 </p>
 
 <h2>TREE_ACTIONS</h2>
 
-<p>
-  Notice the <code>TREE_ACTIONS</code> object. It holds predefined callbacks
-  that do common actions.
-</p>
+<p>Notice the <code>TREE_ACTIONS</code> object. It holds predefined callbacks that do common actions.</p>
 <p>The available attributes are:</p>
 
 <ul>
@@ -74,8 +68,8 @@
 <h2>Mouse actions</h2>
 
 <p>
-  In mouse actions, the <code>TreeNode</code> parameter of the callback is the
-  node that the event was activated on (e.g. clicked on).
+  In mouse actions, the <code>TreeNode</code> parameter of the callback is the node that the event was activated on
+  (e.g. clicked on).
 </p>
 <p>The possible attributes for <code>actionMapping.mouse</code> are:</p>
 
@@ -100,25 +94,18 @@
 
 <p>
   If you want to perform actions based on modifier keys, use
-  <code>$event.shiftKey</code>, <code>$event.ctrlKey</code> etc., provided on
-  the third callback argument - <code>$event</code>.
+  <code>$event.shiftKey</code>, <code>$event.ctrlKey</code> etc., provided on the third callback argument -
+  <code>$event</code>.
 </p>
 
 <h2>Keyboard events</h2>
 
 <p>
-  In keyboard events, the <code>TreeNode</code> parameter of the callback is the
-  currently focused node. In case no node is focused, this will be
-  <code>null</code>.
+  In keyboard events, the <code>TreeNode</code> parameter of the callback is the currently focused node. In case no node
+  is focused, this will be <code>null</code>.
 </p>
-<p>
-  The attributes for <code>actionMapping.keys</code> are integers which
-  represent the key code (e.g. 32 for Space)
-</p>
-<p>
-  Angular Tree Component exposes a <code>KEYS</code> constant with predefined
-  common key codes:
-</p>
+<p>The attributes for <code>actionMapping.keys</code> are integers which represent the key code (e.g. 32 for Space)</p>
+<p>Angular Tree Component exposes a <code>KEYS</code> constant with predefined common key codes:</p>
 
 <code-example language="json">{{ keys }}</code-example>
 

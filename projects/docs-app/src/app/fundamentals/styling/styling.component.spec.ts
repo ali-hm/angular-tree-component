@@ -8,7 +8,7 @@ describe('StylingComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [StylingComponent]
+      declarations: [StylingComponent],
     }).compileComponents();
   }));
 

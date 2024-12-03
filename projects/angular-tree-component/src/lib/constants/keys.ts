@@ -5,5 +5,5 @@ export const KEYS = {
   DOWN: 40,
   ENTER: 13,
   SPACE: 32,
-  CONTEXT_MENU: 32
+  CONTEXT_MENU: 32,
 };

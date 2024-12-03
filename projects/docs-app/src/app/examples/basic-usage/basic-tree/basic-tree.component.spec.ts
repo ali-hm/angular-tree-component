@@ -8,7 +8,7 @@ describe('BasicTreeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BasicTreeComponent]
+      declarations: [BasicTreeComponent],
     }).compileComponents();
   });
 

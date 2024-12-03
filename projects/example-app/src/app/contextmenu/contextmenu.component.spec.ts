@@ -9,7 +9,7 @@ describe('ContextmenuComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ContextmenuComponent],
-      teardown: { destroyAfterEach: false }
+      teardown: { destroyAfterEach: false },
     }).compileComponents();
   }));
 

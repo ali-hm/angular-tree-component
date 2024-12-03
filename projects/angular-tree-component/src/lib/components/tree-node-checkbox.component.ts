@@ -16,7 +16,7 @@ import { TreeNode } from '../models/tree-node.model';
       />
     </ng-container>
   `,
-  standalone: false
+  standalone: false,
 })
 export class TreeNodeCheckboxComponent {
   @Input() node: TreeNode;

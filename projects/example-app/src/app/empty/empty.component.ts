@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
     <button (click)="loadNodes()">loadNodes 1</button>
   `,
   styles: [],
-  standalone: false
+  standalone: false,
 })
 export class EmptyComponent {
   nodes: any[] = [];

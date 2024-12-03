@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-expanding-guide',
   templateUrl: './expanding-guide.component.html',
   styleUrls: ['./expanding-guide.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class ExpandingGuideComponent {
   allNodes = `

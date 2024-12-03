@@ -6,18 +6,17 @@ import { TreeNode, TreeModel, ITreeOptions } from 'angular-tree-component';
   styles: [],
   template: `
     <div style="height: 800px; width: 500px; overflow: hidden;">
-      <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true">
-      </tree-root>
+      <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true"> </tree-root>
     </div>
   `,
-  standalone: false
+  standalone: false,
 })
 export class VirtualscrollComponent {
   nodes: any[];
 
   options: ITreeOptions = {
     nodeHeight: 23,
-    useVirtualScroll: true
+    useVirtualScroll: true,
   };
 
   constructor() {
@@ -26,8 +25,8 @@ export class VirtualscrollComponent {
       name: `rootDynamic${i}`,
       children: new Array(100).fill(null).map((item, n) => ({
         id: `${i}.${n}`,
-        name: `rootChildDynamic${i}.${n}`
-      }))
+        name: `rootChildDynamic${i}.${n}`,
+      })),
     }));
   }
 }

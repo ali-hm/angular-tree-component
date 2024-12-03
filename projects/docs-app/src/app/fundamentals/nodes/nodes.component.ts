@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-nodes',
   templateUrl: './nodes.component.html',
   styleUrls: ['./nodes.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class NodesComponent implements OnInit {
   nodes = `[

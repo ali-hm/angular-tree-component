@@ -1,11 +1,4 @@
-import {
-  observable,
-  computed,
-  reaction,
-  autorun,
-  action,
-  IReactionDisposer
-} from 'mobx';
+import { observable, computed, reaction, autorun, action, IReactionDisposer } from 'mobx';
 import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
@@ -68,7 +61,7 @@ export class TreeNode implements ITreeNode {
     public data: any,
     public parent: TreeNode,
     public treeModel: TreeModel,
-    index: number
+    index: number,
   ) {
     if (this.id === undefined || this.id === null) {
       this.id = uuid();
@@ -83,10 +76,7 @@ export class TreeNode implements ITreeNode {
 
   // helper get functions:
   get hasChildren(): boolean {
-    return !!(
-      this.getField('hasChildren') ||
-      (this.children && this.children.length > 0)
-    );
+    return !!(this.getField('hasChildren') || (this.children && this.children.length > 0));
   }
   get isCollapsed(): boolean {
     return !this.isExpanded;
@@ -163,9 +153,7 @@ export class TreeNode implements ITreeNode {
   getLastChild(skipHidden = false) {
     let children = skipHidden ? this.visibleChildren : this.children;
 
-    return children != null && children.length
-      ? children[children.length - 1]
-      : null;
+    return children != null && children.length ? children[children.length - 1] : null;
   }
 
   findNextNode(goInside = true, skipHidden = false) {
@@ -186,15 +174,11 @@ export class TreeNode implements ITreeNode {
 
   _getLastOpenDescendant(skipHidden = false) {
     const lastChild = this.getLastChild(skipHidden);
-    return this.isCollapsed || !lastChild
-      ? this
-      : lastChild._getLastOpenDescendant(skipHidden);
+    return this.isCollapsed || !lastChild ? this : lastChild._getLastOpenDescendant(skipHidden);
   }
 
   private _getParentsChildren(skipHidden = false): any[] {
-    const children =
-      this.parent &&
-      (skipHidden ? this.parent.getVisibleChildren() : this.parent.children);
+    const children = this.parent && (skipHidden ? this.parent.getVisibleChildren() : this.parent.children);
 
     return children || [];
   }
@@ -213,15 +197,13 @@ export class TreeNode implements ITreeNode {
   }
 
   getClass(): string {
-    return [this.options.nodeClass(this), `tree-node-level-${this.level}`].join(
-      ' '
-    );
+    return [this.options.nodeClass(this), `tree-node-level-${this.level}`].join(' ');
   }
 
   onDrop($event) {
     this.mouseAction('drop', $event.event, {
       from: $event.element,
-      to: { parent: this, index: 0, dropOnNode: true }
+      to: { parent: this, index: 0, dropOnNode: true },
     });
   }
 
@@ -260,7 +242,7 @@ export class TreeNode implements ITreeNode {
       .then(() => {
         this.fireEvent({
           eventName: TREE_EVENTS.loadNodeChildren,
-          node: this
+          node: this,
         });
       });
   }
@@ -328,7 +310,7 @@ export class TreeNode implements ITreeNode {
           this.loadNodeChildren();
         }
       },
-      { fireImmediately: true }
+      { fireImmediately: true },
     );
   }
 
@@ -442,9 +424,7 @@ export class TreeNode implements ITreeNode {
   }
 
   @action _initChildren() {
-    this.children = this.getField('children').map(
-      (c, index) => new TreeNode(c, this, this.treeModel, index)
-    );
+    this.children = this.getField('children').map((c, index) => new TreeNode(c, this, this.treeModel, index));
   }
 }
 

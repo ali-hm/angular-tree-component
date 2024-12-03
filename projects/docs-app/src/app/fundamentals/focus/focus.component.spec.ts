@@ -8,7 +8,7 @@ describe('FocusComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [FocusComponent]
+      declarations: [FocusComponent],
     }).compileComponents();
   }));
 

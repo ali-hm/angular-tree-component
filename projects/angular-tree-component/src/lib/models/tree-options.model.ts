@@ -8,46 +8,29 @@ export interface IActionHandler {
 }
 
 export const TREE_ACTIONS = {
-  TOGGLE_ACTIVE: (tree: TreeModel, node: TreeNode, $event: any) =>
-    node && node.toggleActivated(),
-  TOGGLE_ACTIVE_MULTI: (tree: TreeModel, node: TreeNode, $event: any) =>
-    node && node.toggleActivated(true),
-  TOGGLE_SELECTED: (tree: TreeModel, node: TreeNode, $event: any) =>
-    node && node.toggleSelected(),
-  ACTIVATE: (tree: TreeModel, node: TreeNode, $event: any) =>
-    node.setIsActive(true),
-  DEACTIVATE: (tree: TreeModel, node: TreeNode, $event: any) =>
-    node.setIsActive(false),
-  SELECT: (tree: TreeModel, node: TreeNode, $event: any) =>
-    node.setIsSelected(true),
-  DESELECT: (tree: TreeModel, node: TreeNode, $event: any) =>
-    node.setIsSelected(false),
+  TOGGLE_ACTIVE: (tree: TreeModel, node: TreeNode, $event: any) => node && node.toggleActivated(),
+  TOGGLE_ACTIVE_MULTI: (tree: TreeModel, node: TreeNode, $event: any) => node && node.toggleActivated(true),
+  TOGGLE_SELECTED: (tree: TreeModel, node: TreeNode, $event: any) => node && node.toggleSelected(),
+  ACTIVATE: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(true),
+  DEACTIVATE: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsActive(false),
+  SELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsSelected(true),
+  DESELECT: (tree: TreeModel, node: TreeNode, $event: any) => node.setIsSelected(false),
   FOCUS: (tree: TreeModel, node: TreeNode, $event: any) => node.focus(),
-  TOGGLE_EXPANDED: (tree: TreeModel, node: TreeNode, $event: any) =>
-    node.hasChildren && node.toggleExpanded(),
+  TOGGLE_EXPANDED: (tree: TreeModel, node: TreeNode, $event: any) => node.hasChildren && node.toggleExpanded(),
   EXPAND: (tree: TreeModel, node: TreeNode, $event: any) => node.expand(),
   COLLAPSE: (tree: TreeModel, node: TreeNode, $event: any) => node.collapse(),
-  DRILL_DOWN: (tree: TreeModel, node: TreeNode, $event: any) =>
-    tree.focusDrillDown(),
-  DRILL_UP: (tree: TreeModel, node: TreeNode, $event: any) =>
-    tree.focusDrillUp(),
-  NEXT_NODE: (tree: TreeModel, node: TreeNode, $event: any) =>
-    tree.focusNextNode(),
-  PREVIOUS_NODE: (tree: TreeModel, node: TreeNode, $event: any) =>
-    tree.focusPreviousNode(),
-  MOVE_NODE: (
-    tree: TreeModel,
-    node: TreeNode,
-    $event: any,
-    { from, to }: { from: any; to: any }
-  ) => {
+  DRILL_DOWN: (tree: TreeModel, node: TreeNode, $event: any) => tree.focusDrillDown(),
+  DRILL_UP: (tree: TreeModel, node: TreeNode, $event: any) => tree.focusDrillUp(),
+  NEXT_NODE: (tree: TreeModel, node: TreeNode, $event: any) => tree.focusNextNode(),
+  PREVIOUS_NODE: (tree: TreeModel, node: TreeNode, $event: any) => tree.focusPreviousNode(),
+  MOVE_NODE: (tree: TreeModel, node: TreeNode, $event: any, { from, to }: { from: any; to: any }) => {
     // default action assumes from = node, to = {parent, index}
     if ($event.ctrlKey) {
       tree.copyNode(from, to);
     } else {
       tree.moveNode(from, to);
     }
-  }
+  },
 };
 
 const defaultActionMapping: IActionMapping = {
@@ -57,7 +40,7 @@ const defaultActionMapping: IActionMapping = {
     contextMenu: null,
     expanderClick: TREE_ACTIONS.TOGGLE_EXPANDED,
     checkboxClick: TREE_ACTIONS.TOGGLE_SELECTED,
-    drop: TREE_ACTIONS.MOVE_NODE
+    drop: TREE_ACTIONS.MOVE_NODE,
   },
   keys: {
     [KEYS.RIGHT]: TREE_ACTIONS.DRILL_DOWN,
@@ -65,8 +48,8 @@ const defaultActionMapping: IActionMapping = {
     [KEYS.DOWN]: TREE_ACTIONS.NEXT_NODE,
     [KEYS.UP]: TREE_ACTIONS.PREVIOUS_NODE,
     [KEYS.SPACE]: TREE_ACTIONS.TOGGLE_ACTIVE,
-    [KEYS.ENTER]: TREE_ACTIONS.TOGGLE_ACTIVE
-  }
+    [KEYS.ENTER]: TREE_ACTIONS.TOGGLE_ACTIVE,
+  },
 };
 
 export interface IActionMapping {
@@ -126,9 +109,7 @@ export class TreeOptions {
     return this.options.animateAcceleration || 1.2;
   }
   get scrollOnActivate(): boolean {
-    return this.options.scrollOnActivate === undefined
-      ? true
-      : this.options.scrollOnActivate;
+    return this.options.scrollOnActivate === undefined ? true : this.options.scrollOnActivate;
   }
   get rtl(): boolean {
     return !!this.options.rtl;
@@ -140,41 +121,25 @@ export class TreeOptions {
     return this.options.useCheckbox;
   }
   get useTriState(): boolean {
-    return this.options.useTriState === undefined
-      ? true
-      : this.options.useTriState;
+    return this.options.useTriState === undefined ? true : this.options.useTriState;
   }
   get scrollContainer(): HTMLElement {
     return this.options.scrollContainer;
   }
   get allowDragoverStyling(): boolean {
-    return this.options.allowDragoverStyling === undefined
-      ? true
-      : this.options.allowDragoverStyling;
+    return this.options.allowDragoverStyling === undefined ? true : this.options.allowDragoverStyling;
   }
   actionMapping: IActionMapping;
 
   constructor(private options: ITreeOptions = {}) {
     this.actionMapping = {
       mouse: {
-        click:
-          this.options?.actionMapping?.mouse?.click ??
-          defaultActionMapping.mouse.click,
-        dblClick:
-          this.options?.actionMapping?.mouse?.dblClick ??
-          defaultActionMapping.mouse.dblClick,
-        contextMenu:
-          this.options?.actionMapping?.mouse?.contextMenu ??
-          defaultActionMapping.mouse.contextMenu,
-        expanderClick:
-          this.options?.actionMapping?.mouse?.expanderClick ??
-          defaultActionMapping.mouse.expanderClick,
-        checkboxClick:
-          this.options?.actionMapping?.mouse?.checkboxClick ??
-          defaultActionMapping.mouse.checkboxClick,
-        drop:
-          this.options?.actionMapping?.mouse?.drop ??
-          defaultActionMapping.mouse.drop,
+        click: this.options?.actionMapping?.mouse?.click ?? defaultActionMapping.mouse.click,
+        dblClick: this.options?.actionMapping?.mouse?.dblClick ?? defaultActionMapping.mouse.dblClick,
+        contextMenu: this.options?.actionMapping?.mouse?.contextMenu ?? defaultActionMapping.mouse.contextMenu,
+        expanderClick: this.options?.actionMapping?.mouse?.expanderClick ?? defaultActionMapping.mouse.expanderClick,
+        checkboxClick: this.options?.actionMapping?.mouse?.checkboxClick ?? defaultActionMapping.mouse.checkboxClick,
+        drop: this.options?.actionMapping?.mouse?.drop ?? defaultActionMapping.mouse.drop,
         dragStart: this.options?.actionMapping?.mouse?.dragStart ?? undefined,
         drag: this.options?.actionMapping?.mouse?.drag ?? undefined,
         dragEnd: this.options?.actionMapping?.mouse?.dragEnd ?? undefined,
@@ -182,7 +147,7 @@ export class TreeOptions {
         dragLeave: this.options?.actionMapping?.mouse?.dragLeave ?? undefined,
         dragEnter: this.options?.actionMapping?.mouse?.dragEnter ?? undefined,
         mouseOver: this.options?.actionMapping?.mouse?.mouseOver ?? undefined,
-        mouseOut: this.options?.actionMapping?.mouse?.mouseOut ?? undefined
+        mouseOut: this.options?.actionMapping?.mouse?.mouseOut ?? undefined,
       },
       keys: {
         [KEYS.RIGHT]: TREE_ACTIONS.DRILL_DOWN,
@@ -190,24 +155,22 @@ export class TreeOptions {
         [KEYS.DOWN]: TREE_ACTIONS.NEXT_NODE,
         [KEYS.UP]: TREE_ACTIONS.PREVIOUS_NODE,
         [KEYS.SPACE]: TREE_ACTIONS.TOGGLE_ACTIVE,
-        [KEYS.ENTER]: TREE_ACTIONS.TOGGLE_ACTIVE
-      }
+        [KEYS.ENTER]: TREE_ACTIONS.TOGGLE_ACTIVE,
+      },
     };
 
     if (this.options?.actionMapping?.keys) {
       this.actionMapping.keys = {
         ...this.actionMapping.keys,
-        ...this.options.actionMapping.keys
+        ...this.options.actionMapping.keys,
       };
     }
 
     if (options.rtl) {
       this.actionMapping.keys[KEYS.RIGHT] =
-        <IActionHandler>options.actionMapping?.keys[KEYS.RIGHT] ||
-        TREE_ACTIONS.DRILL_UP;
+        <IActionHandler>options.actionMapping?.keys[KEYS.RIGHT] || TREE_ACTIONS.DRILL_UP;
       this.actionMapping.keys[KEYS.LEFT] =
-        <IActionHandler>options.actionMapping?.keys[KEYS.LEFT] ||
-        TREE_ACTIONS.DRILL_DOWN;
+        <IActionHandler>options.actionMapping?.keys[KEYS.LEFT] || TREE_ACTIONS.DRILL_DOWN;
     }
   }
 
@@ -229,9 +192,7 @@ export class TreeOptions {
     if (this.options.allowDrop instanceof Function) {
       return this.options.allowDrop(element, to, $event);
     } else {
-      return this.options.allowDrop === undefined
-        ? true
-        : this.options.allowDrop;
+      return this.options.allowDrop === undefined ? true : this.options.allowDrop;
     }
   }
 
@@ -263,8 +224,6 @@ export class TreeOptions {
   }
 
   get dropSlotHeight(): number {
-    return typeof this.options.dropSlotHeight === 'number'
-      ? this.options.dropSlotHeight
-      : 2;
+    return typeof this.options.dropSlotHeight === 'number' ? this.options.dropSlotHeight : 2;
   }
 }

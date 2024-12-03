@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-focus',
   templateUrl: './focus.component.html',
   styleUrls: ['./focus.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class FocusComponent {
   focus = `<tree-root [nodes]="nodes" [focused]="true" [options]="options"></tree-root>`;

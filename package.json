@@ -113,17 +113,6 @@
   "engines": {
     "node": ">=10.21.0"
   },
-  "prettier": {
-    "printWidth": 80,
-    "tabWidth": 2,
-    "useTabs": false,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "none",
-    "bracketSpacing": true,
-    "jsxBracketSameLine": true,
-    "requirePragma": false
-  },
   "lint-staged": {
     "*.ts": [
       "tslint"

@@ -8,7 +8,7 @@ describe('CheckboxesGuideComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CheckboxesGuideComponent]
+      declarations: [CheckboxesGuideComponent],
     }).compileComponents();
   });
 

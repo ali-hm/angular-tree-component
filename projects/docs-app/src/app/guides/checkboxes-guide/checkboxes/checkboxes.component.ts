@@ -5,12 +5,12 @@ import { ITreeOptions } from 'angular-tree-component';
   selector: 'app-checkboxes',
   templateUrl: './checkboxes.component.html',
   styleUrls: ['./checkboxes.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class CheckboxesComponent {
   nodes = [
     {
-      name: 'root1'
+      name: 'root1',
     },
     {
       name: 'root2',
@@ -18,35 +18,35 @@ export class CheckboxesComponent {
         { name: 'child1' },
         {
           name: 'child2',
-          children: [{ name: 'grandchild1' }, { name: 'grandchild2' }]
-        }
-      ]
+          children: [{ name: 'grandchild1' }, { name: 'grandchild2' }],
+        },
+      ],
     },
     {
       name: 'asyncroot',
-      hasChildren: true
-    }
+      hasChildren: true,
+    },
   ];
 
   options: ITreeOptions = {
     useCheckbox: true,
-    getChildren: this.getChildren.bind(this)
+    getChildren: this.getChildren.bind(this),
   };
 
   optionsDisabled: ITreeOptions = {
     useCheckbox: true,
     getChildren: this.getChildren.bind(this),
-    useTriState: false
+    useTriState: false,
   };
 
   getChildren(node: any) {
     const newNodes = [
       {
-        name: 'child1'
+        name: 'child1',
       },
       {
-        name: 'child2'
-      }
+        name: 'child2',
+      },
     ];
 
     return new Promise((resolve, reject) => {

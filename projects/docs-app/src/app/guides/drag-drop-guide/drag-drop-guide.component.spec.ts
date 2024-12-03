@@ -8,7 +8,7 @@ describe('DragDropGuideComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DragDropGuideComponent]
+      declarations: [DragDropGuideComponent],
     }).compileComponents();
   });
 

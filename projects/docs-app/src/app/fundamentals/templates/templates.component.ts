@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-templates',
   templateUrl: './templates.component.html',
   styleUrls: ['./templates.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class TemplatesComponent {
   template = `

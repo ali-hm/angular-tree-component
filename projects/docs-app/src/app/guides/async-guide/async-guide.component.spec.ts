@@ -8,7 +8,7 @@ describe('AsyncGuideComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AsyncGuideComponent]
+      declarations: [AsyncGuideComponent],
     }).compileComponents();
   });
 

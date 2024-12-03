@@ -1,10 +1,5 @@
 <div *ngIf="!node.children">
-  <a
-    [routerLink]="node.link"
-    [ngClass]="classes"
-    title="{{ node.tooltip }}"
-    class="vertical-menu-item"
-  >
+  <a [routerLink]="node.link" [ngClass]="classes" title="{{ node.tooltip }}" class="vertical-menu-item">
     <span>{{ node.title }}</span>
   </a>
 </div>

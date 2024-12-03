@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-async-guide',
   templateUrl: './async-guide.component.html',
   styleUrls: ['./async-guide.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class AsyncGuideComponent {
   javascript = `

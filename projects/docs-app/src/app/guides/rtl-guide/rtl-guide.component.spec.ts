@@ -8,7 +8,7 @@ describe('RtlGuideComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RtlGuideComponent]
+      declarations: [RtlGuideComponent],
     }).compileComponents();
   });
 

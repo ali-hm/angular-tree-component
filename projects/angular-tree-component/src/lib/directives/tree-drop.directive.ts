@@ -8,7 +8,7 @@ import {
   NgZone,
   OnDestroy,
   Output,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 
@@ -17,7 +17,7 @@ const DRAG_DISABLED_CLASS = 'is-dragging-over-disabled';
 
 @Directive({
   selector: '[treeDrop]',
-  standalone: false
+  standalone: false,
 })
 export class TreeDropDirective implements AfterViewInit, OnDestroy {
   @Input() allowDragoverStyling = true;
@@ -45,7 +45,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
     private el: ElementRef,
     private renderer: Renderer2,
     private treeDraggedElement: TreeDraggedElement,
-    private ngZone: NgZone
+    private ngZone: NgZone,
   ) {
     this.dragOverEventHandler = this.onDragOver.bind(this);
     this.dragEnterEventHandler = this.onDragEnter.bind(this);
@@ -78,7 +78,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
 
     this.onDragOverCallback.emit({
       event: $event,
-      element: this.treeDraggedElement.get()
+      element: this.treeDraggedElement.get(),
     });
 
     $event.preventDefault();
@@ -93,7 +93,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
     $event.preventDefault();
     this.onDragEnterCallback.emit({
       event: $event,
-      element: this.treeDraggedElement.get()
+      element: this.treeDraggedElement.get(),
     });
   }
 
@@ -106,7 +106,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
     }
     this.onDragLeaveCallback.emit({
       event: $event,
-      element: this.treeDraggedElement.get()
+      element: this.treeDraggedElement.get(),
     });
 
     if (this.allowDragoverStyling) {
@@ -120,7 +120,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
     $event.preventDefault();
     this.onDropCallback.emit({
       event: $event,
-      element: this.treeDraggedElement.get()
+      element: this.treeDraggedElement.get(),
     });
 
     if (this.allowDragoverStyling) {

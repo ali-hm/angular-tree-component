@@ -5,7 +5,7 @@ import { ITreeState } from 'angular-tree-component';
   selector: 'app-state-binding-demo',
   templateUrl: './state-binding-demo.component.html',
   styleUrls: ['./state-binding-demo.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class StateBindingDemoComponent {
   get state(): ITreeState {
@@ -25,12 +25,12 @@ export class StateBindingDemoComponent {
               {
                 id: 6,
                 name: 'child2.2',
-                children: [{ id: 7, name: 'grandchild2.2.1' }]
-              }
+                children: [{ id: 7, name: 'grandchild2.2.1' }],
+              },
             ]),
-          2000
+          2000,
         );
-      })
+      }),
   };
 
   nodes = [
@@ -39,13 +39,13 @@ export class StateBindingDemoComponent {
       name: 'root1',
       children: [
         { id: 2, name: 'child1' },
-        { id: 3, name: 'child2' }
-      ]
+        { id: 3, name: 'child2' },
+      ],
     },
     {
       id: 4,
       name: 'root2',
-      hasChildren: true
-    }
+      hasChildren: true,
+    },
   ];
 }

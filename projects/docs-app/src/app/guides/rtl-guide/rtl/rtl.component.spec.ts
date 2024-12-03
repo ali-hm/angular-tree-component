@@ -8,7 +8,7 @@ describe('RtlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RtlComponent]
+      declarations: [RtlComponent],
     }).compileComponents();
   });
 

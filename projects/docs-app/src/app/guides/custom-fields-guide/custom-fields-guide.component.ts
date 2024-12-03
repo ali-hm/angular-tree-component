@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-custom-fields-guide',
   templateUrl: './custom-fields-guide.component.html',
   styleUrls: ['./custom-fields-guide.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class CustomFieldsGuideComponent {
   javascript = `

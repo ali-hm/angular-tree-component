@@ -41,8 +41,8 @@ import { AutoScrollComponent } from './auto-scroll-guide/auto-scroll/auto-scroll
     CustomFieldsGuideComponent,
     ExpandingGuideComponent,
     AutoScrollGuideComponent,
-    AutoScrollComponent
+    AutoScrollComponent,
   ],
-  imports: [CommonModule, CodeExampleModule, TreeModule, RouterModule]
+  imports: [CommonModule, CodeExampleModule, TreeModule, RouterModule],
 })
 export class GuidesModule {}

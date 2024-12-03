@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-actions',
   templateUrl: './actions.component.html',
   styleUrls: ['./actions.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class ActionsComponent {
   actionMapping = `

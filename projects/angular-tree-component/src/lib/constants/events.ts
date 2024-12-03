@@ -15,5 +15,5 @@ export const TREE_EVENTS = {
   event: 'event',
   loadNodeChildren: 'loadNodeChildren',
   changeFilter: 'changeFilter',
-  stateChange: 'stateChange'
+  stateChange: 'stateChange',
 };

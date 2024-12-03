@@ -9,7 +9,7 @@ describe('ActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ActionsComponent],
-      teardown: { destroyAfterEach: false }
+      teardown: { destroyAfterEach: false },
     }).compileComponents();
   }));
 

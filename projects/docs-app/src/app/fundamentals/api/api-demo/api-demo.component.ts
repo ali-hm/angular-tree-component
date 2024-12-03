@@ -5,7 +5,7 @@ import { ITreeOptions } from 'angular-tree-component';
   selector: 'app-api-demo',
   templateUrl: './api-demo.component.html',
   styleUrls: ['./api-demo.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class ApiDemoComponent {
   options: ITreeOptions = {};
@@ -14,35 +14,35 @@ export class ApiDemoComponent {
       name: 'root1',
       children: [
         {
-          name: 'child1'
+          name: 'child1',
         },
         {
-          name: 'child2'
-        }
-      ]
+          name: 'child2',
+        },
+      ],
     },
     {
       name: 'root2',
       children: [
         {
-          name: 'child2.1'
+          name: 'child2.1',
         },
         {
           name: 'child2.2',
           children: [
             {
               id: 1001,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    }
+              name: 'subsub',
+            },
+          ],
+        },
+      ],
+    },
   ];
 
   addNode(tree: any) {
     this.nodes[0].children.push({
-      name: 'a new child'
+      name: 'a new child',
     });
     tree.treeModel.update();
   }
