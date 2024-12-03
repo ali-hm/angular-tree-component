@@ -7,12 +7,14 @@ import { LoadChildrenCallback } from '@angular/router';
 export const ELEMENT_MODULE_LOAD_CALLBACKS_AS_ROUTES = [
   {
     selector: 'code-example',
-    loadChildren: () => import('./code/code-example.module').then(m => m.CodeExampleModule)
+    loadChildren: () =>
+      import('./code/code-example.module').then((m) => m.CodeExampleModule)
   },
   {
     selector: 'code-tabs',
-    loadChildren: () => import('./code/code-tabs.module').then(m => m.CodeTabsModule)
-  },
+    loadChildren: () =>
+      import('./code/code-tabs.module').then((m) => m.CodeTabsModule)
+  }
 ];
 
 /**
@@ -24,10 +26,15 @@ export interface WithCustomElementComponent {
 }
 
 /** Injection token to provide the element path modules. */
-export const ELEMENT_MODULE_LOAD_CALLBACKS_TOKEN = new InjectionToken<Map<string, LoadChildrenCallback>>('aio/elements-map');
+export const ELEMENT_MODULE_LOAD_CALLBACKS_TOKEN = new InjectionToken<
+  Map<string, LoadChildrenCallback>
+>('aio/elements-map');
 
 /** Map of possible custom element selectors to their lazy-loadable module paths. */
-export const ELEMENT_MODULE_LOAD_CALLBACKS = new Map<string, LoadChildrenCallback>();
-ELEMENT_MODULE_LOAD_CALLBACKS_AS_ROUTES.forEach(route => {
+export const ELEMENT_MODULE_LOAD_CALLBACKS = new Map<
+  string,
+  LoadChildrenCallback
+>();
+ELEMENT_MODULE_LOAD_CALLBACKS_AS_ROUTES.forEach((route) => {
   ELEMENT_MODULE_LOAD_CALLBACKS.set(route.selector, route.loadChildren);
 });

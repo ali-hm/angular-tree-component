@@ -7,7 +7,12 @@
   box-sizing: border-box;
   clear: both;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: 500;
   }
 
@@ -15,7 +20,12 @@
     border-left: 8px solid $brightred;
     background-color: rgba($brightred, 0.05);
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: $brightred;
     }
   }
@@ -24,7 +34,12 @@
     border-left: 8px solid $orange;
     background-color: rgba($orange, 0.05);
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: $orange;
     }
   }
@@ -33,7 +48,12 @@
     border-left: 8px solid $blue;
     background-color: rgba($blue, 0.05);
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: $blue;
     }
   }

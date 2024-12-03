@@ -1,4 +1,10 @@
-import { Directive, Input, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  Input,
+  Renderer2,
+  TemplateRef,
+  ViewContainerRef
+} from '@angular/core';
 
 const EASE_ACCELERATION = 1.005;
 
@@ -23,21 +29,23 @@ export class TreeAnimateOpenDirective {
       this.isEnabled ? this._animateClose() : this._hide();
     }
     this._isOpen = !!value;
-  };
+  }
 
   private innerElement: any;
 
   constructor(
     private renderer: Renderer2,
     private templateRef: TemplateRef<any>,
-    private viewContainerRef: ViewContainerRef) {
-  }
+    private viewContainerRef: ViewContainerRef
+  ) {}
 
   private _show() {
     if (this.innerElement) return;
 
     // create child view
-    this.innerElement = this.viewContainerRef.createEmbeddedView(this.templateRef).rootNodes[0];
+    this.innerElement = this.viewContainerRef.createEmbeddedView(
+      this.templateRef
+    ).rootNodes[0];
   }
 
   private _hide() {
@@ -54,15 +62,22 @@ export class TreeAnimateOpenDirective {
     this.renderer.setStyle(this.innerElement, 'max-height', `0`);
 
     // increase maxHeight until height doesn't change
-    setTimeout(() => { // Allow inner element to create its content
+    setTimeout(() => {
+      // Allow inner element to create its content
       const i = setInterval(() => {
         if (!this._isOpen || !this.innerElement) return clearInterval(i);
 
         maxHeight += delta;
         const roundedMaxHeight = Math.round(maxHeight);
 
-        this.renderer.setStyle(this.innerElement, 'max-height', `${roundedMaxHeight}px`);
-        const height = this.innerElement.getBoundingClientRect ? this.innerElement.getBoundingClientRect().height : 0; // TBD use renderer
+        this.renderer.setStyle(
+          this.innerElement,
+          'max-height',
+          `${roundedMaxHeight}px`
+        );
+        const height = this.innerElement.getBoundingClientRect
+          ? this.innerElement.getBoundingClientRect().height
+          : 0; // TBD use renderer
 
         delta *= ease;
         ease *= EASE_ACCELERATION;

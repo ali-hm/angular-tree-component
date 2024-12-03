@@ -7,7 +7,6 @@ import { ITreeOptions } from 'angular-tree-component';
   styleUrls: ['./async.component.scss']
 })
 export class AsyncComponent {
-
   options: ITreeOptions = {
     getChildren: this.getChildren.bind(this),
     useCheckbox: true
@@ -19,7 +18,8 @@ export class AsyncComponent {
     {
       name: 'child1',
       hasChildren: true
-    }, {
+    },
+    {
       name: 'child2'
     }
   ];
@@ -28,9 +28,7 @@ export class AsyncComponent {
     this.nodes = [
       {
         name: 'root1',
-        children: [
-          { name: 'child1' }
-        ]
+        children: [{ name: 'child1' }]
       },
       {
         name: 'root2',
@@ -49,5 +47,4 @@ export class AsyncComponent {
       setTimeout(() => resolve(newNodes), 1000);
     });
   }
-
 }

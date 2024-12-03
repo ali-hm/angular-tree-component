@@ -7,14 +7,17 @@ import { ITreeOptions } from 'angular-tree-component';
   styleUrls: ['./columns.component.scss']
 })
 export class ColumnsComponent implements OnInit {
-
   nodes = [
     {
       name: 'Region 1 Headquarter',
       city: 'Central City',
       zipCode: '00001',
       children: [
-        { name: 'Region 1 Subdivision 1', city: 'Highway Town', zipCode: '00002' },
+        {
+          name: 'Region 1 Subdivision 1',
+          city: 'Highway Town',
+          zipCode: '00002'
+        },
         { name: 'Region 1 Subdivision 2', city: 'Main Town', zipCode: '00003' }
       ]
     },
@@ -23,14 +26,27 @@ export class ColumnsComponent implements OnInit {
       city: 'Beach City',
       zipCode: '00010',
       children: [
-        { name: 'Region 2 Subdivision 1', city: 'Palm Town', zipCode: '00011', children: [] },
-        { name: 'Region 2 Subdivision 2', city: 'Sunny Town', zipCode: '00012', children: [
-            { name: 'Customer Subdivision 2/2', city: 'Sunny Town', zipCode: '00012' }
+        {
+          name: 'Region 2 Subdivision 1',
+          city: 'Palm Town',
+          zipCode: '00011',
+          children: []
+        },
+        {
+          name: 'Region 2 Subdivision 2',
+          city: 'Sunny Town',
+          zipCode: '00012',
+          children: [
+            {
+              name: 'Customer Subdivision 2/2',
+              city: 'Sunny Town',
+              zipCode: '00012'
+            }
           ]
         }
       ]
     },
-    { name: 'Region 3 Headquarter', city: 'River City', zipCode: '00100' },
+    { name: 'Region 3 Headquarter', city: 'River City', zipCode: '00100' }
   ];
 
   options: ITreeOptions = {
@@ -43,9 +59,7 @@ export class ColumnsComponent implements OnInit {
 
   columns = ['city', 'zipCode'];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

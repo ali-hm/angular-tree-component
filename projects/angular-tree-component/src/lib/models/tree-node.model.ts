@@ -1,4 +1,11 @@
-import { observable, computed, reaction, autorun, action, IReactionDisposer } from 'mobx';
+import {
+  observable,
+  computed,
+  reaction,
+  autorun,
+  action,
+  IReactionDisposer
+} from 'mobx';
 import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
@@ -6,24 +13,32 @@ import { TREE_EVENTS } from '../constants/events';
 
 export class TreeNode implements ITreeNode {
   private handler: IReactionDisposer;
-  @computed get isHidden() { return this.treeModel.isHidden(this); };
-  @computed get isExpanded() { return this.treeModel.isExpanded(this); };
-  @computed get isActive() { return this.treeModel.isActive(this); };
-  @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
+  @computed get isHidden() {
+    return this.treeModel.isHidden(this);
+  }
+  @computed get isExpanded() {
+    return this.treeModel.isExpanded(this);
+  }
+  @computed get isActive() {
+    return this.treeModel.isActive(this);
+  }
+  @computed get isFocused() {
+    return this.treeModel.isNodeFocused(this);
+  }
   @computed get isSelected() {
     if (this.isSelectable()) {
-        return this.treeModel.isSelected(this);
+      return this.treeModel.isSelected(this);
     } else {
       return this.children.some((node: TreeNode) => node.isSelected);
     }
-  };
+  }
   @computed get isAllSelected() {
     if (this.isSelectable()) {
       return this.treeModel.isSelected(this);
     } else {
       return this.children.every((node: TreeNode) => node.isAllSelected);
     }
-  };
+  }
   @computed get isPartiallySelected() {
     return this.isSelected && !this.isAllSelected;
   }
@@ -45,9 +60,16 @@ export class TreeNode implements ITreeNode {
   }
 
   private _originalNode: any;
-  get originalNode() { return this._originalNode; };
+  get originalNode() {
+    return this._originalNode;
+  }
 
-  constructor(public data: any, public parent: TreeNode, public treeModel: TreeModel, index: number) {
+  constructor(
+    public data: any,
+    public parent: TreeNode,
+    public treeModel: TreeModel,
+    index: number
+  ) {
     if (this.id === undefined || this.id === null) {
       this.id = uuid();
     } // Make sure there's a unique id without overriding existing ids to work with immutable data structures
@@ -61,16 +83,31 @@ export class TreeNode implements ITreeNode {
 
   // helper get functions:
   get hasChildren(): boolean {
-    return !!(this.getField('hasChildren') || (this.children && this.children.length > 0));
+    return !!(
+      this.getField('hasChildren') ||
+      (this.children && this.children.length > 0)
+    );
   }
-  get isCollapsed(): boolean { return !this.isExpanded; }
-  get isLeaf(): boolean { return !this.hasChildren; }
-  get isRoot(): boolean { return this.parent.data.virtual; }
-  get realParent(): TreeNode { return this.isRoot ? null : this.parent; }
+  get isCollapsed(): boolean {
+    return !this.isExpanded;
+  }
+  get isLeaf(): boolean {
+    return !this.hasChildren;
+  }
+  get isRoot(): boolean {
+    return this.parent.data.virtual;
+  }
+  get realParent(): TreeNode {
+    return this.isRoot ? null : this.parent;
+  }
 
   // proxy functions:
-  get options(): TreeOptions { return this.treeModel.options; }
-  fireEvent(event) { this.treeModel.fireEvent(event); }
+  get options(): TreeOptions {
+    return this.treeModel.options;
+  }
+  fireEvent(event) {
+    this.treeModel.fireEvent(event);
+  }
 
   // field accessors:
   get displayField() {
@@ -126,13 +163,17 @@ export class TreeNode implements ITreeNode {
   getLastChild(skipHidden = false) {
     let children = skipHidden ? this.visibleChildren : this.children;
 
-    return children != null && children.length ? children[children.length - 1] : null;
+    return children != null && children.length
+      ? children[children.length - 1]
+      : null;
   }
 
   findNextNode(goInside = true, skipHidden = false) {
-    return goInside && this.isExpanded && this.getFirstChild(skipHidden) ||
-           this.findNextSibling(skipHidden) ||
-           this.parent && this.parent.findNextNode(false, skipHidden);
+    return (
+      (goInside && this.isExpanded && this.getFirstChild(skipHidden)) ||
+      this.findNextSibling(skipHidden) ||
+      (this.parent && this.parent.findNextNode(false, skipHidden))
+    );
   }
 
   findPreviousNode(skipHidden = false) {
@@ -145,13 +186,14 @@ export class TreeNode implements ITreeNode {
 
   _getLastOpenDescendant(skipHidden = false) {
     const lastChild = this.getLastChild(skipHidden);
-    return (this.isCollapsed || !lastChild)
+    return this.isCollapsed || !lastChild
       ? this
       : lastChild._getLastOpenDescendant(skipHidden);
   }
 
   private _getParentsChildren(skipHidden = false): any[] {
-    const children = this.parent &&
+    const children =
+      this.parent &&
       (skipHidden ? this.parent.getVisibleChildren() : this.parent.children);
 
     return children || [];
@@ -171,7 +213,9 @@ export class TreeNode implements ITreeNode {
   }
 
   getClass(): string {
-    return [this.options.nodeClass(this), `tree-node-level-${ this.level }`].join(' ');
+    return [this.options.nodeClass(this), `tree-node-level-${this.level}`].join(
+      ' '
+    );
   }
 
   onDrop($event) {
@@ -183,16 +227,15 @@ export class TreeNode implements ITreeNode {
 
   allowDrop = (element, $event?) => {
     return this.options.allowDrop(element, { parent: this, index: 0 }, $event);
-  }
+  };
 
   allowDragoverStyling = () => {
     return this.options.allowDragoverStyling;
-  }
+  };
 
   allowDrag() {
     return this.options.allowDrag(this);
   }
-
 
   // helper methods:
   loadNodeChildren() {
@@ -212,7 +255,9 @@ export class TreeNode implements ITreeNode {
               child.expand();
             }
           });
-      }}).then(() => {
+        }
+      })
+      .then(() => {
         this.fireEvent({
           eventName: TREE_EVENTS.loadNodeChildren,
           node: this
@@ -273,19 +318,18 @@ export class TreeNode implements ITreeNode {
     }
 
     return this;
-  };
+  }
 
   autoLoadChildren() {
-    this.handler =
-      reaction(
-        () => this.isExpanded,
-        (isExpanded) => {
-          if (!this.children && this.hasChildren && isExpanded) {
-            this.loadNodeChildren();
-          }
-        },
-        { fireImmediately: true }
-      );
+    this.handler = reaction(
+      () => this.isExpanded,
+      (isExpanded) => {
+        if (!this.children && this.hasChildren && isExpanded) {
+          this.loadNodeChildren();
+        }
+      },
+      { fireImmediately: true }
+    );
   }
 
   dispose() {
@@ -335,8 +379,7 @@ export class TreeNode implements ITreeNode {
   }
 
   setActiveAndVisible(multi = false) {
-    this.setIsActive(true, multi)
-      .ensureVisible();
+    this.setIsActive(true, multi).ensureVisible();
 
     setTimeout(this.scrollIntoView.bind(this));
 
@@ -399,8 +442,9 @@ export class TreeNode implements ITreeNode {
   }
 
   @action _initChildren() {
-    this.children = this.getField('children')
-      .map((c, index) => new TreeNode(c, this, this.treeModel, index));
+    this.children = this.getField('children').map(
+      (c, index) => new TreeNode(c, this, this.treeModel, index)
+    );
   }
 }
 

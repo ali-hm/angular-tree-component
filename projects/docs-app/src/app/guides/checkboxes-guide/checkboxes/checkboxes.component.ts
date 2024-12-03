@@ -7,19 +7,18 @@ import { ITreeOptions } from 'angular-tree-component';
   styleUrls: ['./checkboxes.component.scss']
 })
 export class CheckboxesComponent {
-
   nodes = [
     {
-      name: 'root1',
+      name: 'root1'
     },
     {
       name: 'root2',
       children: [
         { name: 'child1' },
-        { name: 'child2', children: [
-            { name: 'grandchild1' },
-            { name: 'grandchild2' }
-          ] }
+        {
+          name: 'child2',
+          children: [{ name: 'grandchild1' }, { name: 'grandchild2' }]
+        }
       ]
     },
     {
@@ -43,7 +42,8 @@ export class CheckboxesComponent {
     const newNodes = [
       {
         name: 'child1'
-      }, {
+      },
+      {
         name: 'child2'
       }
     ];
@@ -52,5 +52,4 @@ export class CheckboxesComponent {
       setTimeout(() => resolve(newNodes), 1000);
     });
   }
-
 }

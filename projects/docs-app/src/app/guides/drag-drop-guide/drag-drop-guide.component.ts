@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./drag-drop-guide.component.scss']
 })
 export class DragDropGuideComponent {
-  options =
-`
+  options = `
 options = {
   allowDrag: (node) => node.isLeaf,
   allowDrop: (element, { parent, index }) {

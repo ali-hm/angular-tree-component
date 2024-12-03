@@ -1,5 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { TreeNode, TreeModel, TREE_ACTIONS, KEYS, IActionMapping, ITreeOptions } from 'angular-tree-component';
+import {
+  TreeNode,
+  TreeModel,
+  TREE_ACTIONS,
+  KEYS,
+  IActionMapping,
+  ITreeOptions
+} from 'angular-tree-component';
 
 const actionMapping: IActionMapping = {
   mouse: {
@@ -33,23 +40,17 @@ const actionMapping: IActionMapping = {
 
 @Component({
   selector: 'app-actions',
-  styles: [
-  ],
+  styles: [],
   template: `
-    <tree-root
-      #tree
-      [nodes]="nodes"
-      [options]="options"
-      [focused]="true"
-    >
+    <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true">
     </tree-root>
-    <br>
-    <b>Custom Keys:</b><br>
-    enter - show alert<br>
-    <br>
-    <b>Custom Mouse Actions:</b><br>
-    shift+click - select multi<br>
-    double click - expand / collapse<br>
+    <br />
+    <b>Custom Keys:</b><br />
+    enter - show alert<br />
+    <br />
+    <b>Custom Mouse Actions:</b><br />
+    shift+click - select multi<br />
+    double click - expand / collapse<br />
     right-click - show alert
   `
 })
@@ -60,7 +61,8 @@ export class ActionsComponent {
       children: [
         {
           name: 'child1'
-        }, {
+        },
+        {
           name: 'child2'
         }
       ]
@@ -70,7 +72,8 @@ export class ActionsComponent {
       children: [
         {
           name: 'child2.1'
-        }, {
+        },
+        {
           name: 'child2.2',
           children: [
             {

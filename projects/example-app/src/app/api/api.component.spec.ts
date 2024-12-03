@@ -8,10 +8,9 @@ describe('ApiComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    declarations: [ApiComponent],
-    teardown: { destroyAfterEach: false }
-})
-    .compileComponents();
+      declarations: [ApiComponent],
+      teardown: { destroyAfterEach: false }
+    }).compileComponents();
   }));
 
   beforeEach(() => {

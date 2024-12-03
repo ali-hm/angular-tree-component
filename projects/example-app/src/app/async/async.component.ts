@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ITreeOptions, TreeNode} from 'angular-tree-component';
+import { ITreeOptions, TreeNode } from 'angular-tree-component';
 
 @Component({
   selector: 'app-async',
   template: `
     <tree-root #tree [options]="options" [nodes]="nodes"></tree-root>
- `,
+  `,
   styles: []
 })
 export class AsyncTreeComponent {
@@ -20,7 +20,8 @@ export class AsyncTreeComponent {
     {
       name: 'child1',
       hasChildren: true
-    }, {
+    },
+    {
       name: 'child2'
     }
   ];
@@ -29,9 +30,7 @@ export class AsyncTreeComponent {
     this.nodes = [
       {
         name: 'root1',
-        children: [
-          { name: 'child1' }
-        ]
+        children: [{ name: 'child1' }]
       },
       {
         name: 'root2',

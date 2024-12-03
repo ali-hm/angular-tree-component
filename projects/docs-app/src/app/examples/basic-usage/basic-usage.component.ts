@@ -6,22 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./basic-usage.component.scss']
 })
 export class BasicUsageComponent implements OnInit {
-
   nodes = [
     {
       name: 'root1',
-      children: [
-        { name: 'child1' },
-        { name: 'child2' }
-      ]
+      children: [{ name: 'child1' }, { name: 'child2' }]
     },
     {
       name: 'root2',
       children: [
         { name: 'child2.1', children: [] },
-        { name: 'child2.2', children: [
-            {name: 'grandchild2.2.1'}
-          ] }
+        { name: 'child2.2', children: [{ name: 'grandchild2.2.1' }] }
       ]
     },
     { name: 'root3' },
@@ -29,9 +23,7 @@ export class BasicUsageComponent implements OnInit {
     { name: 'root5', children: null }
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

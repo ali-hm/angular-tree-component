@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: '',
     component: GettingStartedComponent,
-    pathMatch: 'full',
+    pathMatch: 'full'
   },
   {
     path: 'examples',
@@ -39,7 +39,7 @@ const routes: Routes = [
       { path: 'basic', component: BasicUsageComponent },
       { path: 'columns', component: ColumnsExampleComponent },
       { path: 'crud', component: CrudExampleComponent },
-      { path: 'loadmore', component: LoadMoreExampleComponent },
+      { path: 'loadmore', component: LoadMoreExampleComponent }
     ]
   },
   {
@@ -55,7 +55,7 @@ const routes: Routes = [
       { path: 'rtl', component: RtlGuideComponent },
       { path: 'customfields', component: CustomFieldsGuideComponent },
       { path: 'expanding', component: ExpandingGuideComponent },
-      { path: 'autoscroll', component: AutoScrollGuideComponent },
+      { path: 'autoscroll', component: AutoScrollGuideComponent }
     ]
   },
   {
@@ -70,23 +70,17 @@ const routes: Routes = [
       { path: 'api', component: ApiComponent },
       { path: 'styling', component: StylingComponent },
       { path: 'focus', component: FocusComponent },
-      { path: 'issues', component: IssuesComponent },
+      { path: 'issues', component: IssuesComponent }
     ]
-  },
+  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(
-      routes,
-      {
-    scrollPositionRestoration: 'enabled'
-}
-    ),
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled'
+    })
   ],
-  exports: [
-    RouterModule,
-  ]
+  exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

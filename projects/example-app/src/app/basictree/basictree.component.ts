@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-basictree',
   template: `
     <tree-root [focused]="true" [nodes]="nodes"></tree-root>
-    <br>
+    <br />
     <p>Keys:</p>
     down | up | left | right | space | enter
   `,
@@ -14,18 +14,13 @@ export class BasicTreeComponent {
   nodes = [
     {
       name: 'root1',
-      children: [
-        { name: 'child1' },
-        { name: 'child2' }
-      ]
+      children: [{ name: 'child1' }, { name: 'child2' }]
     },
     {
       name: 'root2',
       children: [
         { name: 'child2.1', children: [] },
-        { name: 'child2.2', children: [
-          {name: 'grandchild2.2.1'}
-        ] }
+        { name: 'child2.2', children: [{ name: 'grandchild2.2.1' }] }
       ]
     },
     { name: 'root3' },

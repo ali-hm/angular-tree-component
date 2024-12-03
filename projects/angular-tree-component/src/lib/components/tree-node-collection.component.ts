@@ -11,7 +11,6 @@ import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeModel } from '../models/tree.model';
 
-
 @Component({
   selector: 'tree-node-children',
   encapsulation: ViewEncapsulation.None,
@@ -112,16 +111,16 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
         () => {
           return this.virtualScroll
             .getViewportNodes(this.nodes)
-            .map(n => n.index);
+            .map((n) => n.index);
         },
-        nodeIndexes => {
-          this.viewportNodes = nodeIndexes.map(i => this.nodes[i]);
+        (nodeIndexes) => {
+          this.viewportNodes = nodeIndexes.map((i) => this.nodes[i]);
         },
         { compareStructural: true, fireImmediately: true } as any
       ),
       reaction(
         () => this.nodes,
-        nodes => {
+        (nodes) => {
           this.viewportNodes = this.virtualScroll.getViewportNodes(nodes);
         }
       )
@@ -129,7 +128,7 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._dispose.forEach(d => d());
+    this._dispose.forEach((d) => d());
   }
 
   trackNode(index, node) {
@@ -192,6 +191,3 @@ export class TreeNodeComponent {
   @Input() index: number;
   @Input() templates: any;
 }
-
-
-

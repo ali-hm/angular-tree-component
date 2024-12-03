@@ -23,12 +23,26 @@ import { AutoScrollGuideComponent } from './auto-scroll-guide/auto-scroll-guide.
 import { AutoScrollComponent } from './auto-scroll-guide/auto-scroll/auto-scroll.component';
 
 @NgModule({
-  declarations: [AsyncGuideComponent, AsyncComponent, FilterGuideComponent, FilterComponent, UpdateGuideComponent, DragDropGuideComponent, DragDropComponent, CheckboxesGuideComponent, CheckboxesComponent, LargeTreeGuideComponent, LargeTreeComponent, ReduxGuideComponent, RtlGuideComponent, RtlComponent, CustomFieldsGuideComponent, ExpandingGuideComponent, AutoScrollGuideComponent, AutoScrollComponent],
-  imports: [
-    CommonModule,
-    CodeExampleModule,
-    TreeModule,
-    RouterModule
-  ]
+  declarations: [
+    AsyncGuideComponent,
+    AsyncComponent,
+    FilterGuideComponent,
+    FilterComponent,
+    UpdateGuideComponent,
+    DragDropGuideComponent,
+    DragDropComponent,
+    CheckboxesGuideComponent,
+    CheckboxesComponent,
+    LargeTreeGuideComponent,
+    LargeTreeComponent,
+    ReduxGuideComponent,
+    RtlGuideComponent,
+    RtlComponent,
+    CustomFieldsGuideComponent,
+    ExpandingGuideComponent,
+    AutoScrollGuideComponent,
+    AutoScrollComponent
+  ],
+  imports: [CommonModule, CodeExampleModule, TreeModule, RouterModule]
 })
-export class GuidesModule { }
+export class GuidesModule {}

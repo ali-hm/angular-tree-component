@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class Logger {
-
   constructor(private errorHandler: ErrorHandler) {}
 
   log(value: any, ...rest: any[]) {

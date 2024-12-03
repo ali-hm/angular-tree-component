@@ -1,5 +1,10 @@
 import { Component, HostListener } from '@angular/core';
-import { ITreeOptions, TREE_ACTIONS, TreeNode, TreeModel } from 'angular-tree-component';
+import {
+  ITreeOptions,
+  TREE_ACTIONS,
+  TreeNode,
+  TreeModel
+} from 'angular-tree-component';
 
 @Component({
   selector: 'app-contextmenu',
@@ -11,68 +16,79 @@ import { ITreeOptions, TREE_ACTIONS, TreeNode, TreeModel } from 'angular-tree-co
             autofocus
             [(ngModel)]="node.data.name"
             (blur)="stopEdit()"
-            (keyup.enter)="stopEdit()"/>
+            (keyup.enter)="stopEdit()"
+          />
         </span>
         <span *ngIf="node !== editNode">{{ node.data.name }}</span>
       </ng-template>
     </tree-root>
-    <div class="menu" *ngIf="contextMenu" [style.left.px]="contextMenu.x" [style.top.px]="contextMenu.y">
+    <div
+      class="menu"
+      *ngIf="contextMenu"
+      [style.left.px]="contextMenu.x"
+      [style.top.px]="contextMenu.y"
+    >
       <div>Menu for {{ contextMenu.node.data.name }}</div>
-      <hr>
+      <hr />
       <ul>
         <li (click)="edit()"><a>Edit</a></li>
         <li (click)="copy()"><a>Copy</a></li>
         <li (click)="cut()"><a>Cut</a></li>
-        <li (click)="paste()"><a [style.opacity]="canPaste() && 1 || 0.3">Paste</a></li>
+        <li (click)="paste()">
+          <a [style.opacity]="(canPaste() && 1) || 0.3">Paste</a>
+        </li>
       </ul>
     </div>
-    <br>
+    <br />
     <p>Keys:</p>
     down | up | left | right | space | enter
   `,
   styles: [
-    `.menu {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 7px;
-      border-radius: 5px;
-      box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);
-    }`,
-    `ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }`,
-    `li {
-      padding: 7px;
-      border-radius: 3px;
-      cursor: pointer;
-    }`,
-    `li:hover {
-      background-color: aliceblue;
-    }`,
+    `
+      .menu {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 7px;
+        border-radius: 5px;
+        box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+      }
+    `,
+    `
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+    `,
+    `
+      li {
+        padding: 7px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+    `,
+    `
+      li:hover {
+        background-color: aliceblue;
+      }
+    `
   ]
 })
 export class ContextmenuComponent {
-  contextMenu: {node: TreeNode, x: number, y: number} = null;
+  contextMenu: { node: TreeNode; x: number; y: number } = null;
   sourceNode: TreeNode = null;
   editNode: TreeNode = null;
   doCut = false;
   nodes = [
     {
       name: 'root1',
-      children: [
-        { name: 'child1' },
-        { name: 'child2' }
-      ]
+      children: [{ name: 'child1' }, { name: 'child2' }]
     },
     {
       name: 'root2',
       children: [
         { name: 'child2.1', children: [] },
-        { name: 'child2.2', children: [
-          {name: 'grandchild2.2.1'}
-        ] }
+        { name: 'child2.2', children: [{ name: 'grandchild2.2.1' }] }
       ]
     },
     { name: 'root3' },
@@ -83,7 +99,11 @@ export class ContextmenuComponent {
   options: ITreeOptions = {
     actionMapping: {
       mouse: {
-        contextMenu: (treeModel: TreeModel, treeNode: TreeNode, e: MouseEvent) => {
+        contextMenu: (
+          treeModel: TreeModel,
+          treeNode: TreeNode,
+          e: MouseEvent
+        ) => {
           e.preventDefault();
           if (this.contextMenu && treeNode === this.contextMenu.node) {
             return this.closeMenu();
@@ -104,47 +124,56 @@ export class ContextmenuComponent {
 
   closeMenu = () => {
     this.contextMenu = null;
-  }
+  };
 
   edit = () => {
     this.editNode = this.contextMenu.node;
     this.closeMenu();
-  }
+  };
 
   stopEdit = () => {
     this.editNode = null;
-  }
+  };
 
   copy = () => {
     this.sourceNode = this.contextMenu.node;
     this.doCut = false;
     this.closeMenu();
-  }
+  };
 
   cut = () => {
     this.sourceNode = this.contextMenu.node;
     this.doCut = true;
     this.closeMenu();
-  }
+  };
 
   paste = () => {
     if (!this.canPaste()) {
       return;
     }
     this.doCut
-      ? this.sourceNode.treeModel.moveNode(this.sourceNode, { parent: this.contextMenu.node, index: 0 })
-      : this.sourceNode.treeModel.copyNode(this.sourceNode, { parent: this.contextMenu.node, index: 0 });
+      ? this.sourceNode.treeModel.moveNode(this.sourceNode, {
+          parent: this.contextMenu.node,
+          index: 0
+        })
+      : this.sourceNode.treeModel.copyNode(this.sourceNode, {
+          parent: this.contextMenu.node,
+          index: 0
+        });
 
     this.sourceNode = null;
     this.closeMenu();
-  }
+  };
 
   canPaste = () => {
     if (!this.sourceNode) {
       return false;
     }
-    return this.sourceNode.treeModel.canMoveNode(this.sourceNode, { parent: this.contextMenu.node, index: 0 });
-  }
+    return this.sourceNode.treeModel.canMoveNode(this.sourceNode, {
+      parent: this.contextMenu.node,
+      index: 0
+    });
+  };
 }
 
 function uuid() {

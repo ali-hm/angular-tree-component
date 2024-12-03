@@ -5,15 +5,35 @@ import { TreeModel, TreeNode } from 'angular-tree-component';
   selector: 'app-filter',
   template: `
     <h2>Filter</h2>
-    <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" placeholder="filter nodes"/>
+    <input
+      id="filter"
+      #filter
+      (keyup)="tree.treeModel.filterNodes(filter.value)"
+      placeholder="filter nodes"
+    />
     <button (click)="tree.treeModel.clearFilter()">Clear Filter</button>
-    <tree-root #tree [focused]="true" [options]="options" [nodes]="nodes"></tree-root>
+    <tree-root
+      #tree
+      [focused]="true"
+      [options]="options"
+      [nodes]="nodes"
+    ></tree-root>
 
-    <input id="filter2" #filter2 (keyup)="tree.treeModel.filterNodes(filter2.value, false)" placeholder="filter nodes"/>
+    <input
+      id="filter2"
+      #filter2
+      (keyup)="tree.treeModel.filterNodes(filter2.value, false)"
+      placeholder="filter nodes"
+    />
 
     <h3>Filter By Function (Fuzzy Search)</h3>
-    <input id="filter3" #filter3 (keyup)="filterFn(filter3.value, tree.treeModel)" placeholder="filter nodes by fuzzy search"/>
- `,
+    <input
+      id="filter3"
+      #filter3
+      (keyup)="filterFn(filter3.value, tree.treeModel)"
+      placeholder="filter nodes by fuzzy search"
+    />
+  `,
   styles: []
 })
 export class FilterComponent {
@@ -24,20 +44,20 @@ export class FilterComponent {
     {
       name: 'North America',
       children: [
-        { name: 'United States', children: [
-          {name: 'New York'},
-          {name: 'California'},
-          {name: 'Florida'}
-        ] },
+        {
+          name: 'United States',
+          children: [
+            { name: 'New York' },
+            { name: 'California' },
+            { name: 'Florida' }
+          ]
+        },
         { name: 'Canada' }
       ]
     },
     {
       name: 'South America',
-      children: [
-        { name: 'Argentina', children: [] },
-        { name: 'Brazil' }
-      ]
+      children: [{ name: 'Argentina', children: [] }, { name: 'Brazil' }]
     },
     {
       name: 'Europe',
@@ -52,12 +72,13 @@ export class FilterComponent {
   ];
 
   filterFn(value: string, treeModel: TreeModel) {
-    treeModel.filterNodes((node: TreeNode) => fuzzysearch(value, node.data.name));
+    treeModel.filterNodes((node: TreeNode) =>
+      fuzzysearch(value, node.data.name)
+    );
   }
 }
 
-
-function fuzzysearch (needle: string, haystack: string) {
+function fuzzysearch(needle: string, haystack: string) {
   const haystackLC = haystack.toLowerCase();
   const needleLC = needle.toLowerCase();
 

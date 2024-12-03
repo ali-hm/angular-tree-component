@@ -21,7 +21,7 @@ $grid-breakpoints: (
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
     .tree-column {
-      color: #6E6E6E;
+      color: #6e6e6e;
       vertical-align: bottom;
       font-size: 12px;
       font-weight: 500;
@@ -55,7 +55,8 @@ $grid-breakpoints: (
     width: 98% !important;
   }
 
-  .tree-column-wrapper, .tree-header {
+  .tree-column-wrapper,
+  .tree-header {
     width: 100%;
     display: flex;
     justify-content: flex-end;
@@ -89,15 +90,15 @@ $grid-breakpoints: (
         flex-shrink: 0;
         width: 250px;
 
-        @media(max-width: 1440px - 1px) {
+        @media (max-width: 1440px - 1px) {
           width: 160px;
         }
 
-        @media(max-width: map-get($grid-breakpoints, xl) - 1px) {
+        @media (max-width: map-get($grid-breakpoints, xl) - 1px) {
           width: 85px !important;
         }
 
-        @media(max-width: 768px) {
+        @media (max-width: 768px) {
           display: none !important;
         }
       }

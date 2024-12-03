@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./expanding-guide.component.scss']
 })
 export class ExpandingGuideComponent {
-
   allNodes = `
 <tree-root #tree [nodes]="nodes"></tree-root>
 
@@ -34,5 +33,4 @@ export class ExpandingGuideComponent {
     firstRoot.setActiveAndVisible();
   }
 }`;
-
 }

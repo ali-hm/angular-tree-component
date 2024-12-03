@@ -8,12 +8,13 @@
 
 <code-example>{{ event }}</code-example>
 
-
 <h2>treeModel</h2>
 
-<p>All events have a <code>treeModel</code> attribute that allows you to access the tree API.</p>
+<p>
+  All events have a <code>treeModel</code> attribute that allows you to access
+  the tree API.
+</p>
 <p>Specific events and other attributes are listed below:</p>
-
 
 <h2>toggleExpanded</h2>
 
@@ -21,23 +22,25 @@
 
 <code-example language="json">{{ toggleExpanded }}</code-example>
 
-
 <h2>activate / nodeActivate</h2>
-<p>Triggers when activating a tree node, by clicking on the node, or by using the Enter / Space keys.</p>
+<p>
+  Triggers when activating a tree node, by clicking on the node, or by using the
+  Enter / Space keys.
+</p>
 <p>nodeActivate is an alias to support older browser versions.</p>
 <code-example language="json">{{ basicEvent }}</code-example>
 
-
 <h2>deactivate / nodeDeactivate</h2>
-<p>Triggers when deactivating a tree node, by clicking on the node, or by using the Enter or Space keys.</p>
+<p>
+  Triggers when deactivating a tree node, by clicking on the node, or by using
+  the Enter or Space keys.
+</p>
 <p>nodeDeactivate is an alias to support older browser versions.</p>
 <code-example language="json">{{ basicEvent }}</code-example>
-
 
 <h2>focus</h2>
 <p>Triggers when focusing on a node, by moving with the arrow keys.</p>
 <code-example language="json">{{ basicEvent }}</code-example>
-
 
 <h2>blur</h2>
 <p>Triggers when focusing on a node, by moving with the arrow keys.</p>
@@ -45,39 +48,45 @@
 
 <h2>initialized</h2>
 <p>Triggers after tree model was created.</p>
-<p>Good for performing actions immediately on init, like expanding / activating certain nodes, etc.</p>
-<p>You can access the tree model using a ref, as described in the API section.</p>
+<p>
+  Good for performing actions immediately on init, like expanding / activating
+  certain nodes, etc.
+</p>
+<p>
+  You can access the tree model using a ref, as described in the API section.
+</p>
 <code-example language="json">{{ eventName }}</code-example>
-
 
 <h2>updateData</h2>
-Triggers after tree model was updated, either by changing the inputs of the tree (nodes, options, etc.) or a direct call to <code>update()</code>.
+Triggers after tree model was updated, either by changing the inputs of the tree
+(nodes, options, etc.) or a direct call to <code>update()</code>.
 <code-example language="json">{{ eventName }}</code-example>
-
 
 <h2>moveNode</h2>
 <p>This event is fired any time moveNode is called on the tree.</p>
 <p>Typically - when drag and dropping a node.</p>
 <code-example language="json">{{ move }}</code-example>
 
-
 <h2>copyNode</h2>
 <p>This event is fired any time copyNode is called on the tree.</p>
 <p>Typically - when drag and dropping a node while ctrl key is pressed.</p>
 <code-example language="json">{{ copy }}</code-example>
 
-
 <h2>event</h2>
 <p>Catch-all event that is triggered on every other event that is triggered.</p>
-<p>Useful for doing the same action for different events by checking the eventName.</p>
+<p>
+  Useful for doing the same action for different events by checking the
+  eventName.
+</p>
 <p>The parameters will match whatever event was sent originally.</p>
 <code-example language="json">{{ baseEvent }}</code-example>
 
-
 <h2>loadNodeChildren</h2>
-<p>Callback after async children were added to the tree. The <code>node</code> returned is the parent node.</p>
+<p>
+  Callback after async children were added to the tree. The
+  <code>node</code> returned is the parent node.
+</p>
 <code-example language="json">{{ basicEvent }}</code-example>
-
 
 <h2>changeFilter</h2>
 <p>Fired after filter has changed or cleared</p>

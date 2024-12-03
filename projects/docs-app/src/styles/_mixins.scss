@@ -8,31 +8,37 @@
 *************************************/
 
 @mixin bp($point) {
-
-  $bp-xsmall: "(min-width: 320px)";
-  $bp-teeny: "(min-width: 480px)";
-  $bp-tiny: "(min-width: 600px)";
-  $bp-small: "(min-width: 650px)";
-  $bp-medium: "(min-width: 800px)";
-  $bp-big: "(min-width: 1000px)";
+  $bp-xsmall: '(min-width: 320px)';
+  $bp-teeny: '(min-width: 480px)';
+  $bp-tiny: '(min-width: 600px)';
+  $bp-small: '(min-width: 650px)';
+  $bp-medium: '(min-width: 800px)';
+  $bp-big: '(min-width: 1000px)';
 
   @if $point == big {
-    @media #{$bp-big} { @content; }
-  }
-  @else if $point == medium {
-    @media #{$bp-medium} { @content; }
-  }
-  @else if $point == small {
-    @media #{$bp-small}  { @content; }
-  }
-  @else if $point == tiny {
-    @media #{$bp-tiny}  { @content; }
-  }
-  @else if $point == teeny {
-    @media #{$bp-teeny}  { @content; }
-  }
-  @else if $point == xsmall {
-    @media #{$bp-xsmall}  { @content; }
+    @media #{$bp-big} {
+      @content;
+    }
+  } @else if $point == medium {
+    @media #{$bp-medium} {
+      @content;
+    }
+  } @else if $point == small {
+    @media #{$bp-small} {
+      @content;
+    }
+  } @else if $point == tiny {
+    @media #{$bp-tiny} {
+      @content;
+    }
+  } @else if $point == teeny {
+    @media #{$bp-teeny} {
+      @content;
+    }
+  } @else if $point == xsmall {
+    @media #{$bp-xsmall} {
+      @content;
+    }
   }
 }
 
@@ -56,10 +62,18 @@
 // NOTE: Vendor-prefixed selectors must be on separate blocks, because one invalid/unknown
 //       selector will invalidate the whole block.
 @mixin placeholder {
-  &:-ms-input-placeholder      { @content; }  // IE
-  &::-ms-input-placeholder     { @content; }  // Edge
-  &::-webkit-input-placeholder { @content; }  // QQ Browser
-  &::placeholder               { @content; }  // Chrome/Firefox/Safari
+  &:-ms-input-placeholder {
+    @content;
+  } // IE
+  &::-ms-input-placeholder {
+    @content;
+  } // Edge
+  &::-webkit-input-placeholder {
+    @content;
+  } // QQ Browser
+  &::placeholder {
+    @content;
+  } // Chrome/Firefox/Safari
 }
 
 @mixin rotate($degrees) {
@@ -86,12 +100,16 @@
   width: $width;
   background-color: $white;
   border-radius: 4px;
-  box-shadow: 0 2px 2px rgba($black, 0.24), 0 0 2px rgba($black, 0.12);
+  box-shadow:
+    0 2px 2px rgba($black, 0.24),
+    0 0 2px rgba($black, 0.12);
   box-sizing: border-box;
-  transition: box-shadow .5s;
+  transition: box-shadow 0.5s;
 
   &:hover {
-    box-shadow: 0 8px 8px rgba($black, 0.24), 0 0 8px rgba($black, 0.12);
+    box-shadow:
+      0 8px 8px rgba($black, 0.24),
+      0 0 8px rgba($black, 0.12);
     text-decoration: none;
   }
 }

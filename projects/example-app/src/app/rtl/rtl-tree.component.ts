@@ -16,18 +16,13 @@ export class RtlTreeComponent {
   nodes = [
     {
       name: 'עץ תיקיות',
-      children: [
-        { name: 'קובץ 1' },
-        { name: 'קובץ 2' }
-      ]
+      children: [{ name: 'קובץ 1' }, { name: 'קובץ 2' }]
     },
     {
       name: 'עוד עץ',
       children: [
         { name: 'עלה', children: [] },
-        { name: 'ענף', children: [
-          {name: 'בן של ענף'}
-        ] }
+        { name: 'ענף', children: [{ name: 'בן של ענף' }] }
       ]
     }
   ];

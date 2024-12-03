@@ -7,17 +7,15 @@ import { ITreeOptions } from 'angular-tree-component';
   styleUrls: ['./api-demo.component.scss']
 })
 export class ApiDemoComponent {
-
-  options: ITreeOptions = {
-
-  };
+  options: ITreeOptions = {};
   nodes = [
     {
       name: 'root1',
       children: [
         {
           name: 'child1'
-        }, {
+        },
+        {
           name: 'child2'
         }
       ]
@@ -27,7 +25,8 @@ export class ApiDemoComponent {
       children: [
         {
           name: 'child2.1'
-        }, {
+        },
+        {
           name: 'child2.2',
           children: [
             {
@@ -49,12 +48,10 @@ export class ApiDemoComponent {
 
   activateSubSub(tree: any) {
     // tree.treeModel.getNodeBy((node) => node.data.name === 'subsub')
-    tree.treeModel.getNodeById(1001)
-      .setActiveAndVisible();
+    tree.treeModel.getNodeById(1001).setActiveAndVisible();
   }
 
   activeNodes(treeModel: any) {
     console.log(treeModel.activeNodes);
   }
-
 }

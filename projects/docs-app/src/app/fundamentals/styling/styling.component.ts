@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./styling.component.scss']
 })
 export class StylingComponent {
-
   branchLines = `
 .node-content-wrapper, .tree-children {
   position: relative;
@@ -168,5 +167,4 @@ div.tree>tree-node>div>.node-wrapper>tree-node-expander>.toggle-children-wrapper
     left: 22px
 }
 `;
-
 }

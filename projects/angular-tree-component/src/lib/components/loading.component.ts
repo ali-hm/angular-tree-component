@@ -1,4 +1,9 @@
-import { Component, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  TemplateRef,
+  ViewEncapsulation
+} from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 
 @Component({
@@ -8,9 +13,10 @@ import { TreeNode } from '../models/tree-node.model';
     <span *ngIf="!template">loading...</span>
     <ng-container
       [ngTemplateOutlet]="template"
-      [ngTemplateOutletContext]="{ $implicit: node }">
+      [ngTemplateOutletContext]="{ $implicit: node }"
+    >
     </ng-container>
-  `,
+  `
 })
 export class LoadingComponent {
   @Input() template: TemplateRef<any>;

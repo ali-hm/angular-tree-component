@@ -1,5 +1,14 @@
 /* tslint:disable component-selector */
-import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import { CodeComponent } from './code.component';
 
 export interface TabInfo {
@@ -31,17 +40,19 @@ export interface TabInfo {
           <ng-template mat-tab-label>
             <span class="{{ tab.class }}">{{ tab.header }}</span>
           </ng-template>
-          <aio-code class="{{ tab.class }}"
-                    [language]="tab.language"
-                    [linenums]="tab.linenums"
-                    [path]="tab.path"
-                    [region]="tab.region"
-                    [header]="tab.header">
+          <aio-code
+            class="{{ tab.class }}"
+            [language]="tab.language"
+            [linenums]="tab.linenums"
+            [path]="tab.path"
+            [region]="tab.region"
+            [header]="tab.header"
+          >
           </aio-code>
         </mat-tab>
       </mat-tab-group>
     </mat-card>
-  `,
+  `
 })
 export class CodeTabsComponent implements OnInit, AfterViewInit {
   tabs: TabInfo[];
@@ -54,7 +65,9 @@ export class CodeTabsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.tabs = [];
-    const codeExamples = Array.from(this.content.nativeElement.querySelectorAll('code-pane'));
+    const codeExamples = Array.from(
+      this.content.nativeElement.querySelectorAll('code-pane')
+    );
 
     for (const tabContent of codeExamples) {
       this.tabs.push(this.getTabInfo(tabContent));
@@ -77,7 +90,7 @@ export class CodeTabsComponent implements OnInit, AfterViewInit {
 
       header: tabContent.getAttribute('header') || undefined,
       language: tabContent.getAttribute('language') || undefined,
-      linenums: tabContent.getAttribute('linenums') || this.linenums,
+      linenums: tabContent.getAttribute('linenums') || this.linenums
     };
   }
 }

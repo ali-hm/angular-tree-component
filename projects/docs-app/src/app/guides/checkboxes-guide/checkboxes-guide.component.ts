@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './checkboxes-guide.component.html',
   styleUrls: ['./checkboxes-guide.component.scss']
 })
-export class CheckboxesGuideComponent {
-}
+export class CheckboxesGuideComponent {}

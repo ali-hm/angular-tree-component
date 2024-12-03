@@ -7,24 +7,18 @@ import { ITreeOptions, TreeComponent, TreeNode } from 'angular-tree-component';
   styleUrls: ['./crud.component.scss']
 })
 export class CrudComponent {
-
   @ViewChild('tree') tree: TreeComponent;
 
   nodes = [
     {
       name: 'root1',
-      children: [
-        { name: 'child1' },
-        { name: 'child2' }
-      ]
+      children: [{ name: 'child1' }, { name: 'child2' }]
     },
     {
       name: 'root2',
       children: [
         { name: 'child2.1', children: [] },
-        { name: 'child2.2', children: [
-            {name: 'grandchild2.2.1'}
-          ] }
+        { name: 'child2.2', children: [{ name: 'grandchild2.2.1' }] }
       ]
     },
     { name: 'root3' },
@@ -48,7 +42,9 @@ export class CrudComponent {
   }
 
   copyNode(node: any, tree) {
-    const parentNode = node.realParent ? node.realParent : node.treeModel.virtualRoot;
+    const parentNode = node.realParent
+      ? node.realParent
+      : node.treeModel.virtualRoot;
     const copyNode = JSON.stringify(node.data);
     const newNode = JSON.parse(copyNode);
     this.deleteIds(newNode);
@@ -59,12 +55,12 @@ export class CrudComponent {
   deleteIds(node: TreeNode) {
     node.id = null;
     if (node.children) {
-      node.children.forEach(child => this.deleteIds(child));
+      node.children.forEach((child) => this.deleteIds(child));
     }
   }
 
   addNode(node: any) {
-    const newNode = {name: 'new item'};
+    const newNode = { name: 'new item' };
     if (!node.data.children) {
       node.data.children = [];
     }
@@ -76,12 +72,19 @@ export class CrudComponent {
   }
 
   deleteNode(node, tree) {
-    const parentNode = node.realParent ? node.realParent : node.treeModel.virtualRoot;
-    parentNode.data.children = parentNode.data.children.filter(child => {
+    const parentNode = node.realParent
+      ? node.realParent
+      : node.treeModel.virtualRoot;
+    parentNode.data.children = parentNode.data.children.filter((child) => {
       return child !== node.data;
     });
     tree.treeModel.update();
-    if (node && node.parent && node.parent.data && node.parent.data.children.length === 0) {
+    if (
+      node &&
+      node.parent &&
+      node.parent.data &&
+      node.parent.data.children.length === 0
+    ) {
       node.parent.data.hasChildren = false;
     }
 
@@ -89,5 +92,4 @@ export class CrudComponent {
       this.selectedNode = null;
     }
   }
-
 }

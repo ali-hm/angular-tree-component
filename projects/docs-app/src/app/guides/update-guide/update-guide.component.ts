@@ -6,9 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./update-guide.component.scss']
 })
 export class UpdateGuideComponent {
-
-  adding =
-`
+  adding = `
 <tree-root #tree nodes="nodes"></tree-root>
 
 class MyComponent {
@@ -24,8 +22,7 @@ class MyComponent {
 }
 `;
 
-  immutable =
-`
+  immutable = `
 <tree-root nodes="nodes"></tree-root>
 
 nodes = [...]
@@ -35,5 +32,4 @@ addNode(newNode) {
   this.nodes = [...this.nodes, newNode];
 }
 `;
-
 }

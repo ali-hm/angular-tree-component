@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./actions.component.scss']
 })
 export class ActionsComponent {
-
   actionMapping = `
 import { TREE_ACTIONS, KEYS, IActionMapping } from 'angular-tree-component';
 
@@ -73,5 +72,4 @@ const defaultActionMapping: IActionMapping = {
   }
 };
 `;
-
 }

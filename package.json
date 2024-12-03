@@ -28,6 +28,8 @@
     "copy:files:win": "copy README.md .\\dist\\angular-tree-component && copy LICENSE .\\dist\\angular-tree-component && xcopy .\\projects\\angular-tree-component\\src\\lib\\angular-tree-component.css .\\dist\\angular-tree-component\\css\\",
     "doc": "typedoc --module commonjs --out doc lib/defs/api.ts",
     "clean:all": "npm run clean:dist && rimraf node_modules && npm cache clean",
+    "format": "prettier --write \"projects/**/*.{ts,html,scss}\"",
+    "format:check": "prettier --check \"projects/**/*.{ts,html,scss}\"",
     "lint": "tslint lib/**/*.ts",
     "prepublish:lib:win": "npm run build:lib && npm run copy:files:win",
     "start:example-app": "ng serve example-app",
@@ -95,7 +97,7 @@
     "lint-staged": "^10.0.7",
     "ng-packagr": "^18.2.1",
     "nightwatch": "0.9.12",
-    "prettier": "^1.19.1",
+    "prettier": "^3.4.1",
     "rimraf": "^2.5.1",
     "rxjs": "^6.5.3",
     "testcafe": "^1.8.8",
@@ -128,9 +130,6 @@
     "requirePragma": false
   },
   "lint-staged": {
-    "*.{js,ts,json}": [
-      "./node_modules/.bin/prettier --write"
-    ],
     "*.ts": [
       "tslint"
     ]

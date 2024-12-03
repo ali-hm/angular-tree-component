@@ -3,7 +3,7 @@ import {
   ElementRef,
   AfterViewInit,
   OnInit,
-  OnDestroy,
+  OnDestroy
 } from '@angular/core';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TREE_EVENTS } from '../constants/events';

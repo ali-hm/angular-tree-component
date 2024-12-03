@@ -12,11 +12,16 @@ import { LoadMoreExampleComponent } from './load-more-example/load-more-example.
 import { LoadMoreComponent } from './load-more-example/load-more/load-more.component';
 
 @NgModule({
-  declarations: [BasicUsageComponent, BasicTreeComponent, ColumnsExampleComponent, ColumnsComponent, CrudExampleComponent, CrudComponent, LoadMoreExampleComponent, LoadMoreComponent],
-  imports: [
-    CommonModule,
-    TreeModule,
-    RouterModule,
-  ]
+  declarations: [
+    BasicUsageComponent,
+    BasicTreeComponent,
+    ColumnsExampleComponent,
+    ColumnsComponent,
+    CrudExampleComponent,
+    CrudComponent,
+    LoadMoreExampleComponent,
+    LoadMoreComponent
+  ],
+  imports: [CommonModule, TreeModule, RouterModule]
 })
-export class ExamplesModule { }
+export class ExamplesModule {}

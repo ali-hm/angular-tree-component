@@ -4,14 +4,17 @@ import { from, Observable } from 'rxjs';
 import { first, map, share } from 'rxjs/operators';
 import { Logger } from '../../shared/logger.service';
 
-type PrettyPrintOne = (code: string, language?: string, linenums?: number | boolean) => string;
+type PrettyPrintOne = (
+  code: string,
+  language?: string,
+  linenums?: number | boolean
+) => string;
 
 /**
  * Wrapper around the prettify.js library
  */
 @Injectable()
 export class PrettyPrinter {
-
   private prettyPrintOne: Observable<PrettyPrintOne>;
 
   constructor(private logger: Logger) {
@@ -20,18 +23,21 @@ export class PrettyPrinter {
 
   private getPrettyPrintOne(): Promise<PrettyPrintOne> {
     const ppo = (window as any)['prettyPrintOne'];
-    return ppo ? Promise.resolve(ppo) :
-      // `prettyPrintOne` is not on `window`, which means `prettify.js` has not been loaded yet.
-      // Import it; ad a side-effect it will add `prettyPrintOne` on `window`.
-      import('../../../assets/js/prettify.js' as any)
-        .then(
+    return ppo
+      ? Promise.resolve(ppo)
+      : // `prettyPrintOne` is not on `window`, which means `prettify.js` has not been loaded yet.
+        // Import it; ad a side-effect it will add `prettyPrintOne` on `window`.
+        import('../../../assets/js/prettify.js' as any).then(
           () => (window as any)['prettyPrintOne'],
-          err => {
+          (err) => {
             const msg = `Cannot get prettify.js from server: ${err.message}`;
             this.logger.error(new Error(msg));
             // return a pretty print fn that always fails.
-            return () => { throw new Error(msg); };
-          });
+            return () => {
+              throw new Error(msg);
+            };
+          }
+        );
   }
 
   /**
@@ -46,7 +52,7 @@ export class PrettyPrinter {
    */
   formatCode(code: string, language?: string, linenums?: number | boolean) {
     return this.prettyPrintOne.pipe(
-      map(ppo => {
+      map((ppo) => {
         try {
           return ppo(code, language, linenums);
         } catch (err) {
@@ -55,7 +61,7 @@ export class PrettyPrinter {
           throw new Error(msg);
         }
       }),
-      first(),  // complete immediately
+      first() // complete immediately
     );
   }
 }

@@ -89,14 +89,14 @@ const actionMapping: IActionMapping = {
       (click)="tree.treeModel.getFocusedNode().toggleActivated()"
     >
       {{
-        tree.treeModel.getFocusedNode()?.isActive ? "deactivate" : "activate"
+        tree.treeModel.getFocusedNode()?.isActive ? 'deactivate' : 'activate'
       }}
     </button>
     <button
       [disabled]="!tree.treeModel.getFocusedNode()"
       (click)="tree.treeModel.getFocusedNode().toggleExpanded()"
     >
-      {{ tree.treeModel.getFocusedNode()?.isExpanded ? "collapse" : "expand" }}
+      {{ tree.treeModel.getFocusedNode()?.isExpanded ? 'collapse' : 'expand' }}
     </button>
     <button
       [disabled]="!tree.treeModel.getFocusedNode()"
@@ -126,11 +126,11 @@ export class DragOverStylingFullTreeComponent implements OnInit {
     getChildren: this.getChildren.bind(this),
     actionMapping,
     nodeHeight: 23,
-    allowDrag: node => {
+    allowDrag: (node) => {
       // console.log('allowDrag?');
       return true;
     },
-    allowDrop: node => {
+    allowDrop: (node) => {
       // console.log('allowDrop?');
       return true;
     },
@@ -207,7 +207,7 @@ export class DragOverStylingFullTreeComponent implements OnInit {
       setTimeout(
         () =>
           resolve(
-            this.asyncChildren.map(c => {
+            this.asyncChildren.map((c) => {
               return Object.assign({}, c, {
                 hasChildren: node.level < 5
               });

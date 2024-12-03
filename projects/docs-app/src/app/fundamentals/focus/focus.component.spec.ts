@@ -8,9 +8,8 @@ describe('FocusComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FocusComponent ]
-    })
-    .compileComponents();
+      declarations: [FocusComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

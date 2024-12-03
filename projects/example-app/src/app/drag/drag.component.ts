@@ -6,7 +6,12 @@ import { v4 } from 'uuid';
   selector: 'app-drag',
   template: `
     <h4>Allowing to drag only leaf nodes; ctrl-drag to copy</h4>
-    <tree-root [state]="state" [options]="options" [focused]="true" [nodes]="nodes"></tree-root>
+    <tree-root
+      [state]="state"
+      [options]="options"
+      [focused]="true"
+      [nodes]="nodes"
+    ></tree-root>
   `,
   styles: []
 })
@@ -33,19 +38,14 @@ export class DragComponent {
     {
       id: 1,
       name: 'root1',
-      children: [
-        { name: 'child1' },
-        { name: 'child2' }
-      ]
+      children: [{ name: 'child1' }, { name: 'child2' }]
     },
     {
       name: 'root2',
       id: 2,
       children: [
         { name: 'child2.1', children: [] },
-        { name: 'child2.2', children: [
-          {name: 'grandchild2.2.1'}
-        ] }
+        { name: 'child2.2', children: [{ name: 'grandchild2.2.1' }] }
       ]
     },
     { name: 'root3' },

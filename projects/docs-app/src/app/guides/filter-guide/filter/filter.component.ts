@@ -7,7 +7,6 @@ import { TreeModel, TreeNode } from 'angular-tree-component';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent {
-
   options = {
     useCheckbox: true
   };
@@ -15,20 +14,20 @@ export class FilterComponent {
     {
       name: 'North America',
       children: [
-        { name: 'United States', children: [
-            {name: 'New York'},
-            {name: 'California'},
-            {name: 'Florida'}
-          ] },
+        {
+          name: 'United States',
+          children: [
+            { name: 'New York' },
+            { name: 'California' },
+            { name: 'Florida' }
+          ]
+        },
         { name: 'Canada' }
       ]
     },
     {
       name: 'South America',
-      children: [
-        { name: 'Argentina', children: [] },
-        { name: 'Brazil' }
-      ]
+      children: [{ name: 'Argentina', children: [] }, { name: 'Brazil' }]
     },
     {
       name: 'Europe',
@@ -43,12 +42,13 @@ export class FilterComponent {
   ];
 
   filterFn(value: string, treeModel: TreeModel) {
-    treeModel.filterNodes((node: TreeNode) => fuzzysearch(value, node.data.name));
+    treeModel.filterNodes((node: TreeNode) =>
+      fuzzysearch(value, node.data.name)
+    );
   }
 }
 
-
-function fuzzysearch (needle: string, haystack: string) {
+function fuzzysearch(needle: string, haystack: string) {
   const haystackLC = haystack.toLowerCase();
   const needleLC = needle.toLowerCase();
 

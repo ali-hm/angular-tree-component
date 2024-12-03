@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './auto-scroll-guide.component.html',
   styleUrls: ['./auto-scroll-guide.component.scss']
 })
-export class AutoScrollGuideComponent {
-}
+export class AutoScrollGuideComponent {}

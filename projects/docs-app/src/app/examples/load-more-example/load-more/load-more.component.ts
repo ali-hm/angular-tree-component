@@ -1,7 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { delay, map, take } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { ITreeOptions, TREE_ACTIONS, TreeComponent, TreeNode } from 'angular-tree-component';
+import {
+  ITreeOptions,
+  TREE_ACTIONS,
+  TreeComponent,
+  TreeNode
+} from 'angular-tree-component';
 
 enum NodeType {
   LoadMore
@@ -24,7 +29,6 @@ interface ServiceResult {
   styleUrls: ['./load-more.component.scss']
 })
 export class LoadMoreComponent {
-
   @ViewChild('tree') tree: TreeComponent;
 
   nodes: any[];
@@ -32,12 +36,14 @@ export class LoadMoreComponent {
   options: ITreeOptions = {
     nodeHeight: 23,
     useVirtualScroll: false,
-    getChildren: node => {
-      return this.fakeDataService(node.id, this.getCurrentSkip(node.id)).pipe(
-        map(res => {
-          return this.createNodes(res.nodes, res.total, node.id);
-        })
-      ).toPromise();
+    getChildren: (node) => {
+      return this.fakeDataService(node.id, this.getCurrentSkip(node.id))
+        .pipe(
+          map((res) => {
+            return this.createNodes(res.nodes, res.total, node.id);
+          })
+        )
+        .toPromise();
     },
     actionMapping: {
       mouse: {
@@ -108,9 +114,11 @@ export class LoadMoreComponent {
     this.fakeDataService(parentNodeId, this.getCurrentSkip(parentNodeId))
       .pipe(
         take(1),
-        map(response => this.createNodes(response.nodes, response.total, parentNodeId))
+        map((response) =>
+          this.createNodes(response.nodes, response.total, parentNodeId)
+        )
       )
-      .subscribe(nodes => {
+      .subscribe((nodes) => {
         // remove load node
         // try fast way of popping last entry before slow filter
         if (
@@ -120,7 +128,7 @@ export class LoadMoreComponent {
           node.parent.data.children.pop();
         } else {
           node.parent.data.children = node.parent.data.children.filter(
-            child => child.id !== node.data.id
+            (child) => child.id !== node.data.id
           );
         }
 
@@ -142,11 +150,13 @@ export class LoadMoreComponent {
     parentId: number,
     skipNodes: number
   ): Observable<ServiceResult> {
-    const nodes = new Array(this.numberOfNodesToLoad).fill(null).map((item, i) => ({
-      id: `no-id`,
-      name: `node-${parentId}-${skipNodes + i}`,
-      hasChildren: false
-    }));
+    const nodes = new Array(this.numberOfNodesToLoad)
+      .fill(null)
+      .map((item, i) => ({
+        id: `no-id`,
+        name: `node-${parentId}-${skipNodes + i}`,
+        hasChildren: false
+      }));
 
     return of({
       nodes,
@@ -176,5 +186,4 @@ export class LoadMoreComponent {
       hasChildren: false
     };
   }
-
 }

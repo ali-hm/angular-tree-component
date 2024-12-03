@@ -5,7 +5,6 @@ import { NavigationNode } from './navigation.model';
   providedIn: 'root'
 })
 export class NavigationService {
-
   private gettingStartedRoute: NavigationNode = {
     title: 'Getting Started',
     url: ''
@@ -13,10 +12,8 @@ export class NavigationService {
 
   private examplesRoute: NavigationNode = {
     title: 'Examples',
-    children: [
-      { title: 'Basic Usage', url: 'basic' }
-    ]
+    children: [{ title: 'Basic Usage', url: 'basic' }]
   };
 
-  constructor() { }
+  constructor() {}
 }

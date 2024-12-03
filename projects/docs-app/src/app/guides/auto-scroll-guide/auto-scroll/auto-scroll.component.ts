@@ -7,7 +7,6 @@ import { ITreeOptions } from 'angular-tree-component';
   styleUrls: ['./auto-scroll.component.scss']
 })
 export class AutoScrollComponent implements OnInit {
-
   nodes: any[] = [];
   options: ITreeOptions = {
     scrollContainer: <HTMLElement>document.body.parentElement
@@ -21,5 +20,4 @@ export class AutoScrollComponent implements OnInit {
       });
     }
   }
-
 }

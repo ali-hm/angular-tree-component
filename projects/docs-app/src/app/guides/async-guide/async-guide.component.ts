@@ -6,9 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./async-guide.component.scss']
 })
 export class AsyncGuideComponent {
-
-  javascript =
-`
+  javascript = `
 options = {
   getChildren: (node:TreeNode) => {
     return request('/api/children/' + node.id);
@@ -31,5 +29,4 @@ nodes = [
   }
 ]
 `;
-
 }

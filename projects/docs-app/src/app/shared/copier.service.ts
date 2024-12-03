@@ -20,7 +20,8 @@ export class CopierService {
    * @return Whether the copy operation was successful.
    */
   private copyTextArea(textArea: HTMLTextAreaElement): boolean {
-    const currentFocus = document.activeElement as unknown as HTMLOrSVGElement | null;
+    const currentFocus =
+      document.activeElement as unknown as HTMLOrSVGElement | null;
 
     try {
       textArea.select();

@@ -3,19 +3,12 @@ import { TreeNode, TreeModel, ITreeOptions } from 'angular-tree-component';
 
 @Component({
   selector: 'app-virtualscroll',
-  styles: [
-  ],
+  styles: [],
   template: `
-  <div style="height: 800px; width: 500px; overflow: hidden;">
-
-    <tree-root
-      #tree
-      [nodes]="nodes"
-      [options]="options"
-      [focused]="true"
-    >
-    </tree-root>
-  </div>
+    <div style="height: 800px; width: 500px; overflow: hidden;">
+      <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true">
+      </tree-root>
+    </div>
   `
 })
 export class VirtualscrollComponent {

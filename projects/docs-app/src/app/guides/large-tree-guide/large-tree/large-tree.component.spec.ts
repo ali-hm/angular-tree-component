@@ -8,9 +8,8 @@ describe('LargeTreeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LargeTreeComponent ]
-    })
-    .compileComponents();
+      declarations: [LargeTreeComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

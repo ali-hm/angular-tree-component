@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { IActionMapping, ITreeOptions, KEYS, TREE_ACTIONS } from 'angular-tree-component';
+import {
+  IActionMapping,
+  ITreeOptions,
+  KEYS,
+  TREE_ACTIONS
+} from 'angular-tree-component';
 
 @Component({
   selector: 'app-actions-demo',
@@ -7,14 +12,14 @@ import { IActionMapping, ITreeOptions, KEYS, TREE_ACTIONS } from 'angular-tree-c
   styleUrls: ['./actions-demo.component.scss']
 })
 export class ActionsDemoComponent {
-
   nodes = [
     {
       name: 'root1',
       children: [
         {
           name: 'child1'
-        }, {
+        },
+        {
           name: 'child2'
         }
       ]
@@ -24,7 +29,8 @@ export class ActionsDemoComponent {
       children: [
         {
           name: 'child2.1'
-        }, {
+        },
+        {
           name: 'child2.2',
           children: [
             {
@@ -70,5 +76,4 @@ export class ActionsDemoComponent {
   options: ITreeOptions = {
     actionMapping: this.actionMapping
   };
-
 }

@@ -18,7 +18,6 @@ import { StylingComponent } from './styling/styling.component';
 import { FocusComponent } from './focus/focus.component';
 import { IssuesComponent } from './issues/issues.component';
 
-
 @NgModule({
   declarations: [
     NodesComponent,
@@ -36,11 +35,6 @@ import { IssuesComponent } from './issues/issues.component';
     FocusComponent,
     IssuesComponent
   ],
-  imports: [
-    CommonModule,
-    CodeExampleModule,
-    TreeModule,
-    RouterModule
-  ]
+  imports: [CommonModule, CodeExampleModule, TreeModule, RouterModule]
 })
-export class FundamentalsModule { }
+export class FundamentalsModule {}

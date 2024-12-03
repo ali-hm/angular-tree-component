@@ -2,7 +2,7 @@
  * Welcome to ng2tree
  */
 export type IDType = string | number;
-export type IDTypeDictionary = { [id: string]: boolean, [id: number]: boolean };
+export type IDTypeDictionary = { [id: string]: boolean; [id: number]: boolean };
 
 /**
  * See ITreeNode for documentation
@@ -10,7 +10,11 @@ export type IDTypeDictionary = { [id: string]: boolean, [id: number]: boolean };
 export declare type TreeNode = any;
 
 export interface IAllowDropFn {
-  (element: any, to: {parent: TreeNode, index: number}, $event?: any): boolean;
+  (
+    element: any,
+    to: { parent: TreeNode; index: number },
+    $event?: any
+  ): boolean;
 }
 
 export interface INodeHeightFn {
@@ -20,7 +24,6 @@ export interface INodeHeightFn {
 export interface IAllowDragFn {
   (node: TreeNode): boolean;
 }
-
 
 export interface ITreeState {
   expandedNodeIds?: IDTypeDictionary;
@@ -32,7 +35,7 @@ export interface ITreeState {
 }
 
 export interface ITreeOptions {
-   /**
+  /**
     * A string representing the attribute of the node that indicates whether there are child nodes.
 
     * **Default value: `hasChildren`.**
@@ -42,8 +45,8 @@ export interface ITreeOptions {
       options = { hasChildrenField: 'isDirectory' }
     ```
     */
-   hasChildrenField?: string;
-   /**
+  hasChildrenField?: string;
+  /**
     * A string representing the attribute of the node that contains the array of children.
 
     * **Default value: `children`.**
@@ -53,8 +56,8 @@ export interface ITreeOptions {
       options = { childrenField: 'nodes' }
     ```
     */
-   childrenField?: string;
-   /**
+  childrenField?: string;
+  /**
     * A string representing the attribute of the node to display.
 
     * **Default value: `name`**
@@ -64,8 +67,8 @@ export interface ITreeOptions {
         options = { displayField: 'title' }
       ```
     */
-   displayField?: string;
-   /**
+  displayField?: string;
+  /**
     * A string representing the attribute of the node that contains the unique ID.
       This will be used to construct the `path`, which is an array of IDs that point to the node.
 
@@ -76,8 +79,8 @@ export interface ITreeOptions {
         options = { idField: 'uuid' }
       ```
     */
-   idField?: string;
-   /**
+  idField?: string;
+  /**
     * A string representing the attribute of the node that contains whether the node starts as expanded.
 
       * **Default value: `isExpanded`.**
@@ -87,8 +90,8 @@ export interface ITreeOptions {
         options = { isExpandedField: 'expanded' }
       ```
     */
-   isExpandedField?: string;
-   /**
+  isExpandedField?: string;
+  /**
     * Function for loading a node's children.
       The function receives a TreeNode, and returns a value or a promise that resolves to the node's children.
 
@@ -105,13 +108,13 @@ export interface ITreeOptions {
       * }
       ```
     */
-   getChildren?: (node: TreeNode) => any;
-   /**
-    * Rewire which trigger causes which action using this attribute, or create custom actions / event bindings.
-    * See the [Action Mapping Section](https://angular2-tree.readme.io/docs/action-mapping) for more details.
-    */
-   actionMapping?: any;
-   /**
+  getChildren?: (node: TreeNode) => any;
+  /**
+   * Rewire which trigger causes which action using this attribute, or create custom actions / event bindings.
+   * See the [Action Mapping Section](https://angular2-tree.readme.io/docs/action-mapping) for more details.
+   */
+  actionMapping?: any;
+  /**
     * Specify if dragging tree nodes is allowed.
     * This could be a boolean, or a function that receives a TreeNode and returns a boolean
 
@@ -124,8 +127,8 @@ export interface ITreeOptions {
     * }
     ```
     */
-   allowDrag?: boolean | IAllowDragFn;
-   /**
+  allowDrag?: boolean | IAllowDragFn;
+  /**
     * Specify whether dropping inside the tree is allowed. Optional types:
     *  - boolean
     *  - (element:any, to:{parent:TreeNode, index:number}):boolean
@@ -141,8 +144,8 @@ export interface ITreeOptions {
     * }
     ```
    */
-   allowDrop?: boolean | IAllowDropFn;
-    /**
+  allowDrop?: boolean | IAllowDropFn;
+  /**
     Boolean flag to allow adding and removing is-dragging-over and is-dragging-over-disabled classes.
 
     If set to false it will not add the above mentioned classes and you should handle the styling yourself with css and in
@@ -158,8 +161,8 @@ export interface ITreeOptions {
     * }
     ```
     */
-   allowDragoverStyling?: boolean;
-   /**
+  allowDragoverStyling?: boolean;
+  /**
    * Specify padding per node (integer).
     Each node will have padding-left value of level * levelPadding, instead of using the default padding for children.
 
@@ -169,8 +172,8 @@ export interface ITreeOptions {
 
     * **Default value: 0**
    */
-   levelPadding?: number;
-   /**
+  levelPadding?: number;
+  /**
     * Specify a function that returns a class per node. Useful for styling the nodes individually.
 
       Example:
@@ -182,8 +185,8 @@ export interface ITreeOptions {
       * }
       ```
     */
-   nodeClass?: (node: TreeNode) => string;
-   /**
+  nodeClass?: (node: TreeNode) => string;
+  /**
     Boolean flag to use the virtual scroll option.
 
     To use this option, you must supply the height of the container, and the height of each node in the tree.
@@ -201,8 +204,8 @@ export interface ITreeOptions {
     * }
     ```
     */
-   useVirtualScroll?: boolean;
-   /**
+  useVirtualScroll?: boolean;
+  /**
     * For use with `useVirtualScroll` option.
     * Specify a height for nodes in pixels. Could be either:
     * - number
@@ -210,39 +213,39 @@ export interface ITreeOptions {
 
     * **Default Value: 22**
     */
-   nodeHeight?: number | INodeHeightFn;
-   /**
+  nodeHeight?: number | INodeHeightFn;
+  /**
     * For use with `useVirtualScroll` option.
     * Specify a height for drop slots (located between nodes) in pixels
 
     * **Default Value: 2**
     */
-   dropSlotHeight?: number;
-   /**
+  dropSlotHeight?: number;
+  /**
     * Boolean whether or not to animate expand / collapse of nodes.
 
     * **Default Value: false**
     */
-   animateExpand?: boolean;
-   /**
+  animateExpand?: boolean;
+  /**
     * Speed of expand animation (described in pixels per 17 ms).
 
     * **Default Value: 30**
     */
-   animateSpeed?: number;
-   /**
+  animateSpeed?: number;
+  /**
     * Increase of expand animation speed (described in multiply per 17 ms).
 
     * **Default Value: 1.2**
     */
-   animateAcceleration?: number;
-   /**
+  animateAcceleration?: number;
+  /**
     * Whether to scroll to the node to make it visible when it is activated.
 
     * **Default Value: true**
     */
-   scrollOnActivate?: boolean;
-   /**
+  scrollOnActivate?: boolean;
+  /**
     * Function to clone a node.
     * Receives a TreeNode object, and returns a node object (only the data).
     * This callback will be called when copying a node inside the tree,
@@ -261,31 +264,31 @@ export interface ITreeOptions {
     *
     * **Default Value: clone the node using Object.assign, and remove 'id' property**
     */
-    getNodeClone?: (node: TreeNode) => any;
-    /**
-     * Makes the tree right-to-left.
-     * This include direction, expander style, and change key binding (right key collapse and left key expands instead of vice-versa)
-     */
-    rtl?: boolean;
-    /**
-     * Specifies id of root node (virtualRoot)
-     */
-    rootId?: any;
-    /**
-     * Whether to display a checkbox next to the node or not
-     */
-    useCheckbox?: boolean;
-    /**
-     * Whether to use master checkboxes mechanism if the useCheckbox is set to true
-     */
-    useTriState?: boolean;
-    /**
-     * The HTML element that is the scroll container for the tree.
-     * The default behaviour is to wrap the tree with a container that has overflow: hidden,
-     * and then the scrolling container is the viewport inside the tree component
-     */
-    scrollContainer?: HTMLElement;
- }
+  getNodeClone?: (node: TreeNode) => any;
+  /**
+   * Makes the tree right-to-left.
+   * This include direction, expander style, and change key binding (right key collapse and left key expands instead of vice-versa)
+   */
+  rtl?: boolean;
+  /**
+   * Specifies id of root node (virtualRoot)
+   */
+  rootId?: any;
+  /**
+   * Whether to display a checkbox next to the node or not
+   */
+  useCheckbox?: boolean;
+  /**
+   * Whether to use master checkboxes mechanism if the useCheckbox is set to true
+   */
+  useTriState?: boolean;
+  /**
+   * The HTML element that is the scroll container for the tree.
+   * The default behaviour is to wrap the tree with a container that has overflow: hidden,
+   * and then the scrolling container is the viewport inside the tree component
+   */
+  scrollContainer?: HTMLElement;
+}
 
 export interface ITreeNode {
   // properties
@@ -587,7 +590,11 @@ export interface ITreeModel {
    * @param from describes where to move the node from.
    * Contains a 'parent' node, an 'index', and a 'dropOnNode' - to distinguish between dropping between nodes or on the node
    */
-  moveNode(node: ITreeNode, to: {parent: ITreeNode, index: number, dropOnNode: boolean}, from: {parent: ITreeNode, index: number});
+  moveNode(
+    node: ITreeNode,
+    to: { parent: ITreeNode; index: number; dropOnNode: boolean },
+    from: { parent: ITreeNode; index: number }
+  );
   /**
    * Invokes a method for every node of the tree - depth first
    * @param fn  a function that receives the node
@@ -617,5 +624,5 @@ export interface ITreeNodeDrag {
    * @param node  The parent node of the current dragged node
    * @param index  The index inside parent's children, of the current dragged node
    */
-  getDragNode(): { node: TreeNode, index: number };
+  getDragNode(): { node: TreeNode; index: number };
 }

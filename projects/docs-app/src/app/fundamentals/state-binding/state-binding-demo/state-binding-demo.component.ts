@@ -7,7 +7,6 @@ import { ITreeState } from 'angular-tree-component';
   styleUrls: ['./state-binding-demo.component.scss']
 })
 export class StateBindingDemoComponent {
-
   get state(): ITreeState {
     return localStorage.treeState && JSON.parse(localStorage.treeState);
   }
@@ -16,14 +15,21 @@ export class StateBindingDemoComponent {
   }
 
   options = {
-    getChildren: () => new Promise((resolve) => {
-      setTimeout(() => resolve([
-        { id: 5, name: 'child2.1', children: [] },
-        { id: 6, name: 'child2.2', children: [
-            { id: 7, name: 'grandchild2.2.1' }
-          ] }
-      ]), 2000);
-    })
+    getChildren: () =>
+      new Promise((resolve) => {
+        setTimeout(
+          () =>
+            resolve([
+              { id: 5, name: 'child2.1', children: [] },
+              {
+                id: 6,
+                name: 'child2.2',
+                children: [{ id: 7, name: 'grandchild2.2.1' }]
+              }
+            ]),
+          2000
+        );
+      })
   };
 
   nodes = [
@@ -41,5 +47,4 @@ export class StateBindingDemoComponent {
       hasChildren: true
     }
   ];
-
 }

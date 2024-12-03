@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./filter-guide.component.scss']
 })
 export class FilterGuideComponent {
-  functionFilter =
-`
+  functionFilter = `
 tree.treeModel.filterNodes((node) => {
   return !node.data.name.startsWith(text);
 });

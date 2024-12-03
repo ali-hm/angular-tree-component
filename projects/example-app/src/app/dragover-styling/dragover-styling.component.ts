@@ -26,9 +26,9 @@ export class DragOverStylingComponent {
   };
 
   options: ITreeOptions = {
-    allowDrag: node => true,
+    allowDrag: (node) => true,
     allowDragoverStyling: false,
-    getNodeClone: node => ({
+    getNodeClone: (node) => ({
       ...node.data,
       id: v4(),
       name: `copy of ${node.data.name}`

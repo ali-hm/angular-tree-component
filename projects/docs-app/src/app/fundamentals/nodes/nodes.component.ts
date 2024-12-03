@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nodes.component.scss']
 })
 export class NodesComponent implements OnInit {
-
   nodes = `[
   {
     id: 1,
@@ -18,9 +17,7 @@ export class NodesComponent implements OnInit {
   }
 ]`;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

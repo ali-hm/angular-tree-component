@@ -7,7 +7,6 @@ import { ITreeOptions } from 'angular-tree-component';
   styleUrls: ['./templates-demo.component.scss']
 })
 export class TemplatesDemoComponent {
-
   nodes1 = [
     {
       title: 'root1',
@@ -28,19 +27,16 @@ export class TemplatesDemoComponent {
     {
       title: 'root2',
       className: 'root2Class',
-      children: [
-        { title: 'child1', className: 'child1Class' }
-      ]
+      children: [{ title: 'child1', className: 'child1Class' }]
     }
   ];
 
   options1: ITreeOptions = {
-    getChildren: () => new Promise((resolve, reject) => { })
+    getChildren: () => new Promise((resolve, reject) => {})
   };
 
   options0: ITreeOptions = {
     displayField: 'title',
     nodeClass: (node) => `${node.data.title}Class`
   };
-
 }
