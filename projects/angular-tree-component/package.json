@@ -25,15 +25,18 @@
     "angular tree component"
   ],
   "peerDependencies": {
-    "@angular/common": ">=18.0.0",
-    "@angular/core": ">=18.0.0",
+    "@angular/common": ">=19.0.0",
+    "@angular/core": ">=19.0.0",
     "mobx": "~4.14.1"
   },
   "dependencies": {
     "mobx": "~4.14.1",
     "tslib": "^2.5.0"
   },
-  "devDependencies": {
-  },
-  "exports": { "./css/angular-tree-component.css": { "style": "./css/angular-tree-component.css" } }
+  "devDependencies": {},
+  "exports": {
+    "./css/angular-tree-component.css": {
+      "style": "./css/angular-tree-component.css"
+    }
+  }
 }
