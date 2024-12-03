@@ -1,23 +1,14 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
-      "extends": [
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
+      "extends": ["plugin:@angular-eslint/recommended", "plugin:@angular-eslint/template/process-inline-templates"],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
@@ -35,30 +26,16 @@
             "style": "kebab-case"
           }
         ],
-        "@angular-eslint/component-class-suffix": [
-          "off"
-        ],
-        "@angular-eslint/no-input-rename": [
-          "off"
-        ],
-        "@angular-eslint/no-output-native": [
-          "off"
-        ],
-        "@angular-eslint/no-output-on-prefix": [
-          "off"
-        ],
-        "@angular-eslint/no-output-rename": [
-          "off"
-        ]
+        "@angular-eslint/component-class-suffix": ["off"],
+        "@angular-eslint/no-input-rename": ["off"],
+        "@angular-eslint/no-output-native": ["off"],
+        "@angular-eslint/no-output-on-prefix": ["off"],
+        "@angular-eslint/no-output-rename": ["off"]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
     }
   ]
