@@ -52,9 +52,9 @@
   "contributors": [],
   "dependencies": {
     "@angular/animations": "^19.0.1",
-    "@angular/cdk": "18.2.9",
+    "@angular/cdk": "19.0.1",
     "@angular/forms": "^19.0.1",
-    "@angular/material": "18.2.9",
+    "@angular/material": "19.0.1",
     "core-js": "^3.31.0",
     "mobx": "4.14.1",
     "rimraf": "^6.0.1"
