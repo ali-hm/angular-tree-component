@@ -1,11 +1,13 @@
 # angular tree component
-This is a fork of [@circlon/angular-tree-component](https://github.com/CirclonGroup/angular-tree-component). 
+
+This is a fork of [@circlon/angular-tree-component](https://github.com/CirclonGroup/angular-tree-component).
 Since it appears that the original project has been abandoned, I have decided to take on its development and ensure compatibility with Ivy and newer versions of Angular.
+
 ## Getting started
 
 Install `angular-tree-component`:
 
-```npm install @ali-hm/angular-tree-component```
+`npm install @ali-hm/angular-tree-component`
 
 Import `TreeModule`:
 
@@ -36,10 +38,10 @@ angular-tree-component supports angular 18 and above, and AoT compilation.
 
 versioning has been change to align with supported Angular version.
 so:\
+v19.\*.\* = Angular 19
 v18.\*.\* = Angular 18  
 v17.\*.\* = Angular 17  
 v16.\*.\* = Angular 16  
-v12.\*.\* = Angular 14-15  
+v12.\*.\* = Angular 14-15
+
 ## Contributing
-
-
