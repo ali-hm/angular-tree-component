@@ -21,8 +21,8 @@ import { CodeComponent } from './code.component';
  * ```
  */
 @Component({
-    selector: 'code-example',
-    template: `
+  selector: 'code-example',
+  template: `
     <!-- Content projection is used to get the content HTML provided to this component -->
     <div #content style="display: none"><ng-content></ng-content></div>
     <header *ngIf="header">{{ header }}</header>
@@ -37,7 +37,7 @@ import { CodeComponent } from './code.component';
     >
     </aio-code>
   `,
-    standalone: false
+  standalone: false
 })
 export class CodeExampleComponent implements AfterViewInit {
   classes: {};

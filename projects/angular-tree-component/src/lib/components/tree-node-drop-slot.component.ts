@@ -2,10 +2,10 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 
 @Component({
-    selector: 'TreeNodeDropSlot, tree-node-drop-slot',
-    encapsulation: ViewEncapsulation.None,
-    styles: [],
-    template: `
+  selector: 'TreeNodeDropSlot, tree-node-drop-slot',
+  encapsulation: ViewEncapsulation.None,
+  styles: [],
+  template: `
     <div
       class="node-drop-slot"
       (treeDrop)="onDrop($event)"
@@ -13,7 +13,7 @@ import { TreeNode } from '../models/tree-node.model';
       [allowDragoverStyling]="true"
     ></div>
   `,
-    standalone: false
+  standalone: false
 })
 export class TreeNodeDropSlot {
   @Input() node: TreeNode;

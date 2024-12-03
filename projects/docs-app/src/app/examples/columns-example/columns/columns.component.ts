@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ITreeOptions } from 'angular-tree-component';
 
 @Component({
-    selector: 'app-columns',
-    templateUrl: './columns.component.html',
-    styleUrls: ['./columns.component.scss'],
-    standalone: false
+  selector: 'app-columns',
+  templateUrl: './columns.component.html',
+  styleUrls: ['./columns.component.scss'],
+  standalone: false
 })
 export class ColumnsComponent implements OnInit {
   nodes = [

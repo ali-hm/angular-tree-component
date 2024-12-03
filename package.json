@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "lint:lib": "ng lint angular-tree-component",
-    "build:lib": "npm run lint:lib && npm run clean:dist && ng build angular-tree-component",
+    "build:lib": "npm run format:check && npm run lint:lib && npm run clean:dist && ng build angular-tree-component",
     "build": "npm run build:lib",
     "clean:dist": "rimraf dist",
     "copy:files": "cp ./README.md ./dist/angular-tree-component && cp ./LICENSE ./dist/angular-tree-component && cp ./projects/angular-tree-component/src/lib/angular-tree-component.css ./dist/angular-tree-component/css/",

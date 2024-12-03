@@ -7,9 +7,9 @@ import {
 import { TreeNode } from '../models/tree-node.model';
 
 @Component({
-    encapsulation: ViewEncapsulation.None,
-    selector: 'tree-loading-component',
-    template: `
+  encapsulation: ViewEncapsulation.None,
+  selector: 'tree-loading-component',
+  template: `
     <span *ngIf="!template">loading...</span>
     <ng-container
       [ngTemplateOutlet]="template"
@@ -17,7 +17,7 @@ import { TreeNode } from '../models/tree-node.model';
     >
     </ng-container>
   `,
-    standalone: false
+  standalone: false
 })
 export class LoadingComponent {
   @Input() template: TemplateRef<any>;

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { TreeModel, TreeNode } from 'angular-tree-component';
 
 @Component({
-    selector: 'app-filter',
-    template: `
+  selector: 'app-filter',
+  template: `
     <h2>Filter</h2>
     <input
       id="filter"
@@ -34,8 +34,8 @@ import { TreeModel, TreeNode } from 'angular-tree-component';
       placeholder="filter nodes by fuzzy search"
     />
   `,
-    styles: [],
-    standalone: false
+  styles: [],
+  standalone: false
 })
 export class FilterComponent {
   options = {

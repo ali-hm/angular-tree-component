@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-nodes',
-    templateUrl: './nodes.component.html',
-    styleUrls: ['./nodes.component.scss'],
-    standalone: false
+  selector: 'app-nodes',
+  templateUrl: './nodes.component.html',
+  styleUrls: ['./nodes.component.scss'],
+  standalone: false
 })
 export class NodesComponent implements OnInit {
   nodes = `[

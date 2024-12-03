@@ -9,9 +9,9 @@ import {
 } from 'angular-tree-component';
 
 @Component({
-    selector: 'app-scrollcontainer',
-    styles: [],
-    template: `
+  selector: 'app-scrollcontainer',
+  styles: [],
+  template: `
     <div style="height: 300px; width: 200px;border: 1px solid grey">
       Padding
     </div>
@@ -24,7 +24,7 @@ import {
       ></tree-root>
     </div>
   `,
-    standalone: false
+  standalone: false
 })
 export class ScrollContainerComponent implements OnInit {
   nodes: any[] = [];

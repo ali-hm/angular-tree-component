@@ -39,9 +39,9 @@ const actionMapping: IActionMapping = {
 };
 
 @Component({
-    selector: 'app-actions',
-    styles: [],
-    template: `
+  selector: 'app-actions',
+  styles: [],
+  template: `
     <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true">
     </tree-root>
     <br />
@@ -53,7 +53,7 @@ const actionMapping: IActionMapping = {
     double click - expand / collapse<br />
     right-click - show alert
   `,
-    standalone: false
+  standalone: false
 })
 export class ActionsComponent {
   nodes = [

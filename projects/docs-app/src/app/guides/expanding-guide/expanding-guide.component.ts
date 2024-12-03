@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-expanding-guide',
-    templateUrl: './expanding-guide.component.html',
-    styleUrls: ['./expanding-guide.component.scss'],
-    standalone: false
+  selector: 'app-expanding-guide',
+  templateUrl: './expanding-guide.component.html',
+  styleUrls: ['./expanding-guide.component.scss'],
+  standalone: false
 })
 export class ExpandingGuideComponent {
   allNodes = `

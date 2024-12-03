@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-basic-usage',
-    templateUrl: './basic-usage.component.html',
-    styleUrls: ['./basic-usage.component.scss'],
-    standalone: false
+  selector: 'app-basic-usage',
+  templateUrl: './basic-usage.component.html',
+  styleUrls: ['./basic-usage.component.scss'],
+  standalone: false
 })
 export class BasicUsageComponent implements OnInit {
   nodes = [

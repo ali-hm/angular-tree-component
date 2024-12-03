@@ -12,10 +12,10 @@ import { TreeNode } from '../models/tree-node.model';
 import { TreeModel } from '../models/tree.model';
 
 @Component({
-    selector: 'tree-node-children',
-    encapsulation: ViewEncapsulation.None,
-    styles: [],
-    template: `
+  selector: 'tree-node-children',
+  encapsulation: ViewEncapsulation.None,
+  styles: [],
+  template: `
     <ng-container *treeMobxAutorun="{ dontDetach: true }">
       <div
         [class.tree-children]="true"
@@ -44,7 +44,7 @@ import { TreeModel } from '../models/tree.model';
       </div>
     </ng-container>
   `,
-    standalone: false
+  standalone: false
 })
 export class TreeNodeChildrenComponent {
   @Input() node: TreeNode;
@@ -52,9 +52,9 @@ export class TreeNodeChildrenComponent {
 }
 
 @Component({
-    selector: 'tree-node-collection',
-    encapsulation: ViewEncapsulation.None,
-    template: `
+  selector: 'tree-node-collection',
+  encapsulation: ViewEncapsulation.None,
+  template: `
     <ng-container *treeMobxAutorun="{ dontDetach: true }">
       <div [style.margin-top]="marginTop">
         <tree-node
@@ -67,7 +67,7 @@ export class TreeNodeChildrenComponent {
       </div>
     </ng-container>
   `,
-    standalone: false
+  standalone: false
 })
 export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
   @Input()
@@ -139,10 +139,10 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
 }
 
 @Component({
-    selector: 'TreeNode, tree-node',
-    encapsulation: ViewEncapsulation.None,
-    styles: [],
-    template: `
+  selector: 'TreeNode, tree-node',
+  encapsulation: ViewEncapsulation.None,
+  styles: [],
+  template: `
     <ng-container *treeMobxAutorun="{ dontDetach: true }">
       <div
         *ngIf="!templates.treeNodeFullTemplate"
@@ -187,7 +187,7 @@ export class TreeNodeCollectionComponent implements OnInit, OnDestroy {
       </ng-container>
     </ng-container>
   `,
-    standalone: false
+  standalone: false
 })
 export class TreeNodeComponent {
   @Input() node: TreeNode;

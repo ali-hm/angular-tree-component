@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-rtl',
-    templateUrl: './rtl.component.html',
-    styleUrls: ['./rtl.component.scss'],
-    standalone: false
+  selector: 'app-rtl',
+  templateUrl: './rtl.component.html',
+  styleUrls: ['./rtl.component.scss'],
+  standalone: false
 })
 export class RtlComponent {
   options = {

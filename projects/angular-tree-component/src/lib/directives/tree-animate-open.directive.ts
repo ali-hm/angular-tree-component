@@ -9,8 +9,8 @@ import {
 const EASE_ACCELERATION = 1.005;
 
 @Directive({
-    selector: '[treeAnimateOpen]',
-    standalone: false
+  selector: '[treeAnimateOpen]',
+  standalone: false
 })
 export class TreeAnimateOpenDirective {
   private _isOpen: boolean;
