@@ -2,10 +2,10 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { TreeNode } from '../models/tree-node.model';
 
 @Component({
-  selector: 'tree-node-wrapper',
-  encapsulation: ViewEncapsulation.None,
-  styles: [],
-  template: `
+    selector: 'tree-node-wrapper',
+    encapsulation: ViewEncapsulation.None,
+    styles: [],
+    template: `
     <div
       *ngIf="!templates.treeNodeWrapperTemplate"
       class="node-wrapper"
@@ -52,7 +52,8 @@ import { TreeNode } from '../models/tree-node.model';
       }"
     >
     </ng-container>
-  `
+  `,
+    standalone: false
 })
 export class TreeNodeWrapperComponent {
   @Input() node: TreeNode;

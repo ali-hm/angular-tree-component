@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-options',
-  templateUrl: './options.component.html',
-  styleUrls: ['./options.component.scss']
+    selector: 'app-options',
+    templateUrl: './options.component.html',
+    styleUrls: ['./options.component.scss'],
+    standalone: false
 })
 export class OptionsComponent implements OnInit {
   options = `

@@ -7,9 +7,10 @@ import {
 } from 'angular-tree-component';
 
 @Component({
-  selector: 'app-actions-demo',
-  templateUrl: './actions-demo.component.html',
-  styleUrls: ['./actions-demo.component.scss']
+    selector: 'app-actions-demo',
+    templateUrl: './actions-demo.component.html',
+    styleUrls: ['./actions-demo.component.scss'],
+    standalone: false
 })
 export class ActionsDemoComponent {
   nodes = [

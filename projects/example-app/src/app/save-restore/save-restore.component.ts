@@ -18,8 +18,8 @@ const getChildren = () =>
   });
 
 @Component({
-  selector: 'app-saverestore',
-  template: `
+    selector: 'app-saverestore',
+    template: `
     <input
       id="filter"
       #filter
@@ -34,7 +34,8 @@ const getChildren = () =>
       [nodes]="nodes"
     ></tree-root>
   `,
-  styles: []
+    styles: [],
+    standalone: false
 })
 export class SaveRestoreComponent {
   get state(): ITreeState {

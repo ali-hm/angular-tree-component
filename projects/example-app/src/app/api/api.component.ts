@@ -2,9 +2,9 @@ import { Component, Input } from '@angular/core';
 import { TreeNode, TreeModel, ITreeOptions } from 'angular-tree-component';
 
 @Component({
-  selector: 'app-api',
-  styles: [],
-  template: `
+    selector: 'app-api',
+    styles: [],
+    template: `
     <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true">
     </tree-root>
     <p>API:</p>
@@ -39,7 +39,8 @@ import { TreeNode, TreeModel, ITreeOptions } from 'angular-tree-component';
     <button (click)="tree.treeModel.expandAll()">Expand All</button>
     <button (click)="tree.treeModel.collapseAll()">Collapse All</button>
     <button (click)="activeNodes(tree.treeModel)">getActiveNodes()</button>
-  `
+  `,
+    standalone: false
 })
 export class ApiComponent {
   options: ITreeOptions = {};
