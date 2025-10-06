@@ -2,8 +2,20 @@
 # For additional information regarding the format and rule options, please see:
 # https://github.com/browserslist/browserslist#queries
 # For IE 9-11 support, please uncomment the last line of the file and adjust as needed
-> 0.5%
-last 2 versions
+
+# Angular 20 recommended browserslist (evergreen only)
+last 2 Chrome major versions
+last 2 Firefox major versions
+last 2 Edge major versions
+last 2 Safari major versions
+last 2 iOS major versions
 Firefox ESR
-not dead
-not IE 9-11
+
+# explicitly exclude old/unsupported browsers
+not IE 11
+not op_mini all
+not kaios > 0
+not and_uc > 0
+not and_qq > 0
+not samsung > 0
+not android > 0
