@@ -1,4 +1,16 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgZone, OnDestroy, Output, Renderer2, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  HostListener,
+  NgZone,
+  OnDestroy,
+  Renderer2,
+  input,
+  inject,
+  output,
+  effect
+} from '@angular/core';
 import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 
 const DRAG_OVER_CLASS = 'is-dragging-over';
@@ -11,23 +23,17 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   private treeDraggedElement = inject(TreeDraggedElement);
   private ngZone = inject(NgZone);
 
-  @Input() allowDragoverStyling = true;
-  @Output('treeDrop') onDropCallback = new EventEmitter();
-  @Output('treeDropDragOver') onDragOverCallback = new EventEmitter();
-  @Output('treeDropDragLeave') onDragLeaveCallback = new EventEmitter();
-  @Output('treeDropDragEnter') onDragEnterCallback = new EventEmitter();
+  readonly allowDragoverStyling = input(true);
+  readonly treeAllowDrop = input<boolean | Function>(undefined);
+  readonly onDropCallback = output<{event: DragEvent, element: any}>({ alias: 'treeDrop' });
+  readonly onDragOverCallback = output<{event: DragEvent, element: any}>({ alias: 'treeDropDragOver' });
+  readonly onDragLeaveCallback = output<{event: DragEvent, element: any}>({ alias: 'treeDropDragLeave' });
+  readonly onDragEnterCallback = output<{event: DragEvent, element: any}>({ alias: 'treeDropDragEnter' });
   private readonly dragOverEventHandler: (ev: DragEvent) => void;
   private readonly dragEnterEventHandler: (ev: DragEvent) => void;
   private readonly dragLeaveEventHandler: (ev: DragEvent) => void;
 
   private _allowDrop = (element, $event) => true;
-
-  @Input() set treeAllowDrop(allowDrop) {
-    if (allowDrop instanceof Function) {
-      this._allowDrop = allowDrop;
-    }
-    else this._allowDrop = (element, $event) => allowDrop;
-  }
 
   allowDrop($event) {
     return this._allowDrop(this.treeDraggedElement.get(), $event);
@@ -37,6 +43,16 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
     this.dragOverEventHandler = this.onDragOver.bind(this);
     this.dragEnterEventHandler = this.onDragEnter.bind(this);
     this.dragLeaveEventHandler = this.onDragLeave.bind(this);
+    
+    effect(() => {
+      const allowDrop = this.treeAllowDrop();
+      if (allowDrop instanceof Function) {
+        this._allowDrop = allowDrop as (element: any, $event: any) => boolean;
+      }
+      else if (allowDrop !== undefined) {
+        this._allowDrop = (element, $event) => allowDrop;
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -57,7 +73,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
 
   onDragOver($event) {
     if (!this.allowDrop($event)) {
-      if (this.allowDragoverStyling) {
+      if (this.allowDragoverStyling()) {
         return this.addDisabledClass();
       }
       return;
@@ -66,7 +82,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
     this.onDragOverCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
     $event.preventDefault();
-    if (this.allowDragoverStyling) {
+    if (this.allowDragoverStyling()) {
       this.addClass();
     }
   }
@@ -80,14 +96,14 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
 
   onDragLeave($event) {
     if (!this.allowDrop($event)) {
-      if (this.allowDragoverStyling) {
+      if (this.allowDragoverStyling()) {
         return this.removeDisabledClass();
       }
       return;
     }
     this.onDragLeaveCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
-    if (this.allowDragoverStyling) {
+    if (this.allowDragoverStyling()) {
       this.removeClass();
     }
   }
@@ -98,7 +114,7 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
     $event.preventDefault();
     this.onDropCallback.emit({event: $event, element: this.treeDraggedElement.get()});
 
-    if (this.allowDragoverStyling) {
+    if (this.allowDragoverStyling()) {
       this.removeClass();
     }
     this.treeDraggedElement.set(null);

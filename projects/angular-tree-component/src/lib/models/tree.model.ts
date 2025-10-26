@@ -1,5 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { observable, computed, action, autorun } from 'mobx';
+import { Injectable, OnDestroy, signal, computed, effect } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
@@ -16,13 +15,57 @@ export class TreeModel implements ITreeModel, OnDestroy {
   eventNames = Object.keys(TREE_EVENTS);
   virtualScroll: TreeVirtualScroll;
 
-  @observable roots: TreeNode[];
-  @observable expandedNodeIds: IDTypeDictionary = {};
-  @observable selectedLeafNodeIds: IDTypeDictionary = {};
-  @observable activeNodeIds: IDTypeDictionary = {};
-  @observable hiddenNodeIds: IDTypeDictionary = {};
-  @observable focusedNodeId: IDType = null;
-  @observable virtualRoot: TreeNode;
+  // Private signals
+  private _roots = signal<TreeNode[]>(undefined);
+  private _expandedNodeIds = signal<IDTypeDictionary>({});
+  private _selectedLeafNodeIds = signal<IDTypeDictionary>({});
+  private _activeNodeIds = signal<IDTypeDictionary>({});
+  private _hiddenNodeIds = signal<IDTypeDictionary>({});
+  private _focusedNodeId = signal<IDType>(null);
+  private _virtualRoot = signal<TreeNode>(undefined);
+
+  // Public getters/setters to maintain API compatibility
+  get roots(): TreeNode[] { return this._roots(); }
+  private set roots(value: TreeNode[]) { this._roots.set(value); }
+
+  get virtualRoot(): TreeNode { return this._virtualRoot(); }
+
+  get focusedNode(): TreeNode {
+    const id = this._focusedNodeId();
+    return id ? this.getNodeById(id) : null;
+  }
+
+  get expandedNodes(): TreeNode[] {
+    const ids = this._expandedNodeIds();
+    const nodes = Object.keys(ids)
+      .filter((id) => ids[id])
+      .map((id) => this.getNodeById(id));
+    return nodes.filter(Boolean);
+  }
+
+  get activeNodes(): TreeNode[] {
+    const ids = this._activeNodeIds();
+    const nodes = Object.keys(ids)
+      .filter((id) => ids[id])
+      .map((id) => this.getNodeById(id));
+    return nodes.filter(Boolean);
+  }
+
+  get hiddenNodes(): TreeNode[] {
+    const ids = this._hiddenNodeIds();
+    const nodes = Object.keys(ids)
+        .filter((id) => ids[id])
+        .map((id) => this.getNodeById(id));
+    return nodes.filter(Boolean);
+  }
+
+  get selectedLeafNodes(): TreeNode[] {
+    const ids = this._selectedLeafNodeIds();
+    const nodes = Object.keys(ids)
+        .filter((id) => ids[id])
+        .map((id) => this.getNodeById(id));
+    return nodes.filter(Boolean);
+  }
 
   private firstUpdate = true;
   private events: any;
@@ -46,7 +89,6 @@ export class TreeModel implements ITreeModel, OnDestroy {
     return this.focusedNode;
   }
 
-
   getActiveNode(): TreeNode {
     return this.activeNodes[0];
   }
@@ -56,7 +98,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   getVisibleRoots() {
-    return this.virtualRoot.visibleChildren;
+    return this._virtualRoot()?.visibleChildren;
   }
 
   getFirstRoot(skipHidden = false) {
@@ -78,50 +120,15 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   isEmptyTree(): boolean {
-    return this.roots && this.roots.length === 0;
-  }
-
-  @computed get focusedNode() {
-    return this.focusedNodeId ? this.getNodeById(this.focusedNodeId) : null;
-  }
-
-  @computed get expandedNodes() {
-    const nodes = Object.keys(this.expandedNodeIds)
-      .filter((id) => this.expandedNodeIds[id])
-      .map((id) => this.getNodeById(id));
-
-    return nodes.filter(Boolean);
-  }
-
-  @computed get activeNodes() {
-    const nodes = Object.keys(this.activeNodeIds)
-      .filter((id) => this.activeNodeIds[id])
-      .map((id) => this.getNodeById(id));
-
-    return nodes.filter(Boolean);
-  }
-
-  @computed get hiddenNodes() {
-    const nodes = Object.keys(this.hiddenNodeIds)
-        .filter((id) => this.hiddenNodeIds[id])
-        .map((id) => this.getNodeById(id));
-
-    return nodes.filter(Boolean);
-  }
-
-  @computed get selectedLeafNodes() {
-    const nodes = Object.keys(this.selectedLeafNodeIds)
-        .filter((id) => this.selectedLeafNodeIds[id])
-        .map((id) => this.getNodeById(id));
-
-    return nodes.filter(Boolean);
+    const rootNodes = this.roots;
+    return rootNodes && rootNodes.length === 0;
   }
 
   // locating nodes
   getNodeByPath(path: any[], startNode= null): TreeNode {
     if (!path) return null;
 
-    startNode = startNode || this.virtualRoot;
+    startNode = startNode || this._virtualRoot();
     if (path.length === 0) return startNode;
 
     if (!startNode.children) return null;
@@ -141,7 +148,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   getNodeBy(predicate, startNode = null) {
-    startNode = startNode || this.virtualRoot;
+    startNode = startNode || this._virtualRoot();
 
     if (!startNode.children) return null;
 
@@ -158,19 +165,19 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   isExpanded(node) {
-    return this.expandedNodeIds[node.id];
+    return this._expandedNodeIds()[node.id];
   }
 
   isHidden(node) {
-    return this.hiddenNodeIds[node.id];
+    return this._hiddenNodeIds()[node.id];
   }
 
   isActive(node) {
-    return this.activeNodeIds[node.id];
+    return this._activeNodeIds()[node.id];
   }
 
   isSelected(node) {
-    return this.selectedLeafNodeIds[node.id];
+    return this._selectedLeafNodeIds()[node.id];
   }
 
   ngOnDestroy() {
@@ -180,8 +187,9 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   dispose() {
     // Dispose reactions of the replaced nodes
-    if (this.virtualRoot) {
-      this.virtualRoot.dispose();
+    const vRoot = this._virtualRoot();
+    if (vRoot) {
+      vRoot.dispose();
     }
   }
 
@@ -191,7 +199,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   // actions
-  @action setData({ nodes, options = null, events = null }: {nodes: any, options: any, events: any}) {
+  setData({ nodes, options = null, events = null }: {nodes: any, options: any, events: any}) {
     if (options) {
       this.options = new TreeOptions(options);
     }
@@ -205,7 +213,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     this.update();
   }
 
-  @action update() {
+  update() {
     // Rebuild tree:
     let virtualRootConfig = {
       id: this.options.rootId,
@@ -215,13 +223,14 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
     this.dispose();
 
-    this.virtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
-
-    this.roots = this.virtualRoot.children;
+    const newVirtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
+    this._virtualRoot.set(newVirtualRoot);
+    this.roots = newVirtualRoot.children;
 
     // Fire event:
+    const currentRoots = this.roots;
     if (this.firstUpdate) {
-      if (this.roots) {
+      if (currentRoots) {
         this.firstUpdate = false;
         this._calculateExpandedNodes();
       }
@@ -231,31 +240,31 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
 
-  @action setFocusedNode(node) {
-    this.focusedNodeId = node ? node.id : null;
+  setFocusedNode(node) {
+    this._focusedNodeId.set(node ? node.id : null);
   }
 
-  @action setFocus(value) {
+  setFocus(value) {
     TreeModel.focusedTree = value ? this : null;
   }
 
-  @action doForAll(fn) {
+  doForAll(fn) {
     this.roots.forEach((root) => root.doForAll(fn));
   }
 
-  @action focusNextNode() {
+  focusNextNode() {
     let previousNode = this.getFocusedNode();
     let nextNode = previousNode ? previousNode.findNextNode(true, true) : this.getFirstRoot(true);
     if (nextNode) nextNode.focus();
   }
 
-  @action focusPreviousNode() {
+  focusPreviousNode() {
     let previousNode = this.getFocusedNode();
     let nextNode = previousNode ? previousNode.findPreviousNode(true) : this.getLastRoot(true);
     if (nextNode) nextNode.focus();
   }
 
-  @action focusDrillDown() {
+  focusDrillDown() {
     let previousNode = this.getFocusedNode();
     if (previousNode && previousNode.isCollapsed && previousNode.hasChildren) {
       previousNode.toggleExpanded();
@@ -266,7 +275,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
   }
 
-  @action focusDrillUp() {
+  focusDrillUp() {
     let previousNode = this.getFocusedNode();
     if (!previousNode) return;
     if (previousNode.isExpanded) {
@@ -278,7 +287,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
   }
 
-  @action setActiveNode(node, value, multi = false) {
+  setActiveNode(node, value, multi = false) {
     if (multi) {
       this._setActiveNodeMulti(node, value);
     }
@@ -296,8 +305,8 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
   }
 
-  @action setSelectedNode(node, value) {
-    this.selectedLeafNodeIds = Object.assign({}, this.selectedLeafNodeIds, {[node.id]: value});
+  setSelectedNode(node, value) {
+    this._selectedLeafNodeIds.update(ids => ({...ids, [node.id]: value}));
 
     if (value) {
       node.focus();
@@ -307,27 +316,29 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
   }
 
-  @action setExpandedNode(node, value) {
-    this.expandedNodeIds = Object.assign({}, this.expandedNodeIds, {[node.id]: value});
+  setExpandedNode(node, value) {
+    this._expandedNodeIds.update(ids => ({...ids, [node.id]: value}));
     this.fireEvent({ eventName: TREE_EVENTS.toggleExpanded, node, isExpanded: value });
   }
 
-  @action expandAll() {
+  expandAll() {
     this.roots.forEach((root) => root.expandAll());
   }
 
-  @action collapseAll() {
+  collapseAll() {
     this.roots.forEach((root) => root.collapseAll());
   }
 
-  @action setIsHidden(node, value) {
-    this.hiddenNodeIds = Object.assign({}, this.hiddenNodeIds, {[node.id]: value});
+  setIsHidden(node, value) {
+    this._hiddenNodeIds.update(ids => ({...ids, [node.id]: value}));
   }
 
-  @action setHiddenNodeIds(nodeIds) {
-    this.hiddenNodeIds = nodeIds.reduce((hiddenNodeIds, id) => Object.assign(hiddenNodeIds, {
+  setHiddenNodeIds(nodeIds) {
+    const ids = nodeIds.reduce((hiddenNodeIds, id) => ({
+      ...hiddenNodeIds,
       [id]: true
     }), {});
+    this._hiddenNodeIds.set(ids);
   }
 
   performKeyAction(node, $event) {
@@ -341,7 +352,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     }
   }
 
-  @action filterNodes(filter, autoShow = true) {
+  filterNodes(filter, autoShow = true) {
     let filterFn;
 
     if (!filter) {
@@ -363,16 +374,16 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
     const ids = {};
     this.roots.forEach((node) => this._filterNode(ids, node, filterFn, autoShow));
-    this.hiddenNodeIds = ids;
+    this._hiddenNodeIds.set(ids);
     this.fireEvent({ eventName: TREE_EVENTS.changeFilter });
   }
 
-  @action clearFilter() {
-    this.hiddenNodeIds = {};
+  clearFilter() {
+    this._hiddenNodeIds.set({});
     this.fireEvent({ eventName: TREE_EVENTS.changeFilter });
   }
 
-  @action moveNode(node, to) {
+  moveNode(node, to) {
     const fromIndex = node.getIndexInParent();
     const fromParent = node.parent;
 
@@ -406,7 +417,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
     });
   }
 
-  @action copyNode(node, to) {
+  copyNode(node, to) {
     const fromIndex = node.getIndexInParent();
 
     if (!this.canMoveNode(node, to, fromIndex)) return;
@@ -431,28 +442,26 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   getState() {
     return {
-      expandedNodeIds: this.expandedNodeIds,
-      selectedLeafNodeIds: this.selectedLeafNodeIds,
-      activeNodeIds: this.activeNodeIds,
-      hiddenNodeIds: this.hiddenNodeIds,
-      focusedNodeId: this.focusedNodeId
+      expandedNodeIds: this._expandedNodeIds(),
+      selectedLeafNodeIds: this._selectedLeafNodeIds(),
+      activeNodeIds: this._activeNodeIds(),
+      hiddenNodeIds: this._hiddenNodeIds(),
+      focusedNodeId: this._focusedNodeId()
     };
   }
 
-  @action setState(state) {
+  setState(state) {
     if (!state) return;
 
-    Object.assign(this, {
-      expandedNodeIds: state.expandedNodeIds || {},
-      selectedLeafNodeIds: state.selectedLeafNodeIds || {},
-      activeNodeIds: state.activeNodeIds || {},
-      hiddenNodeIds: state.hiddenNodeIds || {},
-      focusedNodeId: state.focusedNodeId
-    });
+    this._expandedNodeIds.set(state.expandedNodeIds || {});
+    this._selectedLeafNodeIds.set(state.selectedLeafNodeIds || {});
+    this._activeNodeIds.set(state.activeNodeIds || {});
+    this._hiddenNodeIds.set(state.hiddenNodeIds || {});
+    this._focusedNodeId.set(state.focusedNodeId);
   }
 
   subscribeToState(fn) {
-    autorun(() => fn(this.getState()));
+    effect(() => fn(this.getState()));
   }
 
   canMoveNode(node, to, fromIndex = undefined) {
@@ -496,10 +505,10 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   private _calculateExpandedNodes(startNode = null) {
-    startNode = startNode || this.virtualRoot;
+    startNode = startNode || this._virtualRoot();
 
     if (startNode.data[this.options.isExpandedField]) {
-      this.expandedNodeIds = Object.assign({}, this.expandedNodeIds, {[startNode.id]: true});
+      this._expandedNodeIds.update(ids => ({...ids, [startNode.id]: true}));
     }
     if (startNode.children) {
       startNode.children.forEach((child) => this._calculateExpandedNodes(child));
@@ -516,15 +525,15 @@ export class TreeModel implements ITreeModel, OnDestroy {
       });
 
     if (value) {
-      this.activeNodeIds = {[node.id]: true};
+      this._activeNodeIds.set({[node.id]: true});
     }
     else {
-      this.activeNodeIds = {};
+      this._activeNodeIds.set({});
     }
   }
 
   private _setActiveNodeMulti(node, value) {
-    this.activeNodeIds = Object.assign({}, this.activeNodeIds, {[node.id]: value});
+    this._activeNodeIds.update(ids => ({...ids, [node.id]: value}));
   }
 
 }
