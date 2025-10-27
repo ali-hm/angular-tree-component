@@ -1,41 +1,62 @@
-import { observable, computed, reaction, autorun, action, IReactionDisposer } from 'mobx';
+import { signal } from '@angular/core';
 import { TreeModel } from './tree.model';
 import { TreeOptions } from './tree-options.model';
 import { ITreeNode } from '../defs/api';
 import { TREE_EVENTS } from '../constants/events';
 
 export class TreeNode implements ITreeNode {
-  private handler: IReactionDisposer;
-  @computed get isHidden() { return this.treeModel.isHidden(this); };
-  @computed get isExpanded() { return this.treeModel.isExpanded(this); };
-  @computed get isActive() { return this.treeModel.isActive(this); };
-  @computed get isFocused() { return this.treeModel.isNodeFocused(this); };
-  @computed get isSelected() {
+  private _isLoadingChildren = false;
+
+  // Private signals
+  private _children = signal<TreeNode[]>(undefined);
+  private _index = signal<number>(undefined);
+  private _position = signal<number>(0);
+  private _height = signal<number>(undefined);
+
+  // Public getters/setters for API compatibility
+  get children(): TreeNode[] { return this._children(); }
+  set children(value: TreeNode[]) { this._children.set(value); }
+
+  get index(): number { return this._index(); }
+  set index(value: number) { this._index.set(value); }
+
+  get position(): number { return this._position(); }
+  set position(value: number) { this._position.set(value); }
+
+  get height(): number { return this._height(); }
+  set height(value: number) { this._height.set(value); }
+
+  // Computed properties
+  get isHidden() { return this.treeModel.isHidden(this); }
+  get isExpanded() { return this.treeModel.isExpanded(this); }
+  get isActive() { return this.treeModel.isActive(this); }
+  get isFocused() { return this.treeModel.isNodeFocused(this); }
+
+  get isSelected() {
     if (this.isSelectable()) {
         return this.treeModel.isSelected(this);
     } else {
-      return this.children.some((node: TreeNode) => node.isSelected);
+      return this.children?.some((node: TreeNode) => node.isSelected);
     }
-  };
-  @computed get isAllSelected() {
+  }
+
+  get isAllSelected() {
     if (this.isSelectable()) {
       return this.treeModel.isSelected(this);
     } else {
-      return this.children.every((node: TreeNode) => node.isAllSelected);
+      return this.children?.every((node: TreeNode) => node.isAllSelected);
     }
-  };
-  @computed get isPartiallySelected() {
+  }
+
+  get isPartiallySelected() {
     return this.isSelected && !this.isAllSelected;
   }
 
-  @observable children: TreeNode[];
-  @observable index: number;
-  @observable position = 0;
-  @observable height: number;
-  @computed get level(): number {
+  get level(): number {
     return this.parent ? this.parent.level + 1 : 0;
   }
-  @computed get path(): string[] {
+
+  get path(): string[] {
     return this.parent ? [...this.parent.path, this.id] : [];
   }
 
@@ -113,7 +134,7 @@ export class TreeNode implements ITreeNode {
     return this.visibleChildren;
   }
 
-  @computed get visibleChildren() {
+  get visibleChildren() {
     return (this.children || []).filter((node) => !node.isHidden);
   }
 
@@ -270,30 +291,31 @@ export class TreeNode implements ITreeNode {
   setIsExpanded(value) {
     if (this.hasChildren) {
       this.treeModel.setExpandedNode(this, value);
+      
+      // Load children when expanding if they haven't been loaded yet
+      if (value && !this.children && this.hasChildren && !this._isLoadingChildren) {
+        this._isLoadingChildren = true;
+        this.loadNodeChildren().finally(() => {
+          this._isLoadingChildren = false;
+        });
+      }
     }
 
     return this;
   };
 
   autoLoadChildren() {
-    this.handler =
-      reaction(
-        () => this.isExpanded,
-        (isExpanded) => {
-          if (!this.children && this.hasChildren && isExpanded) {
-            this.loadNodeChildren();
-          }
-        },
-        { fireImmediately: true }
-      );
+    // Instead of using effect, we'll load children when the node is expanded
+    // This is handled by the toggleExpanded and setIsExpanded methods
+    // Check immediately if we should load
+    if (this.isExpanded && !this.children && this.hasChildren) {
+      this.loadNodeChildren();
+    }
   }
 
   dispose() {
     if (this.children) {
       this.children.forEach((child) => child.dispose());
-    }
-    if (this.handler) {
-      this.handler();
     }
     this.parent = null;
     this.children = null;
@@ -312,7 +334,7 @@ export class TreeNode implements ITreeNode {
     return this.isLeaf || !this.children || !this.options.useTriState;
   }
 
-  @action setIsSelected(value) {
+  setIsSelected(value) {
     if (this.isSelectable()) {
       this.treeModel.setSelectedNode(this, value);
     } else {
@@ -398,7 +420,7 @@ export class TreeNode implements ITreeNode {
     return this.options.nodeHeight(this);
   }
 
-  @action _initChildren() {
+  _initChildren() {
     this.children = this.getField('children')
       .map((c, index) => new TreeNode(c, this, this.treeModel, index));
   }

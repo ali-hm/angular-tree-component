@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TreeMobxAutorunDirective } from './mobx-angular/tree-mobx-autorun.directive';
 
 import {
   IActionHandler,
@@ -51,8 +50,7 @@ import { TreeAnimateOpenDirective } from './directives/tree-animate-open.directi
     TreeViewportComponent,
     TreeNodeWrapperComponent,
     TreeNodeCheckboxComponent,
-    TreeAnimateOpenDirective,
-    TreeMobxAutorunDirective
+    TreeAnimateOpenDirective
   ],
   imports: [CommonModule,TreeComponent,
     TreeNodeComponent,
@@ -67,8 +65,7 @@ import { TreeAnimateOpenDirective } from './directives/tree-animate-open.directi
     TreeViewportComponent,
     TreeNodeWrapperComponent,
     TreeNodeCheckboxComponent,
-    TreeAnimateOpenDirective,
-    TreeMobxAutorunDirective],
+    TreeAnimateOpenDirective],
   providers: []
 })
 export class TreeModule {}
@@ -99,6 +96,5 @@ export {
   TreeNodeCollectionComponent,
   TreeViewportComponent,
   TreeNodeCheckboxComponent,
-  ITreeState,
-  TreeMobxAutorunDirective
+  ITreeState
 };

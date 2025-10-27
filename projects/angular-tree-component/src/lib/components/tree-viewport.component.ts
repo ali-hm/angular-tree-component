@@ -1,24 +1,30 @@
-import { Component, ElementRef, AfterViewInit, OnInit, OnDestroy, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  AfterViewInit,
+  OnInit,
+  OnDestroy,
+  Injector,
+  inject
+} from '@angular/core';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TREE_EVENTS } from '../constants/events';
-import { TreeMobxAutorunDirective } from '../mobx-angular/tree-mobx-autorun.directive';
 
 @Component({
-    selector: 'tree-viewport',
-    styles: [],
-    providers: [TreeVirtualScroll],
-    template: `
-    <ng-container *treeMobxAutorun="{ dontDetach: true }">
-      <div [style.height]="getTotalHeight()">
-        <ng-content></ng-content>
-      </div>
-    </ng-container>
+  selector: 'tree-viewport',
+  styles: [],
+  providers: [TreeVirtualScroll],
+  template: `
+    <div [style.height]="getTotalHeight()">
+      <ng-content></ng-content>
+    </div>
   `,
-    imports: [TreeMobxAutorunDirective]
+  imports: []
 })
 export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   private elementRef = inject(ElementRef);
   virtualScroll = inject(TreeVirtualScroll);
+  private injector = inject(Injector);
 
   setViewport = this.throttle(() => {
     this.virtualScroll.setViewport(this.elementRef.nativeElement);
@@ -32,6 +38,7 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngOnInit() {
     this.virtualScroll.init();
+    this.virtualScroll.setupWatchers(this.injector);
   }
 
   ngAfterViewInit() {
@@ -59,7 +66,7 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
 
   private throttle(func, timeFrame) {
     let lastTime = 0;
-    return function () {
+    return function() {
       let now = Date.now();
       if (now - lastTime >= timeFrame) {
         func();

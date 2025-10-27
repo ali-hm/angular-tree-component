@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { observable, computed, action, autorun, reaction } from 'mobx';
+import { Injectable, Injector, inject } from '@angular/core';
+import { signal, effect } from '@angular/core';
 import { TreeModel } from './tree.model';
 import { TREE_EVENTS } from '../constants/events';
 
@@ -10,26 +10,35 @@ const Y_EPSILON = 150; // Minimum pixel change required to recalculate the rende
 export class TreeVirtualScroll {
   private treeModel = inject(TreeModel);
 
-  private _dispose: any;
+  private _dispose: (() => void)[] = [];
 
-  @observable yBlocks = 0;
-  @observable x = 0;
-  @observable viewportHeight = null;
+  private _yBlocks = signal<number>(0);
+  private _x = signal<number>(0);
+  private _viewportHeight = signal<number | null>(null);
   viewport = null;
 
-  @computed get y() {
+  get yBlocks() { return this._yBlocks(); }
+  set yBlocks(value: number) { this._yBlocks.set(value); }
+
+  get x() { return this._x(); }
+  set x(value: number) { this._x.set(value); }
+
+  get viewportHeight() { return this._viewportHeight(); }
+  set viewportHeight(value: number | null) { this._viewportHeight.set(value); }
+
+  get y() {
     return this.yBlocks * Y_EPSILON;
   }
 
-  @computed get totalHeight() {
-    return this.treeModel.virtualRoot ? this.treeModel.virtualRoot.height : 0;
+  get totalHeight() {
+    const vRoot = this.treeModel['_virtualRoot']();
+    return vRoot ? vRoot.height : 0;
   }
 
   constructor() {
     const treeModel = this.treeModel;
 
     treeModel.virtualScroll = this;
-    this._dispose = [autorun(() => this.fixScroll())];
   }
 
   fireEvent(event) {
@@ -40,25 +49,56 @@ export class TreeVirtualScroll {
     const fn = this.recalcPositions.bind(this);
 
     fn();
-    this._dispose = [
-      ...this._dispose,
-      reaction(() => this.treeModel.roots, fn),
-      reaction(() => this.treeModel.expandedNodeIds, fn),
-      reaction(() => this.treeModel.hiddenNodeIds, fn)
-    ];
     this.treeModel.subscribe(TREE_EVENTS.loadNodeChildren, fn);
+  }
+
+  setupWatchers(injector: Injector) {
+    const fn = this.recalcPositions.bind(this);
+    
+    const fixScrollEffect = effect(() => {
+      const yBlocks = this._yBlocks();
+      const totalHeight = this.totalHeight;
+      const viewportHeight = this._viewportHeight();
+      
+      this.fixScroll();
+    }, { injector });
+    
+    const rootsEffect = effect(() => {
+      const roots = this.treeModel.roots;
+      fn();
+    }, { injector });
+    
+    const expandedEffect = effect(() => {
+      const expandedNodes = this.treeModel.expandedNodes;
+      fn();
+    }, { injector });
+    
+    const hiddenEffect = effect(() => {
+      const hiddenNodes = this.treeModel.hiddenNodes;
+      fn();
+    }, { injector });
+    
+    this._dispose = [
+      () => fixScrollEffect.destroy(),
+      () => rootsEffect.destroy(),
+      () => expandedEffect.destroy(),
+      () => hiddenEffect.destroy()
+    ];
   }
 
   isEnabled() {
     return this.treeModel.options.useVirtualScroll;
   }
 
-  @action private _setYBlocks(value) {
+  private _setYBlocks(value) {
     this.yBlocks = value;
   }
 
-  @action recalcPositions() {
-    this.treeModel.virtualRoot.height = this._getPositionAfter(this.treeModel.getVisibleRoots(), 0);
+  recalcPositions() {
+    const vRoot = this.treeModel['_virtualRoot']();
+    if (vRoot) {
+      vRoot.height = this._getPositionAfter(this.treeModel.getVisibleRoots(), 0);
+    }
   }
 
   private _getPositionAfter(nodes, startPos) {
@@ -86,7 +126,7 @@ export class TreeVirtualScroll {
     this._dispose.forEach((d) => d());
   }
 
-  @action setViewport(viewport) {
+  setViewport(viewport) {
     Object.assign(this, {
       viewport,
       x: viewport.scrollLeft,
@@ -95,7 +135,7 @@ export class TreeVirtualScroll {
     });
   }
 
-  @action scrollIntoView(node, force, scrollToMiddle = true) {
+  scrollIntoView(node, force, scrollToMiddle = true) {
     if (node.options.scrollContainer) {
       const scrollContainer = node.options.scrollContainer;
       const scrollContainerHeight = scrollContainer.getBoundingClientRect().height;
