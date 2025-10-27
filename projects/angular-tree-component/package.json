@@ -1,7 +1,7 @@
 {
   "name": "@ali-hm/angular-tree-component",
-  "version": "20.3.3",
-  "description": "A simple yet powerful tree component for Angular 19",
+  "version": "20.3.4",
+  "description": "A simple yet powerful tree component for Angular 12+",
   "author": "ali-hm",
   "homepage": "https://github.com/ali-hm/angular-tree-component",
   "license": "MIT",
