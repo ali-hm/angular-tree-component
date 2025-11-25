@@ -18,12 +18,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/example-app",
+            "outputPath": {
+              "base": "dist/example-app"
+            },
             "index": "projects/example-app/src/index.html",
-            "main": "projects/example-app/src/main.ts",
-            "polyfills": "projects/example-app/src/polyfills.ts",
+            "polyfills": [
+              "projects/example-app/src/polyfills.ts"
+            ],
             "tsConfig": "projects/example-app/tsconfig.app.json",
             "aot": false,
             "assets": [
@@ -34,12 +37,11 @@
               "projects/example-app/src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/example-app/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -55,8 +57,6 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -83,7 +83,7 @@
           "defaultConfiguration": ""
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "options": {
             "buildTarget": "example-app:build"
           },
@@ -97,7 +97,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "projects/example-app/src/test.ts",
             "karmaConfig": "projects/example-app/karma.conf.js",
@@ -123,14 +123,14 @@
       "prefix": "",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/angular-tree-component/tsconfig.lib.json",
             "project": "projects/angular-tree-component/ng-package.json"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "projects/angular-tree-component/src/test.ts",
             "tsConfig": "projects/angular-tree-component/tsconfig.spec.json",
@@ -160,12 +160,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/docs-app",
+            "outputPath": {
+              "base": "dist/docs-app"
+            },
             "index": "projects/docs-app/src/index.html",
-            "main": "projects/docs-app/src/main.ts",
-            "polyfills": "projects/docs-app/src/polyfills.ts",
+            "polyfills": [
+              "projects/docs-app/src/polyfills.ts"
+            ],
             "tsConfig": "projects/docs-app/tsconfig.app.json",
             "aot": false,
             "assets": [
@@ -176,12 +179,11 @@
               "projects/docs-app/src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/docs-app/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -196,8 +198,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -215,7 +215,7 @@
           "defaultConfiguration": ""
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "options": {
             "buildTarget": "docs-app:build"
           },
@@ -226,13 +226,13 @@
           }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
             "buildTarget": "docs-app:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "projects/docs-app/src/test.ts",
             "polyfills": "projects/docs-app/src/polyfills.ts",

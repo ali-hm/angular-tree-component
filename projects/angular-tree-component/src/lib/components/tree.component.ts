@@ -15,7 +15,7 @@ import { TreeDraggedElement } from '../models/tree-dragged-element.model';
 import { TreeOptions } from '../models/tree-options.model';
 import { ITreeOptions } from '../defs/api';
 import { TreeViewportComponent } from './tree-viewport.component';
-import { NgIf } from '@angular/common';
+
 import { TreeNodeCollectionComponent } from './tree-node-collection.component';
 import { TreeNodeDropSlot } from './tree-node-drop-slot.component';
 
@@ -29,35 +29,36 @@ import { TreeNodeDropSlot } from './tree-node-drop-slot.component';
         class="angular-tree-component"
         [class.node-dragging]="treeDraggedElement.isDragging()"
         [class.angular-tree-component-rtl]="treeModel.options.rtl"
-      >
-        <tree-node-collection
-          *ngIf="treeModel.roots"
-          [nodes]="treeModel.roots"
-          [treeModel]="treeModel"
+        >
+        @if (treeModel.roots) {
+          <tree-node-collection
+            [nodes]="treeModel.roots"
+            [treeModel]="treeModel"
           [templates]="{
             loadingTemplate: loadingTemplate,
             treeNodeTemplate: treeNodeTemplate,
             treeNodeWrapperTemplate: treeNodeWrapperTemplate,
             treeNodeFullTemplate: treeNodeFullTemplate
           }"
-        >
-        </tree-node-collection>
-        <tree-node-drop-slot
-          class="empty-tree-drop-slot"
-          *ngIf="treeModel.isEmptyTree()"
-          [dropIndex]="0"
-          [node]="treeModel.virtualRoot"
-        >
-        </tree-node-drop-slot>
+            >
+          </tree-node-collection>
+        }
+        @if (treeModel.isEmptyTree()) {
+          <tree-node-drop-slot
+            class="empty-tree-drop-slot"
+            [dropIndex]="0"
+            [node]="treeModel.virtualRoot"
+            >
+          </tree-node-drop-slot>
+        }
       </div>
     </tree-viewport>
-  `,
+    `,
   imports: [
     TreeViewportComponent,
-    NgIf,
     TreeNodeCollectionComponent,
     TreeNodeDropSlot
-  ]
+]
 })
 export class TreeComponent implements OnChanges {
   treeModel = inject(TreeModel);

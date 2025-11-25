@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { tap } from 'rxjs/operators';
 import { CopierService } from '../../shared/copier.service';
 import { Logger } from '../../shared/logger.service';
-import { NgIf } from '@angular/common';
+
 
 /**
  * Formatted Code Block
@@ -31,16 +31,18 @@ import { NgIf } from '@angular/common';
     selector: 'aio-code',
     template: `
     <pre class="prettyprint lang-{{language}}">
-      <button *ngIf="!hideCopy" class="material-icons copy-button no-print"
-        title="Copy code snippet"
-        [attr.aria-label]="ariaLabel"
-        (click)="doCopy()">
-        <span aria-hidden="true">content_copy</span>
-      </button>
+      @if (!hideCopy) {
+        <button class="material-icons copy-button no-print"
+          title="Copy code snippet"
+          [attr.aria-label]="ariaLabel"
+          (click)="doCopy()">
+          <span aria-hidden="true">content_copy</span>
+        </button>
+      }
       <code class="animated fadeIn" #codeContainer></code>
     </pre>
     `,
-    imports: [NgIf]
+    imports: []
 })
 export class CodeComponent implements OnChanges {
   private snackbar = inject(MatSnackBar);

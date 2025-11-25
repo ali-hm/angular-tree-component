@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { ITreeOptions, TREE_ACTIONS, TreeNode, TreeModel, TreeModule } from 'angular-tree-component';
-import { NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -8,30 +8,36 @@ import { FormsModule } from '@angular/forms';
     template: `
     <tree-root [focused]="true" [options]="options" [nodes]="nodes">
       <ng-template #treeNodeTemplate let-node="node">
-        <span *ngIf="node === editNode">
-          <input
-            autofocus
-            [(ngModel)]="node.data.name"
-            (blur)="stopEdit()"
-            (keyup.enter)="stopEdit()"/>
-        </span>
-        <span *ngIf="node !== editNode">{{ node.data.name }}</span>
+        @if (node === editNode) {
+          <span>
+            <input
+              autofocus
+              [(ngModel)]="node.data.name"
+              (blur)="stopEdit()"
+              (keyup.enter)="stopEdit()"/>
+          </span>
+        }
+        @if (node !== editNode) {
+          <span>{{ node.data.name }}</span>
+        }
       </ng-template>
     </tree-root>
-    <div class="menu" *ngIf="contextMenu" [style.left.px]="contextMenu.x" [style.top.px]="contextMenu.y">
-      <div>Menu for {{ contextMenu.node.data.name }}</div>
-      <hr>
-      <ul>
-        <li (click)="edit()"><a>Edit</a></li>
-        <li (click)="copy()"><a>Copy</a></li>
-        <li (click)="cut()"><a>Cut</a></li>
-        <li (click)="paste()"><a [style.opacity]="canPaste() && 1 || 0.3">Paste</a></li>
-      </ul>
-    </div>
-    <br>
-    <p>Keys:</p>
-    down | up | left | right | space | enter
-  `,
+    @if (contextMenu) {
+      <div class="menu" [style.left.px]="contextMenu.x" [style.top.px]="contextMenu.y">
+        <div>Menu for {{ contextMenu.node.data.name }}</div>
+        <hr>
+          <ul>
+            <li (click)="edit()"><a>Edit</a></li>
+            <li (click)="copy()"><a>Copy</a></li>
+            <li (click)="cut()"><a>Cut</a></li>
+            <li (click)="paste()"><a [style.opacity]="canPaste() && 1 || 0.3">Paste</a></li>
+          </ul>
+        </div>
+      }
+      <br>
+        <p>Keys:</p>
+        down | up | left | right | space | enter
+    `,
     styles: [
         `.menu {
       position: absolute;
@@ -54,7 +60,7 @@ import { FormsModule } from '@angular/forms';
       background-color: aliceblue;
     }`,
     ],
-    imports: [TreeModule, NgIf, FormsModule]
+    imports: [TreeModule, FormsModule]
 })
 export class ContextmenuComponent {
   contextMenu: {node: TreeNode, x: number, y: number} = null;

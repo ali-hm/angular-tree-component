@@ -1,7 +1,7 @@
 /* tslint:disable component-selector */
 import { Component, HostBinding, ElementRef, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { CodeComponent } from './code.component';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 /**
  * An embeddable code block that displays nicely formatted code.
@@ -19,17 +19,19 @@ import { NgIf, NgClass } from '@angular/common';
     template: `
     <!-- Content projection is used to get the content HTML provided to this component -->
     <div #content style="display: none"><ng-content></ng-content></div>
-    <header *ngIf="header">{{header}}</header>
+    @if (header) {
+      <header>{{header}}</header>
+    }
     <aio-code [ngClass]="classes"
-              [language]="language"
-              [linenums]="linenums"
-              [path]="path"
-              [region]="region"
-              [hideCopy]="hidecopy"
-              [header]="header">
+      [language]="language"
+      [linenums]="linenums"
+      [path]="path"
+      [region]="region"
+      [hideCopy]="hidecopy"
+      [header]="header">
     </aio-code>
-  `,
-    imports: [NgIf, CodeComponent, NgClass]
+    `,
+    imports: [CodeComponent, NgClass]
 })
 export class CodeExampleComponent implements AfterViewInit {
   classes: {};
