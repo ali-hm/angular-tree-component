@@ -5,6 +5,8 @@ import {
   OnInit,
   OnDestroy,
   Injector,
+  Renderer2,
+  afterNextRender,
   inject
 } from '@angular/core';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
@@ -25,12 +27,14 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   private elementRef = inject(ElementRef);
   virtualScroll = inject(TreeVirtualScroll);
   private injector = inject(Injector);
+  private renderer = inject(Renderer2);
 
   setViewport = this.throttle(() => {
     this.virtualScroll.setViewport(this.elementRef.nativeElement);
   }, 17);
 
   private readonly scrollEventHandler: ($event: Event) => void;
+  private removeScrollListener: (() => void) | null = null;
 
   constructor() {
     this.scrollEventHandler = this.setViewport.bind(this);
@@ -42,18 +46,23 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
+    afterNextRender(() => {
       this.setViewport();
       this.virtualScroll.fireEvent({ eventName: TREE_EVENTS.initialized });
-    });
-    let el: HTMLElement = this.elementRef.nativeElement;
-    el.addEventListener('scroll', this.scrollEventHandler);
+    }, { injector: this.injector });
+
+    const el: HTMLElement = this.elementRef.nativeElement;
+    this.removeScrollListener = this.renderer.listen(
+      el,
+      'scroll',
+      this.scrollEventHandler
+    );
   }
 
   ngOnDestroy() {
     this.virtualScroll.clear();
-    let el: HTMLElement = this.elementRef.nativeElement;
-    el.removeEventListener('scroll', this.scrollEventHandler);
+    this.removeScrollListener?.();
+    this.removeScrollListener = null;
   }
 
   getTotalHeight() {

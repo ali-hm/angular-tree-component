@@ -3,7 +3,6 @@ import {
   Directive,
   ElementRef,
   HostListener,
-  NgZone,
   OnDestroy,
   Renderer2,
   input,
@@ -21,7 +20,6 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
   private treeDraggedElement = inject(TreeDraggedElement);
-  private ngZone = inject(NgZone);
 
   readonly allowDragoverStyling = input(true);
   readonly treeAllowDrop = input<boolean | Function>(undefined);
@@ -32,6 +30,9 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
   private readonly dragOverEventHandler: (ev: DragEvent) => void;
   private readonly dragEnterEventHandler: (ev: DragEvent) => void;
   private readonly dragLeaveEventHandler: (ev: DragEvent) => void;
+  private dragOverUnlisten: (() => void) | null = null;
+  private dragEnterUnlisten: (() => void) | null = null;
+  private dragLeaveUnlisten: (() => void) | null = null;
 
   private _allowDrop = (element, $event) => true;
 
@@ -57,18 +58,30 @@ export class TreeDropDirective implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     let el: HTMLElement = this.el.nativeElement;
-    this.ngZone.runOutsideAngular(() => {
-      el.addEventListener('dragover', this.dragOverEventHandler);
-      el.addEventListener('dragenter', this.dragEnterEventHandler);
-      el.addEventListener('dragleave', this.dragLeaveEventHandler);
-    });
+    this.dragOverUnlisten = this.renderer.listen(
+      el,
+      'dragover',
+      this.dragOverEventHandler
+    );
+    this.dragEnterUnlisten = this.renderer.listen(
+      el,
+      'dragenter',
+      this.dragEnterEventHandler
+    );
+    this.dragLeaveUnlisten = this.renderer.listen(
+      el,
+      'dragleave',
+      this.dragLeaveEventHandler
+    );
   }
 
   ngOnDestroy() {
-    let el: HTMLElement = this.el.nativeElement;
-    el.removeEventListener('dragover', this.dragOverEventHandler);
-    el.removeEventListener('dragenter', this.dragEnterEventHandler);
-    el.removeEventListener('dragleave', this.dragLeaveEventHandler);
+    this.dragOverUnlisten?.();
+    this.dragEnterUnlisten?.();
+    this.dragLeaveUnlisten?.();
+    this.dragOverUnlisten = null;
+    this.dragEnterUnlisten = null;
+    this.dragLeaveUnlisten = null;
   }
 
   onDragOver($event) {

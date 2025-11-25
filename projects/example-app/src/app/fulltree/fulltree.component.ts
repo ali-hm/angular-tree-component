@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TreeNode, TreeModel, TREE_ACTIONS, KEYS, IActionMapping, ITreeOptions, TreeModule } from 'angular-tree-component';
 import { FormsModule } from '@angular/forms';
 
@@ -35,7 +35,7 @@ const actionMapping: IActionMapping = {
 @Component({
     selector: 'app-fulltree',
     styles: [
-        `button: {
+        `button {
         line-height: 24px;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
         border: none;
@@ -53,7 +53,7 @@ const actionMapping: IActionMapping = {
 
     <tree-root
       #tree
-      [nodes]="nodes"
+      [nodes]="nodes()"
       [options]="customTemplateStringOptions"
       [focused]="true"
       (event)="onEvent($event)"
@@ -118,7 +118,7 @@ const actionMapping: IActionMapping = {
     imports: [FormsModule, TreeModule]
 })
 export class FullTreeComponent implements OnInit {
-  nodes: any[];
+  nodes = signal<any[]>([]);
   nodes2 = [{name: 'root'}, {name: 'root2'}];
   asyncChildren = new Array(4).fill(null).map((item, n) => ({
     name: 'async child2.' + n,
@@ -147,7 +147,7 @@ export class FullTreeComponent implements OnInit {
   }
   ngOnInit() {
     setTimeout(() => {
-      this.nodes = [
+      const initialNodes = [
         {
           expanded: true,
           name: 'root expanded',
@@ -195,15 +195,18 @@ export class FullTreeComponent implements OnInit {
       ];
 
       for (let i = 0; i < 1000; i++) {
-        this.nodes.push({
+        initialNodes.push({
+          expanded: false,
           name: `rootDynamic${i}`,
           subTitle: `root created dynamically ${i}`,
           children: new Array(10).fill(null).map((item, n) => ({
             name: `rootChildDynamic${i}.${n}`,
-            subTitle: `rootChildDynamicTitle${i}.${n}`
+            subTitle: `rootChildDynamicTitle${i}.${n}`,
+            hasChildren: false
           }))
         });
       }
+      this.nodes.set(initialNodes);
     }, 1);
   }
 
@@ -218,10 +221,15 @@ export class FullTreeComponent implements OnInit {
   }
 
   addNode(tree: any) {
-    this.nodes[0].children.push({
-
-      name: 'a new child'
+    this.nodes.update((existing) => {
+      if (!existing?.length) return existing;
+      const updated = [...existing];
+      const first = updated[0] || {};
+      const children = [...(first.children || []), { name: 'a new child' }];
+      updated[0] = { ...first, children };
+      return updated;
     });
+
     tree.treeModel.update();
   }
 
