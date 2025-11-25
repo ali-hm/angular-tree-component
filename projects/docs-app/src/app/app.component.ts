@@ -7,13 +7,13 @@ import { filter } from 'rxjs/operators';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconButton } from '@angular/material/button';
 import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
-import { NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    imports: [MatToolbar, MatIconButton, MatIcon, MatSidenavContainer, MatSidenav, NgFor, MatSidenavContent, NgClass, RouterOutlet]
+    imports: [MatToolbar, MatIconButton, MatIcon, MatSidenavContainer, MatSidenav, MatSidenavContent, NgClass, RouterOutlet]
 })
 export class AppComponent {
   private router = inject(Router);

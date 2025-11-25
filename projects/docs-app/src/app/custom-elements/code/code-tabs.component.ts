@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, ViewChi
 import { CodeComponent } from './code.component';
 import { MatCard } from '@angular/material/card';
 import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs';
-import { NgFor } from '@angular/common';
+
 
 export interface TabInfo {
   class: string;
@@ -30,22 +30,24 @@ export interface TabInfo {
     <div #content style="display: none"><ng-content></ng-content></div>
     <mat-card>
       <mat-tab-group class="code-tab-group" [disableRipple]="true">
-        <mat-tab style="overflow-y: hidden;" *ngFor="let tab of tabs">
-          <ng-template mat-tab-label>
-            <span class="{{ tab.class }}">{{ tab.header }}</span>
-          </ng-template>
-          <aio-code class="{{ tab.class }}"
-                    [language]="tab.language"
-                    [linenums]="tab.linenums"
-                    [path]="tab.path"
-                    [region]="tab.region"
-                    [header]="tab.header">
-          </aio-code>
-        </mat-tab>
+        @for (tab of tabs; track tab) {
+          <mat-tab style="overflow-y: hidden;">
+            <ng-template mat-tab-label>
+              <span class="{{ tab.class }}">{{ tab.header }}</span>
+            </ng-template>
+            <aio-code class="{{ tab.class }}"
+              [language]="tab.language"
+              [linenums]="tab.linenums"
+              [path]="tab.path"
+              [region]="tab.region"
+              [header]="tab.header">
+            </aio-code>
+          </mat-tab>
+        }
       </mat-tab-group>
     </mat-card>
-  `,
-    imports: [MatCard, MatTabGroup, NgFor, MatTab, MatTabLabel, CodeComponent]
+    `,
+    imports: [MatCard, MatTabGroup, MatTab, MatTabLabel, CodeComponent]
 })
 export class CodeTabsComponent implements OnInit, AfterViewInit {
   tabs: TabInfo[];

@@ -1,27 +1,35 @@
-<div *ngIf="!node.children">
+@if (!node.children) {
+  <div>
     <a [routerLink]="node.link" [ngClass]="classes" title="{{node.tooltip}}"
-       class="vertical-menu-item">
-        <span>{{node.title}}</span>
+      class="vertical-menu-item">
+      <span>{{node.title}}</span>
     </a>
-</div>
+  </div>
+}
 
-<div *ngIf="node.children">
-    <a *ngIf="node.link != null" [routerLink]="node.link" [ngClass]="classes" title="{{node.tooltip}}"
-       (click)="headerClicked()" class="vertical-menu-item heading">
+@if (node.children) {
+  <div>
+    @if (node.link != null) {
+      <a [routerLink]="node.link" [ngClass]="classes" title="{{node.tooltip}}"
+        (click)="headerClicked()" class="vertical-menu-item heading">
         <span>{{node.title}}</span>
         <mat-icon class="rotating-icon">chevron_right</mat-icon>
-    </a>
-
-    <button *ngIf="node.link == null" type="button" [ngClass]="classes" title="{{node.tooltip}}"
-            (click)="headerClicked()" class="vertical-menu-item heading"
-            [attr.aria-pressed]="isExpanded">
+      </a>
+    }
+    @if (node.link == null) {
+      <button type="button" [ngClass]="classes" title="{{node.tooltip}}"
+        (click)="headerClicked()" class="vertical-menu-item heading"
+        [attr.aria-pressed]="isExpanded">
         <span>{{node.title}}</span>
         <mat-icon class="rotating-icon">chevron_right</mat-icon>
-    </button>
-
+      </button>
+    }
     <div class="heading-children" [ngClass]="classes">
-        <app-nav-item *ngFor="let node of nodeChildren" [level]="level + 1" [isWide]="isWide"
-                      [isParentExpanded]="isExpanded"
-                      [node]="node" [selectedNodes]="selectedNodes"></app-nav-item>
+      @for (node of nodeChildren; track node) {
+        <app-nav-item [level]="level + 1" [isWide]="isWide"
+          [isParentExpanded]="isExpanded"
+        [node]="node" [selectedNodes]="selectedNodes"></app-nav-item>
+      }
     </div>
-</div>
+  </div>
+}

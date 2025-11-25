@@ -3,6 +3,7 @@ import {
   Renderer2,
   TemplateRef,
   ViewContainerRef,
+  OnDestroy,
   input,
   effect,
   inject
@@ -11,7 +12,7 @@ import {
 const EASE_ACCELERATION = 1.005;
 
 @Directive({ selector: '[treeAnimateOpen]' })
-export class TreeAnimateOpenDirective {
+export class TreeAnimateOpenDirective implements OnDestroy {
   private renderer = inject(Renderer2);
   private templateRef = inject<TemplateRef<any>>(TemplateRef);
   private viewContainerRef = inject(ViewContainerRef);
@@ -29,6 +30,9 @@ export class TreeAnimateOpenDirective {
 
   private innerElement: any;
   private previousIsOpen: boolean;
+  private startOpenTimeout: ReturnType<typeof setTimeout> | null = null;
+  private openInterval: ReturnType<typeof setInterval> | null = null;
+  private closeInterval: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
     effect(() => {
@@ -55,11 +59,13 @@ export class TreeAnimateOpenDirective {
   }
 
   private _hide() {
+    this.clearTimers();
     this.viewContainerRef.clear();
     this.innerElement = null;
   }
 
   private _animateOpen() {
+    this.clearTimers();
     let delta = this.animateSpeed();
     let ease = this.animateAcceleration();
     let maxHeight = 0;
@@ -68,10 +74,14 @@ export class TreeAnimateOpenDirective {
     this.renderer.setStyle(this.innerElement, 'max-height', `0`);
 
     // increase maxHeight until height doesn't change
-    setTimeout(() => {
+    this.startOpenTimeout = setTimeout(() => {
+      this.startOpenTimeout = null;
       // Allow inner element to create its content
-      const i = setInterval(() => {
-        if (!this.isOpen() || !this.innerElement) return clearInterval(i);
+      this.openInterval = setInterval(() => {
+        if (!this.isOpen() || !this.innerElement) {
+          this.clearOpenInterval();
+          return;
+        }
 
         maxHeight += delta;
         const roundedMaxHeight = Math.round(maxHeight);
@@ -90,7 +100,7 @@ export class TreeAnimateOpenDirective {
         if (height < roundedMaxHeight) {
           // Make maxHeight auto because animation finished and container might change height later on
           this.renderer.setStyle(this.innerElement, 'max-height', null);
-          clearInterval(i);
+          this.clearOpenInterval();
         }
       }, 17);
     });
@@ -99,13 +109,17 @@ export class TreeAnimateOpenDirective {
   private _animateClose() {
     if (!this.innerElement) return;
 
+    this.clearTimers();
     let delta = this.animateSpeed();
     let ease = this.animateAcceleration();
     let height = this.innerElement.getBoundingClientRect().height; // TBD use renderer
 
     // slowly decrease maxHeight to 0, starting from current height
-    const i = setInterval(() => {
-      if (this.isOpen() || !this.innerElement) return clearInterval(i);
+    this.closeInterval = setInterval(() => {
+      if (this.isOpen() || !this.innerElement) {
+        this.clearCloseInterval();
+        return;
+      }
 
       height -= delta;
       this.renderer.setStyle(this.innerElement, 'max-height', `${height}px`);
@@ -116,8 +130,35 @@ export class TreeAnimateOpenDirective {
         // after animation complete - remove child element
         this.viewContainerRef.clear();
         this.innerElement = null;
-        clearInterval(i);
+        this.clearCloseInterval();
       }
     }, 17);
+  }
+
+  ngOnDestroy() {
+    this.clearTimers();
+  }
+
+  private clearTimers() {
+    if (this.startOpenTimeout !== null) {
+      clearTimeout(this.startOpenTimeout);
+      this.startOpenTimeout = null;
+    }
+    this.clearOpenInterval();
+    this.clearCloseInterval();
+  }
+
+  private clearOpenInterval() {
+    if (this.openInterval !== null) {
+      clearInterval(this.openInterval);
+      this.openInterval = null;
+    }
+  }
+
+  private clearCloseInterval() {
+    if (this.closeInterval !== null) {
+      clearInterval(this.closeInterval);
+      this.closeInterval = null;
+    }
   }
 }

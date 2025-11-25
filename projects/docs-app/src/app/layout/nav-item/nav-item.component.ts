@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, forwardRef } from '@angular/core';
 import { NavigationNode } from '../../navigation/navigation.model';
-import { NgIf, NgClass, NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 
@@ -9,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
     selector: 'app-nav-item',
     templateUrl: './nav-item.component.html',
     styleUrls: ['./nav-item.component.scss'],
-    imports: [NgIf, RouterLink, NgClass, MatIcon, NgFor, forwardRef(() => NavItemComponent)]
+    imports: [RouterLink, NgClass, MatIcon, forwardRef(() => NavItemComponent)]
 })
 export class NavItemComponent implements OnChanges {
 
