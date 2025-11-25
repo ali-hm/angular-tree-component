@@ -1,6 +1,6 @@
 {
   "name": "@ali-hm/angular-tree-component",
-  "version": "20.3.4",
+  "version": "21.0.0",
   "description": "A simple yet powerful tree component for Angular 12+",
   "author": "ali-hm",
   "homepage": "https://github.com/ali-hm/angular-tree-component",
@@ -25,8 +25,8 @@
     "angular tree component"
   ],
   "peerDependencies": {
-    "@angular/common": ">=20.0",
-    "@angular/core": ">=20.0"
+    "@angular/common": ">=21.0",
+    "@angular/core": ">=21.0"
   },
   "dependencies": {
     "tslib": "^2.5.0"
