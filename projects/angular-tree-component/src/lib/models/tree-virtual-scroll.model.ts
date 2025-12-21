@@ -1,5 +1,4 @@
-import { Injectable, Injector, inject } from '@angular/core';
-import { signal, effect } from '@angular/core';
+import { Injectable, Injector, effect, inject, signal } from '@angular/core';
 import { TreeModel } from './tree.model';
 import { TREE_EVENTS } from '../constants/events';
 
@@ -54,30 +53,32 @@ export class TreeVirtualScroll {
 
   setupWatchers(injector: Injector) {
     const fn = this.recalcPositions.bind(this);
-    
+
     const fixScrollEffect = effect(() => {
       const yBlocks = this._yBlocks();
       const totalHeight = this.totalHeight;
       const viewportHeight = this._viewportHeight();
-      
+
       this.fixScroll();
     }, { injector });
-    
+
     const rootsEffect = effect(() => {
       const roots = this.treeModel.roots;
-      fn();
+      if (roots) {
+        fn();
+      }
     }, { injector });
-    
+
     const expandedEffect = effect(() => {
-      const expandedNodes = this.treeModel.expandedNodes;
+      const expandedIds = this.treeModel['_expandedNodeIds']();
       fn();
     }, { injector });
-    
+
     const hiddenEffect = effect(() => {
-      const hiddenNodes = this.treeModel.hiddenNodes;
+      const hiddenIds = this.treeModel['_hiddenNodeIds']();
       fn();
     }, { injector });
-    
+
     this._dispose = [
       () => fixScrollEffect.destroy(),
       () => rootsEffect.destroy(),
@@ -97,7 +98,9 @@ export class TreeVirtualScroll {
   recalcPositions() {
     const vRoot = this.treeModel['_virtualRoot']();
     if (vRoot) {
-      vRoot.height = this._getPositionAfter(this.treeModel.getVisibleRoots(), 0);
+      const visibleRoots = this.treeModel.getVisibleRoots();
+      const newHeight = this._getPositionAfter(visibleRoots, 0);
+      vRoot.height = newHeight;
     }
   }
 
@@ -115,7 +118,8 @@ export class TreeVirtualScroll {
     let position = node.getSelfHeight() + startPos;
 
     if (node.children && node.isExpanded) { // TBD: consider loading component as well
-      position = this._getPositionAfter(node.visibleChildren, position);
+      const visibleChildren = node.visibleChildren;
+      position = this._getPositionAfter(visibleChildren, position);
     }
     node.height = position - startPos;
     return position;

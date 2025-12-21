@@ -6,6 +6,7 @@ import { FullTreeComponent } from './fulltree/fulltree.component';
 import { TemplatesComponent } from './templates/templates.component';
 import { FieldsComponent } from './fields/fields.component';
 import { FilterComponent } from './filter/filter.component';
+import { FilterVirtualComponent } from './filter-virtual/filter-virtual.component';
 import { EmptyComponent } from './empty/empty.component';
 import { RtlTreeComponent } from './rtl/rtl-tree.component';
 import { AsyncTreeComponent } from './async/async.component';
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'filter',
     component: FilterComponent
+  },
+  {
+    path: 'filter-virtual',
+    component: FilterVirtualComponent
   },
   {
     path: 'empty',

@@ -7,7 +7,8 @@ import {
   Injector,
   Renderer2,
   afterNextRender,
-  inject
+  inject,
+  computed
 } from '@angular/core';
 import { TreeVirtualScroll } from '../models/tree-virtual-scroll.model';
 import { TREE_EVENTS } from '../constants/events';
@@ -17,7 +18,7 @@ import { TREE_EVENTS } from '../constants/events';
   styles: [],
   providers: [TreeVirtualScroll],
   template: `
-    <div [style.height]="getTotalHeight()">
+    <div [style.height]="totalHeight()">
       <ng-content></ng-content>
     </div>
   `,
@@ -28,6 +29,14 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
   virtualScroll = inject(TreeVirtualScroll);
   private injector = inject(Injector);
   private renderer = inject(Renderer2);
+
+  // Computed signal for total height - ensures reactive updates
+  totalHeight = computed(() => {
+    if (!this.virtualScroll.isEnabled()) {
+      return 'auto';
+    }
+    return this.virtualScroll.totalHeight + 'px';
+  });
 
   setViewport = this.throttle(() => {
     this.virtualScroll.setViewport(this.elementRef.nativeElement);
@@ -63,14 +72,6 @@ export class TreeViewportComponent implements AfterViewInit, OnInit, OnDestroy {
     this.virtualScroll.clear();
     this.removeScrollListener?.();
     this.removeScrollListener = null;
-  }
-
-  getTotalHeight() {
-    return (
-      (this.virtualScroll.isEnabled() &&
-        this.virtualScroll.totalHeight + 'px') ||
-      'auto'
-    );
   }
 
   private throttle(func, timeFrame) {

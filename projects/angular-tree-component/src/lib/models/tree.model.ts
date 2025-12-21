@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, signal, computed, effect } from '@angular/core';
+import { Injectable, OnDestroy, signal, effect } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TreeNode } from './tree-node.model';
 import { TreeOptions } from './tree-options.model';
@@ -21,7 +21,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
   private _selectedLeafNodeIds = signal<IDTypeDictionary>({});
   private _activeNodeIds = signal<IDTypeDictionary>({});
   private _hiddenNodeIds = signal<IDTypeDictionary>({});
-  private _hiddenNodes:TreeNode[] = [];
+  private _hiddenNodes = signal<TreeNode[]>([]);
   private _focusedNodeId = signal<IDType>(null);
   private _virtualRoot = signal<TreeNode>(undefined);
 
@@ -53,15 +53,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   get hiddenNodes(): TreeNode[] {
-    /*const ids = this._hiddenNodeIds();
-    var ids2 = Object.keys(ids).filter((id) => ids[id]);
-    //const nodes = ids2.map((id) => this.getNodeById(id));
-    var nodes=[];
-    for(var i=0;i<ids2.length;i++){
-      nodes.push(this.getNodeById(ids2[i]));
-    }*/
-    const nodes = this._hiddenNodes;
-    return nodes.filter(Boolean);
+    return this._hiddenNodes();
   }
 
   get selectedLeafNodes(): TreeNode[] {
@@ -381,12 +373,15 @@ export class TreeModel implements ITreeModel, OnDestroy {
     var hiddenNodes=[];
     this.roots.forEach((node) => this._filterNode(ids, node, filterFn, autoShow,hiddenNodes));
     this._hiddenNodeIds.set(ids);
-    this._hiddenNodes = hiddenNodes;
+    this._hiddenNodes.set(hiddenNodes);
+
     this.fireEvent({ eventName: TREE_EVENTS.changeFilter });
   }
 
   clearFilter() {
     this._hiddenNodeIds.set({});
+    this._hiddenNodes.set([]);
+
     this.fireEvent({ eventName: TREE_EVENTS.changeFilter });
   }
 
