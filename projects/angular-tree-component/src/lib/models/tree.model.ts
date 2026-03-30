@@ -13,10 +13,10 @@ export class TreeModel implements ITreeModel, OnDestroy {
   options: TreeOptions = new TreeOptions();
   nodes: any[];
   eventNames = Object.keys(TREE_EVENTS);
-  private _nodeIndex = new Map<string, TreeNode>();
   virtualScroll: TreeVirtualScroll;
 
   // Private signals
+  private _nodeIndex = new Map<string, TreeNode>();
   private _roots = signal<TreeNode[]>(undefined);
   private _expandedNodeIds = signal<IDTypeDictionary>({});
   private _selectedLeafNodeIds = signal<IDTypeDictionary>({});
@@ -142,7 +142,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
   getNodeById(id) {
     const idStr = id.toString();
     const indexed = this._nodeIndex.get(idStr);
-    if (indexed) return indexed;
+    if (indexed && indexed.parent) return indexed;
 
     return this.getNodeBy((node) => node.id.toString() === idStr);
   }
