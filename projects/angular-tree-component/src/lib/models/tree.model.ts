@@ -525,9 +525,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
       ids[node.id] = true;
     }
     if (node.children) {
-      for (const child of node.children) {
-        this._collectExpandedNodes(child, ids);
-      }
+      node.children.forEach((child) => this._collectExpandedNodes(child, ids));
     }
   }
 
@@ -537,9 +535,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
       this._nodeIndex.set(node.id.toString(), node);
     }
     if (node.children) {
-      for (const child of node.children) {
-        this._buildNodeIndex(child);
-      }
+      node.children.forEach((child) => this._buildNodeIndex(child));
     }
   }
 
