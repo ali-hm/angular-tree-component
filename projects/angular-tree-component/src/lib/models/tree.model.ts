@@ -13,6 +13,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
   options: TreeOptions = new TreeOptions();
   nodes: any[];
   eventNames = Object.keys(TREE_EVENTS);
+  private _nodeIndex = new Map<string, TreeNode>();
   virtualScroll: TreeVirtualScroll;
 
   // Private signals
@@ -140,6 +141,8 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
   getNodeById(id) {
     const idStr = id.toString();
+    const indexed = this._nodeIndex.get(idStr);
+    if (indexed) return indexed;
 
     return this.getNodeBy((node) => node.id.toString() === idStr);
   }
@@ -223,6 +226,10 @@ export class TreeModel implements ITreeModel, OnDestroy {
     const newVirtualRoot = new TreeNode(virtualRootConfig, null, this, 0);
     this._virtualRoot.set(newVirtualRoot);
     this.roots = newVirtualRoot.children;
+
+    // Build node index for O(1) lookups:
+    this._nodeIndex.clear();
+    this._buildNodeIndex(newVirtualRoot);
 
     // Fire event:
     const currentRoots = this.roots;
@@ -508,13 +515,31 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   private _calculateExpandedNodes(startNode = null) {
-    startNode = startNode || this._virtualRoot();
+    const ids = {};
+    this._collectExpandedNodes(startNode || this._virtualRoot(), ids);
+    this._expandedNodeIds.update(existing => ({ ...existing, ...ids }));
+  }
 
-    if (startNode.data[this.options.isExpandedField]) {
-      this._expandedNodeIds.update(ids => ({...ids, [startNode.id]: true}));
+  private _collectExpandedNodes(node, ids) {
+    if (node.data[this.options.isExpandedField]) {
+      ids[node.id] = true;
     }
-    if (startNode.children) {
-      startNode.children.forEach((child) => this._calculateExpandedNodes(child));
+    if (node.children) {
+      for (const child of node.children) {
+        this._collectExpandedNodes(child, ids);
+      }
+    }
+  }
+
+  private _buildNodeIndex(node) {
+    if (!node) return;
+    if (node.id !== undefined && node.id !== null) {
+      this._nodeIndex.set(node.id.toString(), node);
+    }
+    if (node.children) {
+      for (const child of node.children) {
+        this._buildNodeIndex(child);
+      }
     }
   }
 
