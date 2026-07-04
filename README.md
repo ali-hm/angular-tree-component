@@ -36,6 +36,7 @@ angular-tree-component supports angular 12+ versions, and AoT compilation.
 
 versioning has been change to align with supported Angular version.
 so:\
+v22.\*.\* = Angular 22 \
 v21.\*.\* = Angular 21 \
 v20.\*.\* = Angular 20   
 v19.\*.\* = Angular 19  
