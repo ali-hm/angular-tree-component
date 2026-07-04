@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "module": "es2020",
     "moduleResolution": "bundler",
     "esModuleInterop": true,
@@ -17,13 +16,17 @@
     ],
     "paths": {
       "angular-tree-component": [
-        "dist/angular-tree-component"
+        "./dist/angular-tree-component"
       ],
       "angular-tree-component/*": [
-        "dist/angular-tree-component/*"
+        "./dist/angular-tree-component/*"
       ]
     },
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false
   },
   "compileOnSave": false,
   "buildOnSave": false,

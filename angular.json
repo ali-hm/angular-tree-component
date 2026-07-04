@@ -24,18 +24,14 @@
               "base": "dist/example-app"
             },
             "index": "projects/example-app/src/index.html",
-            "polyfills": [
-              "projects/example-app/src/polyfills.ts"
-            ],
+            "polyfills": ["projects/example-app/src/polyfills.ts"],
             "tsConfig": "projects/example-app/tsconfig.app.json",
             "aot": false,
             "assets": [
               "projects/example-app/src/favicon.ico",
               "projects/example-app/src/assets"
             ],
-            "styles": [
-              "projects/example-app/src/styles.scss"
-            ],
+            "styles": ["projects/example-app/src/styles.scss"],
             "scripts": [],
             "extractLicenses": false,
             "sourceMap": true,
@@ -143,7 +139,8 @@
             "lintFilePatterns": [
               "projects/angular-tree-component/**/*.ts",
               "projects/angular-tree-component/**/*.html"
-            ]
+            ],
+            "eslintConfig": "projects/angular-tree-component/eslint.config.js"
           }
         }
       }
@@ -166,18 +163,14 @@
               "base": "dist/docs-app"
             },
             "index": "projects/docs-app/src/index.html",
-            "polyfills": [
-              "projects/docs-app/src/polyfills.ts"
-            ],
+            "polyfills": ["projects/docs-app/src/polyfills.ts"],
             "tsConfig": "projects/docs-app/tsconfig.app.json",
             "aot": false,
             "assets": [
               "projects/docs-app/src/favicon.ico",
               "projects/docs-app/src/assets"
             ],
-            "styles": [
-              "projects/docs-app/src/styles.scss"
-            ],
+            "styles": ["projects/docs-app/src/styles.scss"],
             "scripts": [],
             "extractLicenses": false,
             "sourceMap": true,
@@ -242,9 +235,7 @@
               "projects/docs-app/src/favicon.ico",
               "projects/docs-app/src/assets"
             ],
-            "styles": [
-              "projects/docs-app/src/styles.scss"
-            ],
+            "styles": ["projects/docs-app/src/styles.scss"],
             "scripts": []
           }
         }

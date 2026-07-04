@@ -253,7 +253,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   doForAll(fn) {
-    this.roots.forEach((root) => root.doForAll(fn));
+    this.roots?.forEach((root) => root.doForAll(fn));
   }
 
   focusNextNode() {
@@ -326,11 +326,11 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   expandAll() {
-    this.roots.forEach((root) => root.expandAll());
+    this.roots?.forEach((root) => root.expandAll());
   }
 
   collapseAll() {
-    this.roots.forEach((root) => root.collapseAll());
+    this.roots?.forEach((root) => root.collapseAll());
   }
 
   setIsHidden(node, value) {
@@ -378,7 +378,7 @@ export class TreeModel implements ITreeModel, OnDestroy {
 
     const ids = {};
     var hiddenNodes=[];
-    this.roots.forEach((node) => this._filterNode(ids, node, filterFn, autoShow,hiddenNodes));
+    this.roots?.forEach((node) => this._filterNode(ids, node, filterFn, autoShow,hiddenNodes));
     this._hiddenNodeIds.set(ids);
     this._hiddenNodes.set(hiddenNodes);
 
