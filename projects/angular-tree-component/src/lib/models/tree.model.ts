@@ -338,10 +338,10 @@ export class TreeModel implements ITreeModel, OnDestroy {
   }
 
   setHiddenNodeIds(nodeIds) {
-    const ids = nodeIds.reduce((hiddenNodeIds, id) => ({
-      ...hiddenNodeIds,
-      [id]: true
-    }), {});
+    const ids = {} as any;
+    for (const id of nodeIds) {
+      ids[id] = true;
+    }
     this._hiddenNodeIds.set(ids);
   }
 
