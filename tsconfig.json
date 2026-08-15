@@ -4,7 +4,8 @@
     "moduleResolution": "bundler",
     "esModuleInterop": true,
     "target": "ES2022",
-    "outDir": "/dist/out-tsc",
+    "rootDir": "./projects",
+    "outDir": "./dist/out-tsc",
     "experimentalDecorators": true,
     "inlineSourceMap": true,
     "inlineSources": true,
@@ -31,8 +32,6 @@
   "compileOnSave": false,
   "buildOnSave": false,
   "angularCompilerOptions": {
-    "skipTemplateCodegen": true,
-    "enableIvy": true,
     "compilationMode": "partial"
   }
 }
